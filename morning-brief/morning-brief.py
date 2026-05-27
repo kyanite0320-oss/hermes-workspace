@@ -533,12 +533,10 @@ def get_output_dir(target_date=None):
         target_date = datetime.date.today()
     date_str = target_date.strftime("%Y-%m-%d")
 
-    # 检测是否在 WSL 中
-    is_wsl = os.path.exists("/mnt/c/")
-    if is_wsl:
-        base = "/mnt/f/AI/hermes/晨报"
-    else:
-        base = r"F:\AI\hermes\晨报"
+    # 根据脚本所在目录自动推导工作区根目录
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    workspace_root = os.path.dirname(script_dir)  # F:\AI\hermes 或 C:\AI\hermes
+    base = os.path.join(workspace_root, "晨报")
 
     out_dir = os.path.join(base, date_str)
     return out_dir, date_str
