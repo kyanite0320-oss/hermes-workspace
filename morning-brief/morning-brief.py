@@ -934,6 +934,23 @@ def write_outputs(brief, out_dir):
     return json_path, md_path
 
 
+# ── 飞书通知 ──────────────────────────────────────────────────────────────────
+
+def notify_feishu(action, result):
+    """发送飞书通知"""
+    import subprocess, os
+    try:
+        pc_name = os.popen('cmd.exe /c echo %USERNAME% 2>nul').read().strip()
+        if not pc_name:
+            pc_name = os.popen('whoami').read().strip().split("\\")[-1]
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        msg = f"{now} | {pc_name} | {action} | {result}"
+        subprocess.run(["hermes", "send", "-t", "feishu:oc_85533c0c4d0542e0dbc8a2b918b7839a", msg],
+                      capture_output=True, timeout=10)
+    except Exception:
+        pass
+
+
 # ── 主入口 ────────────────────────────────────────────────────────────────────
 
 def main():
@@ -959,6 +976,7 @@ def main():
     if os.path.exists(data_json_path):
         print(f"[SKIP] {data_json_path} 已存在，跳过生成。")
         print(f"   如需重新生成，请删除该文件后重试。")
+        notify_feishu("晨报生成", "⏭️ 已存在，跳过")
         return
 
     # 构建数据
@@ -973,6 +991,7 @@ def main():
     print(f"[DONE] 晨报生成完成！共 {total} 条资讯，{len(brief['categories'])} 个分类")
     print(f"[DIR] 输出目录: {out_dir}")
     print(f"{'='*50}\n")
+    notify_feishu("晨报生成", f"✅ {total} 条资讯，{len(brief['categories'])} 个分类")
 
 
 if __name__ == "__main__":
