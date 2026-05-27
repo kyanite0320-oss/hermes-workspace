@@ -60,6 +60,15 @@ if not exist "%DESKTOP%\📁 工作区.bat" (
 )
 echo   ✅ 桌面快捷方式
 
+:: ── 6. 注册 WSL 推送 Cron（14:00 / 19:00）──
+echo [6/5] 注册 WSL 定时推送任务...
+wsl bash -c "
+  # 写入定时任务
+  (crontab -l 2>/dev/null | grep -v 'sync-push'; echo '0 14 * * * bash /mnt/c/AI/hermes/sync-push.sh'; echo '0 19 * * * bash /mnt/c/AI/hermes/sync-push.sh') | crontab -
+  echo '  ✅ Cron: 14:00 / 19:00 推送灵魂+工作区'
+"
+echo   ✅ WSL Cron 已注册
+
 echo.
 echo ============================================
 echo  🎉 全部配置完成！
