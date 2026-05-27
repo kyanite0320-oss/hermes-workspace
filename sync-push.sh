@@ -3,7 +3,7 @@
 # 每天 14:00 和 19:00 执行
 set -e
 
-PC_NAME="PC-B"
+PC_NAME=$(cmd.exe /c echo %USERNAME% 2>/dev/null | tr -d '\r' || whoami)
 FEISHU_TARGET="feishu:oc_85533c0c4d0542e0dbc8a2b918b7839a"
 NOW=$(date '+%Y-%m-%d %H:%M')
 

@@ -6,9 +6,7 @@ echo [Hermes] 灵魂同步拉取中...
 set "SCRIPT_DIR=%~dp0"
 set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
 for /f %%i in ('wsl wslpath -a "%SCRIPT_DIR%"') do set "WSL_DIR=%%i"
-
-for /f %%i in ('whoami') do set "USERNAME=%%i"
-set "PC_NAME=%USERNAME:*\=%-PC"
+set "PC_NAME=%USERNAME%"
 
 for /f "tokens=1-3 delims=: " %%a in ("%TIME%") do set "HH=%%a" & set "MM=%%b"
 set "NOW=%DATE:~0,4%-%DATE:~5,2%-%DATE:~8,2% %HH%:%MM%"

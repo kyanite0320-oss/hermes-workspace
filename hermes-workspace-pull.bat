@@ -7,9 +7,8 @@ set "SCRIPT_DIR=%~dp0"
 set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
 for /f %%i in ('wsl wslpath -a "%SCRIPT_DIR%"') do set "WSL_DIR=%%i"
 
-:: 获取电脑名（取用户名最后部分）
-for /f %%i in ('whoami') do set "USERNAME=%%i"
-set "PC_NAME=%USERNAME:*\=%-PC"
+:: 获取电脑名（Windows 用户名）
+set "PC_NAME=%USERNAME%"
 
 :: 获取当前时间
 for /f "tokens=1-3 delims=: " %%a in ("%TIME%") do set "HH=%%a" & set "MM=%%b"
