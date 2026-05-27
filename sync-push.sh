@@ -3,21 +3,34 @@
 # 每天 14:00 和 19:00 执行
 set -e
 
+PC_NAME="PC-B"
+FEISHU_TARGET="feishu:oc_85533c0c4d0542e0dbc8a2b918b7839a"
+NOW=$(date '+%Y-%m-%d %H:%M')
+
+notify() {
+    local action="$1" result="$2"
+    hermes send -t "$FEISHU_TARGET" "$NOW | $PC_NAME | $action | $result" 2>/dev/null || true
+}
+
 echo "=== 灵魂同步（PC B）==="
 SOUL_DIR="$HOME/hermes-data"
 if [ -d "$SOUL_DIR" ]; then
     cd "$SOUL_DIR"
     git pull --rebase origin main 2>/dev/null || true
     if git status --porcelain | grep -q .; then
+        changed=$(git status --porcelain | wc -l)
         git add -A
         git commit -m "🔄 PC B 自动同步 soul $(date '+%Y-%m-%d %H:%M')"
         git push origin main
-        echo "✅ 灵魂同步完成"
+        echo "✅ 灵魂同步完成：${changed} 个文件变更"
+        notify "灵魂推送" "✅ ${changed} 个文件变更"
     else
-        echo "⏭️ 无变化"
+        echo "⏭️ 灵魂无变化"
+        notify "灵魂推送" "⏭️ 无变化"
     fi
 else
-    echo "⚠️ 灵魂仓库不存在，请先 git clone"
+    echo "⚠️ 灵魂仓库不存在"
+    notify "灵魂推送" "❌ 灵魂仓库不存在"
 fi
 
 echo ""
@@ -27,14 +40,18 @@ if [ -d "$WS_DIR" ]; then
     cd "$WS_DIR"
     git pull --rebase origin main 2>/dev/null || true
     if git status --porcelain | grep -v '__pycache__' | grep -q .; then
+        changed=$(git status --porcelain | grep -v '__pycache__' | wc -l)
         git add -A
         git reset -- morning-brief/__pycache__/ 2>/dev/null || true
         git commit -m "🔄 PC B 自动同步 workspace $(date '+%Y-%m-%d %H:%M')" 2>/dev/null || true
         git push origin main
-        echo "✅ 工作区同步完成"
+        echo "✅ 工作区同步完成：${changed} 个文件变更"
+        notify "工作区推送" "✅ ${changed} 个文件变更"
     else
-        echo "⏭️ 无变化"
+        echo "⏭️ 工作区无变化"
+        notify "工作区推送" "⏭️ 无变化"
     fi
 else
     echo "⚠️ 工作区不存在"
+    notify "工作区推送" "❌ 工作区不存在"
 fi
