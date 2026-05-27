@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hermes · 晨报</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* ============================================
+       Hermes Morning Brief — Styles
+       ============================================ */
+
+    /* ---------- Theme Variables ---------- */
+    :root {
+      --bg-body: #0f172a;
+      --bg-card: #1e293b;
+      --bg-card-hover: #334155;
+      --bg-header: rgba(15, 23, 42, 0.85);
+      --bg-accent: rgba(59, 130, 246, 0.08);
+      --border-color: rgba(148, 163, 184, 0.12);
+      --border-light: rgba(148, 163, 184, 0.06);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.18);
+      --accent-glow-strong: rgba(59, 130, 246, 0.12);
+      --accent-light: #60a5fa;
+      --green: #22c55e;
+      --orange: #f59e0b;
+      --red: #ef4444;
+      --purple: #a78bfa;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.35);
+    }
+
+    [data-theme="light"] {
+      --bg-body: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --bg-header: rgba(248, 250, 252, 0.88);
+      --bg-accent: rgba(59, 130, 246, 0.05);
+      --border-color: rgba(51, 65, 85, 0.1);
+      --border-light: rgba(51, 65, 85, 0.04);
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --text-muted: #94a3b8;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.08);
+    }
+
+    /* ---------- Base ---------- */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg-body);
+      color: var(--text-primary);
+      min-height: 100vh;
+      transition: background 0.3s, color 0.3s;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ---------- Header ---------- */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg-header);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 0 14px;
+    }
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .header-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .header-date {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .header-greeting {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      margin-top: 0;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .header-btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+      border-color: var(--accent);
+    }
+    .header-btn.active {
+      background: var(--bg-accent);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* ---------- Stats Bar ---------- */
+    .stats-bar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .stat-chip {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+    .stat-chip i { width: 14px; height: 14px; }
+    .stat-chip .num { color: var(--accent); font-weight: 600; }
+
+    /* ---------- Category Section ---------- */
+    .brief-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 24px 48px;
+    }
+    .category-section {
+      margin-bottom: 32px;
+    }
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      cursor: pointer;
+      user-select: none;
+      padding: 8px 0;
+    }
+    .category-header:hover .category-toggle {
+      opacity: 0.6;
+    }
+    .category-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--bg-accent);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .category-icon i { width: 16px; height: 16px; }
+    .category-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .category-count {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+    .category-toggle {
+      margin-left: auto;
+      opacity: 0.3;
+      transition: opacity 0.2s, transform 0.3s;
+      color: var(--text-secondary);
+    }
+    .category-toggle i { width: 18px; height: 18px; }
+    .category-toggle.collapsed {
+      transform: rotate(-90deg);
+    }
+    .category-body {
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+      max-height: 5000px;
+      opacity: 1;
+    }
+    .category-body.hidden {
+      max-height: 0;
+      opacity: 0;
+      margin: 0;
+    }
+
+    /* ---------- News Items ---------- */
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .news-item {
+      display: flex;
+      gap: 16px;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .news-item:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-glow);
+    }
+    .news-item:active {
+      transform: scale(0.995);
+    }
+    .item-index {
+      flex-shrink: 0;
+      width: 22px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+      padding-top: 2px;
+    }
+    .item-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .item-title {
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.45;
+      margin-bottom: 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .item-summary {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 6px;
+    }
+    .item-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .item-source {
+      color: var(--accent-light);
+      font-weight: 500;
+    }
+    .item-time {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .item-time i { width: 11px; height: 11px; }
+    .item-open {
+      flex-shrink: 0;
+      width: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .item-open i { width: 16px; height: 16px; }
+    .news-item:hover .item-open { opacity: 0.6; }
+
+    /* ---------- Empty / Error ---------- */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+    }
+    .empty-state i {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 10px;
+      opacity: 0.4;
+    }
+
+    /* ---------- Footer ---------- */
+    .brief-footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 24px 40px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-color);
+    }
+    .brief-footer .status-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-right: 4px;
+    }
+    .brief-footer .status-dot.ok { background: var(--green); }
+
+    /* ---------- Toast ---------- */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+    }
+    .toast {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 10px 18px;
+      color: var(--text-primary);
+      font-size: 0.8125rem;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      animation: toast-in 0.25s ease forwards;
+    }
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateY(12px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes toast-out {
+      from { opacity: 1; transform: translateY(0) scale(1); }
+      to { opacity: 0; transform: translateY(-8px) scale(0.96); }
+    }
+    .toast-leave { animation: toast-out 0.2s ease forwards; }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 768px) {
+      .header-inner { padding: 0 16px; }
+      .stats-bar { padding: 12px 16px 0; gap: 6px; }
+      .stat-chip { font-size: 0.6875rem; padding: 4px 10px; }
+      .brief-container { padding: 12px 16px 32px; }
+      .news-item { padding: 12px 14px; gap: 12px; }
+      .item-title { font-size: 0.875rem; }
+      .item-open { opacity: 0.4; }
+    }
+    @media (max-width: 480px) {
+      .header-date { font-size: 0.9375rem; }
+      .news-item { gap: 10px; }
+      .item-index { width: 18px; font-size: 0.6875rem; }
+      .item-summary { -webkit-line-clamp: 1; }
+    }
+
+    /* ---------- Print ---------- */
+    @media print {
+      .header { position: static; backdrop-filter: none; }
+      .header-btn { display: none; }
+      .news-item { break-inside: avoid; }
+      .category-toggle { display: none; }
+      body { background: white; color: black; }
+    }
+
+    /* ---------- Loading ---------- */
+    .loading-shimmer {
+      background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.8s ease-in-out infinite;
+      border-radius: var(--radius-sm);
+      height: 60px;
+      margin-bottom: 8px;
+    }
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ============= HEADER ============= -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="header-logo">H</div>
+        <div>
+          <div class="header-date" id="briefDate">—</div>
+          <div class="header-greeting" id="briefGreeting">早上好 ☀️</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="header-btn" id="themeToggle" title="切换主题 (D)" onclick="toggleTheme()">
+          <i data-lucide="moon" id="themeIcon"></i>
+        </button>
+        <button class="header-btn" id="collapseAll" title="折叠全部" onclick="toggleCollapseAll()">
+          <i data-lucide="chevrons-up"></i>
+        </button>
+        <button class="header-btn" id="printBtn" title="打印 (P)" onclick="window.print()">
+          <i data-lucide="printer"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============= STATS BAR ============= -->
+  <div class="stats-bar" id="statsBar"></div>
+
+  <!-- ============= CONTENT ============= -->
+  <div class="brief-container" id="briefContent"></div>
+
+  <!-- ============= FOOTER ============= -->
+  <div class="brief-footer" id="briefFooter">
+    <span class="status-dot ok"></span>
+    Hermes 晨报 · 数据就绪
+  </div>
+
+  <!-- ============= TOAST ============= -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+  /* ============================================
+     Hermes Morning Brief — Application Logic
+     Reads data.json from the same directory
+     ============================================ */
+
+  // ---------- Theme ----------
+  function getTheme() {
+    return localStorage.getItem('hermes_brief_theme') || 'dark';
+  }
+  function setTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    const icon = document.getElementById('themeIcon');
+    if (icon) icon.setAttribute('data-lucide', t === 'dark' ? 'moon' : 'sun');
+    localStorage.setItem('hermes_brief_theme', t);
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme');
+    setTheme(cur === 'dark' ? 'light' : 'dark');
+  }
+
+  // ---------- Helpers ----------
+  const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '—';
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 星期${WEEKDAYS[d.getDay()]}`;
+  }
+
+  function getGreeting() {
+    const h = new Date().getHours();
+    if (h < 6) return '夜深了 🌙';
+    if (h < 9) return '早上好 ☀️';
+    if (h < 12) return '上午好 🌤';
+    if (h < 14) return '中午好 ☀️';
+    if (h < 18) return '下午好 🌇';
+    return '晚上好 🌆';
+  }
+
+  function relativeTime(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return dateStr;
+    const now = new Date();
+    const diff = Math.floor((now - d) / 1000);
+    if (diff < 60) return '刚刚';
+    if (diff < 3600) return `${Math.floor(diff / 60)}分钟前`;
+    if (diff < 86400) return `${Math.floor(diff / 3600)}小时前`;
+    if (diff < 2592000) return `${Math.floor(diff / 86400)}天前`;
+    return d.toLocaleDateString('zh-CN');
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text || '';
+    return div.innerHTML;
+  }
+
+  // ---------- Toast ----------
+  function showToast(msg, icon) {
+    const container = document.getElementById('toastContainer');
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.innerHTML = `${icon ? '<i data-lucide="' + icon + '" style="width:16px;height:16px"></i>' : ''}${escapeHtml(msg)}`;
+    container.appendChild(el);
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+    setTimeout(() => {
+      el.classList.add('toast-leave');
+      setTimeout(() => el.remove(), 250);
+    }, 2500);
+  }
+
+  // ---------- Category Collapse ----------
+  let allCollapsed = false;
+  function toggleCollapseAll() {
+    allCollapsed = !allCollapsed;
+    document.querySelectorAll('.category-body').forEach(b => {
+      b.classList.toggle('hidden', allCollapsed);
+    });
+    document.querySelectorAll('.category-toggle').forEach(t => {
+      t.classList.toggle('collapsed', allCollapsed);
+    });
+    const btn = document.getElementById('collapseAll');
+    const icon = btn?.querySelector('i');
+    if (icon) {
+      icon.setAttribute('data-lucide', allCollapsed ? 'chevrons-down' : 'chevrons-up');
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+    showToast(allCollapsed ? '已全部折叠' : '已全部展开', allCollapsed ? 'fold-horizontal' : 'unfold-horizontal');
+  }
+
+  function toggleCategory(section) {
+    const body = section.querySelector('.category-body');
+    const toggle = section.querySelector('.category-toggle');
+    const isHidden = body.classList.toggle('hidden');
+    toggle.classList.toggle('collapsed', isHidden);
+  }
+
+  // ---------- Render ----------
+  function render(data) {
+    const dateEl = document.getElementById('briefDate');
+    const greetingEl = document.getElementById('briefGreeting');
+    const statsBar = document.getElementById('statsBar');
+    const content = document.getElementById('briefContent');
+
+    // Date & greeting
+    const displayDate = data.date || new Date().toISOString().split('T')[0];
+    dateEl.textContent = formatDate(displayDate);
+    greetingEl.textContent = data.greeting || getGreeting();
+
+    // Stats
+    const totalItems = data.categories
+      ? data.categories.reduce((sum, cat) => sum + (cat.items ? cat.items.length : 0), 0)
+      : 0;
+    const catCount = data.categories ? data.categories.length : 0;
+    statsBar.innerHTML = `
+      <span class="stat-chip"><i data-lucide="calendar"></i> ${escapeHtml(displayDate)}</span>
+      <span class="stat-chip"><i data-lucide="layers"></i> <span class="num">${catCount}</span> 分类</span>
+      <span class="stat-chip"><i data-lucide="file-text"></i> <span class="num">${totalItems}</span> 条资讯</span>
+    `;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+    // Categories
+    if (!data.categories || data.categories.length === 0) {
+      content.innerHTML = `<div class="empty-state"><i data-lucide="file-x-2"></i><p>暂无晨报数据</p><p style="font-size:0.75rem;margin-top:6px">请放置 data.json 到同目录下</p></div>`;
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+      return;
+    }
+
+    let html = '';
+    data.categories.forEach((cat, ci) => {
+      const items = cat.items || [];
+      const icon = cat.icon || 'newspaper';
+      html += `
+        <section class="category-section" data-category="${escapeHtml(cat.name)}">
+          <div class="category-header" onclick="toggleCategory(this.parentElement)">
+            <div class="category-icon"><i data-lucide="${escapeHtml(icon)}"></i></div>
+            <span class="category-name">${escapeHtml(cat.name)}</span>
+            <span class="category-count">${items.length} 条</span>
+            <span class="category-toggle"><i data-lucide="chevron-down"></i></span>
+          </div>
+          <div class="category-body">
+            <div class="item-list">
+              ${items.map((item, ii) => `
+                <div class="news-item" onclick="window.open('${escapeHtml(item.url || '#')}', '_blank')" title="${escapeHtml(item.title)}">
+                  <div class="item-index">${ii + 1}</div>
+                  <div class="item-content">
+                    <div class="item-title">${escapeHtml(item.title)}</div>
+                    ${item.summary ? `<div class="item-summary">${escapeHtml(item.summary)}</div>` : ''}
+                    <div class="item-meta">
+                      ${item.source ? `<span class="item-source">${escapeHtml(item.source)}</span>` : ''}
+                      ${item.time ? `<span class="item-time"><i data-lucide="clock"></i>${escapeHtml(relativeTime(item.time))}</span>` : ''}
+                    </div>
+                  </div>
+                  <div class="item-open"><i data-lucide="external-link"></i></div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        </section>
+      `;
+    });
+
+    content.innerHTML = html;
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+  }
+
+  // ---------- Load Data ----------
+  function getDataUrl() {
+    return './data.json';
+  }
+
+  async function loadData() {
+    try {
+      const resp = await fetch(getDataUrl());
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const data = await resp.json();
+      render(data);
+      showToast('晨报已加载', 'check-circle');
+    } catch (e) {
+      console.error('Failed to load data:', e);
+      document.getElementById('briefContent').innerHTML = `
+        <div class="empty-state">
+          <i data-lucide="file-warning"></i>
+          <p>无法加载晨报数据</p>
+          <p style="font-size:0.75rem;margin-top:6px;color:var(--text-muted)">
+            ${window.location.protocol === 'file:'
+              ? '请通过 HTTP 方式打开: <code>http://localhost:8000/AI/hermes/morning-brief/morning-brief.html</code>'
+              : `请确认已生成今日晨报，或终端运行: <code>python3 morning-brief.py</code>`}<br>
+            <span style="font-family:monospace;font-size:0.6875rem">${e.message}</span>
+          </p>
+        </div>
+      `;
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    }
+  }
+
+  // ---------- Keyboard Shortcuts ----------
+  document.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'd' || e.key === 'D') { toggleTheme(); }
+    if (e.key === 'p' || e.key === 'P') { window.print(); }
+    if (e.key === 'c' || e.key === 'C') { toggleCollapseAll(); }
+  });
+
+  // ---------- Init ----------
+  setTheme(getTheme());
+  loadData();
+  </script>
+</body>
+</html>
