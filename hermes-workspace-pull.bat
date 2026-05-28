@@ -3,19 +3,14 @@ chcp 65001 >nul
 setlocal enabledelayedexpansion
 echo [Hermes] 同步工作区...
 
-set "SCRIPT_DIR=%~dp0"
-set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
-for /f %%i in ('wsl wslpath -a "%SCRIPT_DIR%"') do set "WSL_DIR=%%i"
-
-:: 获取电脑名（Windows 用户名）
 set "PC_NAME=%USERNAME%"
 
-:: 获取当前时间
 for /f "tokens=1-3 delims=: " %%a in ("%TIME%") do set "HH=%%a" & set "MM=%%b"
 set "NOW=%DATE:~0,4%-%DATE:~5,2%-%DATE:~8,2% %HH%:%MM%"
 
-:: Git 拉取
-wsl bash -c "cd '%WSL_DIR:/=\%' && git pull origin main 2>&1"
+:: 进入工作区目录并拉取
+cd /d F:\AI\hermes
+git pull --rebase origin main 2>&1
 set "PULL_RESULT=%ERRORLEVEL%"
 
 if %PULL_RESULT% EQU 0 (

@@ -3,24 +3,13 @@ chcp 65001 >nul
 setlocal enabledelayedexpansion
 echo [Hermes] 灵魂同步拉取中...
 
-set "SCRIPT_DIR=%~dp0"
-set "SCRIPT_DIR=%SCRIPT_DIR:~0,-1%"
-for /f %%i in ('wsl wslpath -a "%SCRIPT_DIR%"') do set "WSL_DIR=%%i"
 set "PC_NAME=%USERNAME%"
 
 for /f "tokens=1-3 delims=: " %%a in ("%TIME%") do set "HH=%%a" & set "MM=%%b"
 set "NOW=%DATE:~0,4%-%DATE:~5,2%-%DATE:~8,2% %HH%:%MM%"
 
-:: 拉取灵魂数据
-wsl bash -c "
-  set -e
-  cd ~/hermes-data
-  git pull origin main 2>&1
-  cp MEMORY.md ~/.hermes/memories/
-  cp USER.md ~/.hermes/memories/
-  rsync -a --delete skills/ ~/.hermes/skills/
-  echo '灵魂同步完成'
-"
+:: 调用 WSL 的 soul-pull.sh 脚本
+wsl bash /home/administrator/.hermes/scripts/soul-pull.sh
 set "PULL_RESULT=%ERRORLEVEL%"
 
 if %PULL_RESULT% EQU 0 (
