@@ -1,0 +1,60 @@
+[
+  {
+    "category": "幸存者like",
+    "categoryId": "survivor-like",
+    "summary": "...",
+    "games": [
+      {
+        "name": "吸血鬼幸存者 (Vampire Survivors)",
+        "platform": "Steam / 移动端 / NS / Xbox",
+        "rank": "Steam历史销量Top50独立游戏",
+        "downloads": "Steam ~3000万份 + 移动端~1500万下载",
+        "revenueRecent": "近期月流水：估算$200-500万（Steam尾流水+移动端IAP）",
+        "revenuePeak": "最高月流水：估算$1亿+（2022年10月正式版发售+2023年12月移动端上线双高峰）",
+        "coreGameplay": "...",
+        "whyFun": "...",
+        "userAge": "...",
+        "userGender": "...",
+        "userRegion": "...",
+        "userType": "...",
+        "overlapWithTowerDefense": "...",
+        "conflict": "..."
+      },
+      {
+        "name": "弹壳特攻队 (Survivor!.io)",
+        "platform": "iOS / Android（竖版）",
+        "rank": "iOS畅销榜Top50-100，全球多国Top10",
+        "downloads": "全球~1亿+下载",
+        "revenueRecent": "近期月流水：估算$800-1200万（运营3年+，月流水已下滑）",
+        "revenuePeak": "最高月流水：估算$3000-4000万（2023年中，全球爆发期）",
+        "coreGameplay": "...",
+        "whyFun": "...",
+        "userAge": "...",
+        "userGender": "...",
+        "userRegion": "...",
+        "userType": "...",
+        "overlapWithTowerDefense": "...",
+        "conflict": "..."
+      },
+      {
+        "name": "向僵尸开炮",
+        "platform": "iOS / Android / 微信小游戏",
+        "rank": "iOS畅销榜Top50，微信小游戏Top3",
+        "downloads": "估算全渠道3000万+下载",
+        "revenueRecent": "近期月流水：估算$1000-2000万（iOS+安卓+微信小游戏三端）",
+        "revenuePeak": "最高月流水：估算$3000-4000万（2025年初，巅峰爆发期）",
+        "coreGameplay": "...",
+        "whyFun": "...",
+        "userAge": "...",
+        "userGender": "...",
+        "userRegion": "...",
+        "userType": "...",
+        "overlapWithTowerDefense": "...",
+        "conflict": "..."
+      }
+    ],
+    "categoryTraits": "...",
+    "adapterRating": "⭐⭐⭐⭐⭐",
+    "adapterReason": "..."
+  }
+]

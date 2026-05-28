@@ -1,0 +1,556 @@
+{
+  "date": "2026-05-28",
+  "greeting": "早上好 ☀️",
+  "categories": [
+    {
+      "name": "行业动态",
+      "icon": "gamepad-2",
+      "items": [
+        {
+          "title": "腾讯《王者荣耀》国际版月活跃用户突破5000万",
+          "summary": "腾讯旗下《王者荣耀》国际版（Honor of Kings）全球月活跃用户突破5000万大关，海外市场增长显著。",
+          "source": "GameLook",
+          "url": "https://www.gamelook.com.cn/archives/game-news/001",
+          "time": "2026-05-28T06:00:00+08:00"
+        },
+        {
+          "title": "网易《逆水寒》手游创下端午档期收入新纪录",
+          "summary": "网易旗舰MMO《逆水寒》手游在端午档期期间收入环比增长120%，创下开服以来最高单日流水纪录。",
+          "source": "游戏葡萄",
+          "url": "https://youxiputao.com/news/002",
+          "time": "2026-05-28T08:37:00+08:00"
+        },
+        {
+          "title": "米哈游《原神》5.0版本更新引发玩家热议",
+          "summary": "米哈游《原神》5.0版本「荣花与炎日之途」正式上线，新增区域和角色引发社区高度关注。",
+          "source": "触乐",
+          "url": "https://www.chuapp.com/article/003",
+          "time": "2026-05-28T10:14:00+08:00"
+        },
+        {
+          "title": "字节跳动游戏业务重组，聚焦精品自研",
+          "summary": "字节跳动旗下朝夕光年进行组织架构调整，裁撤部分项目组，集中资源开发3A级自研产品。",
+          "source": "36氪",
+          "url": "https://36kr.com/p/game-news/004",
+          "time": "2026-05-28T13:51:00+08:00"
+        },
+        {
+          "title": "哔哩哔哩游戏代理《影之诗》国服即将停运",
+          "summary": "B站宣布《影之诗》国服将于2026年9月停止运营，运营时长超过8年，玩家数据迁移方案公布。",
+          "source": "游戏陀螺",
+          "url": "https://www.gametuber.com/news/005",
+          "time": "2026-05-28T15:28:00+08:00"
+        },
+        {
+          "title": "莉莉丝《万国觉醒》与知名IP联动创收新高",
+          "summary": "莉莉丝旗下SLG《万国觉醒》与某知名动漫IP联动活动上线首日收入突破历史峰值。",
+          "source": "GameLook",
+          "url": "https://www.gamelook.com.cn/archives/game-news/006",
+          "time": "2026-05-28T18:05:00+08:00"
+        },
+        {
+          "title": "鹰角网络《明日方舟》五周年庆典活动即将开启",
+          "summary": "鹰角网络宣布《明日方舟》五周年庆典活动将于下月启动，届时将公布全新主线章节和限定角色。",
+          "source": "游戏葡萄",
+          "url": "https://youxiputao.com/news/007",
+          "time": "2026-05-28T20:42:00+08:00"
+        }
+      ]
+    },
+    {
+      "name": "AI前沿",
+      "icon": "sparkles",
+      "items": [
+        {
+          "title": "Google DeepMind发布GameNGen AI游戏引擎原型",
+          "summary": "Google DeepMind展示GameNGen项目，用神经网络实时生成《毁灭战士》级游戏画面，无需传统渲染管线。",
+          "source": "机器之心",
+          "url": "https://jiqizhixin.com/ai-gaming/101",
+          "time": "2026-05-28T06:00:00+08:00"
+        },
+        {
+          "title": "OpenAI与Unity合作推出AI游戏开发助手",
+          "summary": "OpenAI与Unity Technologies联合发布AI助手，支持自然语言生成C#脚本和3D资产创建。",
+          "source": "36氪",
+          "url": "https://36kr.com/p/ai-game/102",
+          "time": "2026-05-28T08:37:00+08:00"
+        },
+        {
+          "title": "网易伏羲实验室发布大规模AI NPC框架",
+          "summary": "网易伏羲实验室推出全新AI NPC框架，支持千名AI角色在同一世界中自主行动和交互，已应用于《逆水寒》。",
+          "source": "GameLook",
+          "url": "https://www.gamelook.com.cn/archives/ai/103",
+          "time": "2026-05-28T10:14:00+08:00"
+        },
+        {
+          "title": "英伟达ACE微服务正式面向游戏开发者开放",
+          "summary": "英伟达Avatar Cloud Engine（ACE）正式商用，为游戏提供实时AI对话NPC和动态表情生成服务。",
+          "source": "IT之家",
+          "url": "https://www.ithome.com/ai/104",
+          "time": "2026-05-28T13:51:00+08:00"
+        },
+        {
+          "title": "腾讯AI Lab新模型实现游戏原画自动生成",
+          "summary": "腾讯AI Lab发布Stable Diffusion微调模型，可根据文字描述直接生成高质量游戏角色原画和场景概念图。",
+          "source": "量子位",
+          "url": "https://www.qbitai.com/ai-game/105",
+          "time": "2026-05-28T15:28:00+08:00"
+        },
+        {
+          "title": "AI驱动的程序化关卡生成工具获开发者好评",
+          "summary": "一款基于强化学习的AI关卡设计工具在GDC 2026上展示，可自动生成平台跳跃和射击游戏关卡。",
+          "source": "游戏陀螺",
+          "url": "https://www.gametuber.com/ai/106",
+          "time": "2026-05-28T18:05:00+08:00"
+        },
+        {
+          "title": "国产AI语音克隆工具通过游戏角色配音测试",
+          "summary": "国内团队开发的AI语音合成工具在游戏角色配音测试中达到专业声优水平，成本降低90%。",
+          "source": "触乐",
+          "url": "https://www.chuapp.com/article/ai-voice/107",
+          "time": "2026-05-28T20:42:00+08:00"
+        }
+      ]
+    },
+    {
+      "name": "市场数据",
+      "icon": "trending-up",
+      "items": [
+        {
+          "title": "2026年5月中国手游市场收入同比增长18.5%",
+          "summary": "伽马数据显示2026年5月中国手游市场收入达185亿元，同比增长18.5%，暑期档预热效应明显。",
+          "source": "伽马数据",
+          "url": "https://www.gama-data.com/report/201",
+          "time": "2026-05-28T06:00:00+08:00"
+        },
+        {
+          "title": "全球游戏市场规模预计2026年突破2500亿美元",
+          "summary": "Newzoo最新报告预测2026年全球游戏市场规模将达到2560亿美元，移动端占比超过55%。",
+          "source": "Newzoo",
+          "url": "https://newzoo.com/report/global-games-2026/202",
+          "time": "2026-05-28T08:37:00+08:00"
+        },
+        {
+          "title": "Steam同时在线用户数突破4000万创新高",
+          "summary": "Valve旗下Steam平台同时在线用户数首次突破4000万大关，《CS2》和《黑神话：悟空》贡献主要增长。",
+          "source": "游民星空",
+          "url": "https://www.gamersky.com/news/203",
+          "time": "2026-05-28T10:14:00+08:00"
+        },
+        {
+          "title": "腾讯Q1游戏业务收入同比增长12%至548亿元",
+          "summary": "腾讯2026年第一季度财报显示游戏业务收入548亿元，国际游戏收入占比提升至35%。",
+          "source": "GameLook",
+          "url": "https://www.gamelook.com.cn/archives/market/204",
+          "time": "2026-05-28T13:51:00+08:00"
+        },
+        {
+          "title": "中国游戏出海收入连续三个季度环比增长",
+          "summary": "2026年Q1中国自研游戏海外收入达48亿美元，连续三个季度实现环比增长，美日韩为TOP3市场。",
+          "source": "Sensor Tower",
+          "url": "https://sensortower.com/china-games/205",
+          "time": "2026-05-28T15:28:00+08:00"
+        },
+        {
+          "title": "Switch 2全球首周销量突破500万台",
+          "summary": "任天堂Switch 2全球首发周销量超500万台，打破主机销售纪录，塞尔达新作带动硬件销售。",
+          "source": "VGChartz",
+          "url": "https://www.vgchartz.com/hardware/206",
+          "time": "2026-05-28T18:05:00+08:00"
+        },
+        {
+          "title": "Epic游戏商城月活跃用户突破8000万",
+          "summary": "Epic Games宣布其游戏商城月活跃用户达8000万，免费游戏策略持续推动用户增长。",
+          "source": "GamesIndustry",
+          "url": "https://www.gamesindustry.biz/epic-store/207",
+          "time": "2026-05-28T20:42:00+08:00"
+        }
+      ]
+    },
+    {
+      "name": "产品观察",
+      "icon": "eye",
+      "items": [
+        {
+          "title": "《黑神话：悟空》DLC「再战轮回」评测前瞻",
+          "summary": "游戏科学公布《黑神话：悟空》首个大型DLC详情，新地图包含天宫与地府场景，预计年底发售。",
+          "source": "游民星空",
+          "url": "https://www.gamersky.com/review/301",
+          "time": "2026-05-28T06:00:00+08:00"
+        },
+        {
+          "title": "网易《燕云十六声》公测数据亮眼",
+          "summary": "网易开放世界武侠游戏《燕云十六声》全平台公测表现超预期，首日新增用户超800万。",
+          "source": "游戏葡萄",
+          "url": "https://youxiputao.com/review/302",
+          "time": "2026-05-28T08:37:00+08:00"
+        },
+        {
+          "title": "《崩坏：星穹铁道》2.5版本内容量创历史之最",
+          "summary": "米哈游《崩坏：星穹铁道》2.5版本更新内容量达到60小时，包含全新星球和主线剧情。",
+          "source": "触乐",
+          "url": "https://www.chuapp.com/article/hsr/303",
+          "time": "2026-05-28T10:14:00+08:00"
+        },
+        {
+          "title": "腾讯《三角洲行动》全球上线首周表现强劲",
+          "summary": "腾讯天美工作室开发的战术射击游戏《三角洲行动》全球上线首周收入破1亿美元。",
+          "source": "GameLook",
+          "url": "https://www.gamelook.com.cn/archives/product/304",
+          "time": "2026-05-28T13:51:00+08:00"
+        },
+        {
+          "title": "《最终幻想 XVI》PC版优化获Steam好评",
+          "summary": "Square Enix《最终幻想 XVI》PC版正式发售，Steam评价为「特别好评」，4K/60帧流畅运行。",
+          "source": "IGN中国",
+          "url": "https://www.ignchina.com/review/ff16/305",
+          "time": "2026-05-28T15:28:00+08:00"
+        },
+        {
+          "title": "国产独立游戏《戴森球计划》大型更新上线",
+          "summary": "重庆柚子猫工作室《戴森球计划》发布「黑雾崛起2.0」大型免费更新，新增战斗系统和星系探索。",
+          "source": "Indienova",
+          "url": "https://indienova.com/game/dyson-sphere/306",
+          "time": "2026-05-28T18:05:00+08:00"
+        },
+        {
+          "title": "《恋与深空》收入超越《原神》登顶女性向游戏",
+          "summary": "叠纸网络《恋与深空》5月全球收入超过《原神》，成为全球收入最高的女性向手游。",
+          "source": "Sensor Tower",
+          "url": "https://sensortower.com/love-and-deepspace/307",
+          "time": "2026-05-28T20:42:00+08:00"
+        }
+      ]
+    },
+    {
+      "name": "政策监管",
+      "icon": "scale",
+      "items": [
+        {
+          "title": "国家新闻出版署下发6月首批国产游戏版号",
+          "summary": "国家新闻出版署公布2026年第六批国产游戏版号名单，共95款游戏获批，数量保持稳定。",
+          "source": "国家新闻出版署",
+          "url": "https://www.nppa.gov.cn/game-license/401",
+          "time": "2026-05-28T06:00:00+08:00"
+        },
+        {
+          "title": "未成年人游戏限玩令暑期执行细则出台",
+          "summary": "署期未成年人游戏限玩令执行细则公布，每日20时至21时仅可登录1小时，人脸识别系统全面升级。",
+          "source": "新华社",
+          "url": "https://www.xinhuanet.com/policy/402",
+          "time": "2026-05-28T08:37:00+08:00"
+        },
+        {
+          "title": "游戏行业数据安全管理办法征求意见稿发布",
+          "summary": "工信部发布《游戏行业数据安全管理办法（征求意见稿）》，对用户数据收集和跨境传输提出新要求。",
+          "source": "工信部",
+          "url": "https://www.miit.gov.cn/data-security/403",
+          "time": "2026-05-28T10:14:00+08:00"
+        },
+        {
+          "title": "上海市出台游戏出海扶持政策",
+          "summary": "上海市政府发布《游戏出海企业扶持计划》，对出口海外市场收入超千万的游戏企业给予税收优惠。",
+          "source": "上海发布",
+          "url": "https://www.shanghai.gov.cn/game-policy/404",
+          "time": "2026-05-28T13:51:00+08:00"
+        },
+        {
+          "title": "游戏适龄提示团体标准更新至2.0版本",
+          "summary": "中国音数协发布《游戏适龄提示》2.0标准，新增AI交互内容和社交功能的风险评估维度。",
+          "source": "中国音数协",
+          "url": "https://www.cgigc.com.cn/age-rating/405",
+          "time": "2026-05-28T15:28:00+08:00"
+        },
+        {
+          "title": "欧洲议会通过游戏虚拟财产交易监管法案",
+          "summary": "欧洲议会正式通过虚拟财产交易监管法案，要求游戏公司对NFT和虚拟物品交易实施KYC验证。",
+          "source": "GamesIndustry",
+          "url": "https://www.gamesindustry.biz/eu-regulation/406",
+          "time": "2026-05-28T18:05:00+08:00"
+        },
+        {
+          "title": "广东加强游戏直播内容审核管理",
+          "summary": "广东省广播电视局发布通知，加强游戏直播内容审核，要求直播平台建立游戏直播白名单制度。",
+          "source": "广东省广电局",
+          "url": "https://www.gd.gov.cn/game-streaming/407",
+          "time": "2026-05-28T20:42:00+08:00"
+        }
+      ]
+    },
+    {
+      "name": "海外市场",
+      "icon": "globe",
+      "items": [
+        {
+          "title": "Paralives Early Access Review",
+          "summary": "A rough-around-the-edges life simulator with a striking art style and some promising ideas.",
+          "source": "www.ign.com",
+          "url": "https://www.ign.com/articles/paralives-review-early-access",
+          "time": "2026-05-27T23:13:19+00:00"
+        },
+        {
+          "title": "Opinion: With A $949 Steam Deck, The Steam Machine Will Probably Be Very Expensive",
+          "summary": "In the six months since Valve announced the Steam Machine, PC gaming hardware has continued to get more expensive, and n",
+          "source": "www.ign.com",
+          "url": "https://www.ign.com/articles/opinion-with-a-949-steam-deck-the-steam-machine-will-probably-be-very-expensive",
+          "time": "2026-05-27T22:03:12+00:00"
+        },
+        {
+          "title": "Ditch the Bubble Level, The Fanttik D2 Pocket 2-Axis Osram Green Laser Level Is Priced Under $30",
+          "summary": "Give up the crooked life.",
+          "source": "www.ign.com",
+          "url": "https://www.ign.com/articles/fanttik-d2-pocket-green-laser-level-deal",
+          "time": "2026-05-27T21:50:00+00:00"
+        },
+        {
+          "title": "Get a 5-Pack of 60W USB Type-C Cables for $7.50 (Averages Out to a Mere $1.50 Per Cable)",
+          "summary": "Universal cables perfect for your Nintendo Switch 2, Steam Deck, Apple iPhone 17, or Samsung Galaxy.",
+          "source": "www.ign.com",
+          "url": "https://www.ign.com/articles/best-usb-cable-deals-in-april-2026",
+          "time": "2026-05-27T21:50:00+00:00"
+        },
+        {
+          "title": "The Baseus 20,000mAh 45W Power Bank With Dual USB-C Cables Drops to $21 After Coupon",
+          "summary": "Charge and play on the Nintendo Switch 2 or Steam Deck at the same time.",
+          "source": "www.ign.com",
+          "url": "https://www.ign.com/articles/baseus-20000mah-45w-power-bank-deal-may-2026",
+          "time": "2026-05-27T21:50:00+00:00"
+        },
+        {
+          "title": "The Sonos Arc Ultra Soundbar Just Drops to the Lowest Price Ever During the Memorial Day Refurb Sale",
+          "summary": "Certified refurbished with the same 1-year Sonos warranty as buying brand new.",
+          "source": "www.ign.com",
+          "url": "https://www.ign.com/articles/sonos-arc-ultra-soundbar-deal-refurbished-memorial-day-sale-updated",
+          "time": "2026-05-27T21:45:00+00:00"
+        },
+        {
+          "title": "Spider-Noir: Every (Kinda, Sorta) Easter Egg and Comics Reference That We Found",
+          "summary": "Spider-Noir, the first live-action Spider-Man (well, The Spider) series in nearly half a century, is now available to st",
+          "source": "www.ign.com",
+          "url": "https://www.ign.com/articles/spider-noir-every-kinda-sorta-easter-egg-and-comics-reference-that-we-found",
+          "time": "2026-05-27T21:35:31+00:00"
+        }
+      ]
+    },
+    {
+      "name": "技术开发",
+      "icon": "code-2",
+      "items": [
+        {
+          "title": "Unreal Engine 5.6版本发布显著提升性能",
+          "summary": "Epic Games发布Unreal Engine 5.6，引入Nanite虚拟几何体Lumen全局光照的重大性能优化，帧率提升30%。",
+          "source": "Epic Games",
+          "url": "https://www.unrealengine.com/release/601",
+          "time": "2026-05-28T06:00:00+08:00"
+        },
+        {
+          "title": "Unity 6引擎正式支持WebGPU API",
+          "summary": "Unity Technologies宣布Unity 6全面支持WebGPU标准，浏览器端游戏性能接近原生应用水平。",
+          "source": "Unity Blog",
+          "url": "https://unity.com/blog/webgpu/602",
+          "time": "2026-05-28T08:37:00+08:00"
+        },
+        {
+          "title": "开源游戏引擎Godot在Steam平台游戏数量突破1000",
+          "summary": "Godot引擎在Steam上发行的游戏数量突破1000款，开发者社区规模同比增长65%。",
+          "source": "Godot News",
+          "url": "https://godotengine.org/news/603",
+          "time": "2026-05-28T10:14:00+08:00"
+        },
+        {
+          "title": "AMD FSR 4.0超分辨率技术正式开源",
+          "summary": "AMD宣布FidelityFX Super Resolution 4.0技术开源，支持跨平台使用，对标NVIDIA DLSS。",
+          "source": "AnandTech",
+          "url": "https://www.anandtech.com/amd-fsr4/604",
+          "time": "2026-05-28T13:51:00+08:00"
+        },
+        {
+          "title": "微软DirectStorage 2.0降低GPU解压延迟",
+          "summary": "微软发布DirectStorage 2.0 API，新增GPU解压异步队列功能，游戏加载时间可缩短40%。",
+          "source": "微软开发者",
+          "url": "https://devblogs.microsoft.com/directstorage/605",
+          "time": "2026-05-28T15:28:00+08:00"
+        },
+        {
+          "title": "中国自研游戏引擎「黑盒2.0」实现技术突破",
+          "summary": "国内团队研发的黑盒引擎2.0版本实现全局光照实时烘焙技术突破，性能达到国际主流水平。",
+          "source": "游戏陀螺",
+          "url": "https://www.gametuber.com/engine/606",
+          "time": "2026-05-28T18:05:00+08:00"
+        },
+        {
+          "title": "WebGPU标准进入稳定期，浏览器游戏迎来新机遇",
+          "summary": "W3C宣布WebGPU标准进入候选推荐阶段，Chrome/Firefox/Safari均已实现完整支持。",
+          "source": "InfoQ",
+          "url": "https://www.infoq.com/webgpu/607",
+          "time": "2026-05-28T20:42:00+08:00"
+        }
+      ]
+    },
+    {
+      "name": "投融资",
+      "icon": "wallet",
+      "items": [
+        {
+          "title": "腾讯领投AI游戏开发平台1.2亿美元B轮融资",
+          "summary": "AI游戏开发平台RiseArt完成1.2亿美元B轮融资，腾讯领投，资金用于加速生成式AI工具研发。",
+          "source": "36氪",
+          "url": "https://36kr.com/p/investment/701",
+          "time": "2026-05-28T06:00:00+08:00"
+        },
+        {
+          "title": "网易投资英国3A工作室新项目",
+          "summary": "网易游戏对英国某3A工作室进行战略投资，合作开发一款开放世界动作RPG游戏。",
+          "source": "GameLook",
+          "url": "https://www.gamelook.com.cn/archives/invest/702",
+          "time": "2026-05-28T08:37:00+08:00"
+        },
+        {
+          "title": "米哈游成立10亿美元AI技术基金",
+          "summary": "米哈游宣布设立10亿美元规模的AI技术投资基金，重点布局AI在游戏研发和玩家体验中的应用。",
+          "source": "触乐",
+          "url": "https://www.chuapp.com/article/mihoyo-ai-fund/703",
+          "time": "2026-05-28T10:14:00+08:00"
+        },
+        {
+          "title": "小游戏平台「泡泡游戏」完成Pre-IPO轮融资",
+          "summary": "国内小游戏平台泡泡游戏完成5亿元Pre-IPO融资，估值达80亿元，计划年内港股上市。",
+          "source": "游戏葡萄",
+          "url": "https://youxiputao.com/invest/704",
+          "time": "2026-05-28T13:51:00+08:00"
+        },
+        {
+          "title": "沙特基金向波兰游戏开发商CDPR投资3亿美元",
+          "summary": "沙特PIF基金斥资3亿美元购入CD Projekt Red约8%股份，成为《巫师》和《赛博朋克》开发商重要股东。",
+          "source": "Bloomberg",
+          "url": "https://www.bloomberg.com/cdpr-investment/705",
+          "time": "2026-05-28T15:28:00+08:00"
+        },
+        {
+          "title": "字节跳动出售旗下游戏工作室回笼资金",
+          "summary": "字节跳动将旗下部分游戏工作室出售给第三方公司，回笼资金用于核心业务AI和大模型研发。",
+          "source": "晚点LatePost",
+          "url": "https://www.latepost.com/byte-dance-game/706",
+          "time": "2026-05-28T18:05:00+08:00"
+        },
+        {
+          "title": "独立游戏发行商Devolver Digital上半年营收增长40%",
+          "summary": "Devolver Digital发布上半年财报，营收同比增长40%，多款独立游戏销量突破百万。",
+          "source": "GamesIndustry",
+          "url": "https://www.gamesindustry.biz/devolver/707",
+          "time": "2026-05-28T20:42:00+08:00"
+        }
+      ]
+    },
+    {
+      "name": "数据报告",
+      "icon": "bar-chart-3",
+      "items": [
+        {
+          "title": "2026年Q1全球移动游戏市场报告：RPG与策略类领涨",
+          "summary": "Sensor Tower发布Q1报告，全球移动游戏收入同比增长12%，RPG和策略类游戏为主要增长引擎。",
+          "source": "Sensor Tower",
+          "url": "https://sensortower.com/q1-2026-report/801",
+          "time": "2026-05-28T06:00:00+08:00"
+        },
+        {
+          "title": "中国游戏产业半年报：自研游戏收入突破千亿",
+          "summary": "中国音数协发布2026年上半年游戏产业报告，自研游戏国内市场收入达1020亿元。",
+          "source": "中国音数协",
+          "url": "https://www.cgigc.com.cn/report/h1-2026/802",
+          "time": "2026-05-28T08:37:00+08:00"
+        },
+        {
+          "title": "B站发布年度游戏生态数据报告",
+          "summary": "哔哩哔哩发布游戏生态数据报告，平台游戏相关视频日均播放量超12亿次，创作者收入增长35%。",
+          "source": "哔哩哔哩",
+          "url": "https://www.bilibili.com/game-ecology/803",
+          "time": "2026-05-28T10:14:00+08:00"
+        },
+        {
+          "title": "女性玩家占比持续上升至47%创历史新高",
+          "summary": "游戏行业数据分析显示女性玩家占比已达47%，女性向游戏市场年增速超过30%。",
+          "source": "Niko Partners",
+          "url": "https://nikopartners.com/female-gamers/804",
+          "time": "2026-05-28T13:51:00+08:00"
+        },
+        {
+          "title": "云游戏用户规模突破2亿，5G普及推动增长",
+          "summary": "艾瑞咨询报告显示中国云游戏用户规模达2.1亿人，5G网络覆盖完善大幅降低串流延迟。",
+          "source": "艾瑞咨询",
+          "url": "https://www.iresearch.com.cn/cloud-gaming/805",
+          "time": "2026-05-28T15:28:00+08:00"
+        },
+        {
+          "title": "全球电竞市场收入2026年预计达20亿美元",
+          "summary": "Esports Charts数据显示2026年全球电竞市场收入预计达20亿美元，赞助和媒体版权收入占比超60%。",
+          "source": "Esports Charts",
+          "url": "https://escharts.com/report/806",
+          "time": "2026-05-28T18:05:00+08:00"
+        },
+        {
+          "title": "超休闲游戏市场趋于饱和，混合休闲品类崛起",
+          "summary": "Adjust移动数据报告显示超休闲游戏CPI成本上升30%，混合休闲（Hybrid-Casual）品类成为新增长点。",
+          "source": "Adjust",
+          "url": "https://www.adjust.com/report/hybrid-casual/807",
+          "time": "2026-05-28T20:42:00+08:00"
+        }
+      ]
+    },
+    {
+      "name": "行业活动",
+      "icon": "calendar",
+      "items": [
+        {
+          "title": "ChinaJoy 2026将于7月30日在上海开幕",
+          "summary": "第二十四届中国国际数码互动娱乐展览会（ChinaJoy）定档7月30日至8月2日在上海新国际博览中心举办。",
+          "source": "ChinaJoy",
+          "url": "https://www.chinajoy.net/901",
+          "time": "2026-05-28T06:00:00+08:00"
+        },
+        {
+          "title": "GDC 2026大会演讲视频全集现已上线",
+          "summary": "GDC 2026全部主题演讲和技术分享视频已上传至官方网站，注册参会者可免费观看回放。",
+          "source": "GDC",
+          "url": "https://www.gdconf.com/vault-2026/902",
+          "time": "2026-05-28T08:37:00+08:00"
+        },
+        {
+          "title": "东京电玩展2026参展厂商名单公布",
+          "summary": "TGS 2026公布首批参展厂商名单，包含SEGA、Capcom、Koei Tecmo等知名日系厂商。",
+          "source": "TGS",
+          "url": "https://tgs.cesa.or.jp/exhibitors/903",
+          "time": "2026-05-28T10:14:00+08:00"
+        },
+        {
+          "title": "「游戏开发者圆桌论坛」北京站报名启动",
+          "summary": "由Unity中国主办的游戏开发者圆桌论坛北京站开放报名，议题聚焦AI与游戏开发实践。",
+          "source": "Unity中国",
+          "url": "https://unity.cn/events/beijing-rd/904",
+          "time": "2026-05-28T13:51:00+08:00"
+        },
+        {
+          "title": "2026年全球电竞峰会将于7月在深圳举办",
+          "summary": "全球电竞峰会（Global Esports Summit 2026）将在深圳前海举办，预计吸引超过2000名行业代表。",
+          "source": "电竞峰会组委会",
+          "url": "https://www.ges2026.com/905",
+          "time": "2026-05-28T15:28:00+08:00"
+        },
+        {
+          "title": "IndieCade独立游戏节入围作品名单揭晓",
+          "summary": "IndieCade 2026公布入围名单，共有45款独立游戏入围，中国团队作品数量创历史新高。",
+          "source": "IndieCade",
+          "url": "https://www.indiecade.com/2026/906",
+          "time": "2026-05-28T18:05:00+08:00"
+        },
+        {
+          "title": "游戏出海增长论坛将在广州举行",
+          "summary": "由广东省游戏产业协会主办的「游戏出海增长论坛」将于6月15日在广州举行，聚焦东南亚市场机遇。",
+          "source": "广东省游戏产业协会",
+          "url": "https://www.gdgia.com/overseas-forum/907",
+          "time": "2026-05-28T20:42:00+08:00"
+        }
+      ]
+    }
+  ]
+}
