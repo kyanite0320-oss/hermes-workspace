@@ -1,0 +1,104 @@
+[
+  {
+    "name": "金铲铲之战",
+    "developer": "腾讯天游",
+    "tagline": "英雄联盟云顶之弈正版授权手游",
+    "platforms": "iOS/Android",
+    "revenue_recent": "¥1.48亿/月（iOS中国）",
+    "revenue_peak": "峰值约¥2-3亿/月（2022年）",
+    "rank": "卡牌/策略免费榜#14",
+    "downloads": "27,603/日（iOS）",
+    "rating": "4.6 (839万评分)",
+    "tap_rating": "8.2（TapTap）",
+    "platform_breakdown": [
+      {"platform": "iOS 中国（iPhone）", "amount": "~$1,952万/月", "source": "✅七麦·30日日均$650,775"},
+      {"platform": "iOS 中国（iPad）", "amount": "~$224万/月", "source": "✅七麦·30日日均$74,609"},
+      {"platform": "Android 中国", "amount": "~¥2-3亿/月", "source": "📊估算（腾讯渠道为主）"},
+      {"platform": "合计", "amount": "~¥3.5-4.5亿/月", "source": "综合估算"}
+    ],
+    "operational_data": [
+      {"metric": "📥 昨日下载", "value": "27,603", "source": "✅七麦·iOS中国"},
+      {"metric": "⭐ 评分", "value": "4.6 (839万条)", "source": "✅七麦·iOS中国"},
+      {"metric": "🏆 畅销榜", "value": "卡牌/策略#14", "source": "✅七麦·iOS中国"},
+      {"metric": "🕐 最早上线", "value": "2021-07-27", "source": "✅七麦"},
+      {"metric": "🔄 最近更新", "value": "2026-04-22", "source": "✅七麦"}
+    ],
+    "gameplay": "自走棋核心玩法：8人对战，每局从公共棋子池中购买棋子，相同棋子合成升星（最高3星），构建阵容羁绊后自动对战。金铲铲之战是英雄联盟云顶之弈（TFT）的手机版，继承了TFT的赛季制更新、海克斯强化、英雄传说之力等特色系统，每3个月一个大版本。棋子设计全部基于英雄联盟IP，有独特的装备合成系统。",
+    "why_fun": "1) TFT的正版授权+赛季制更新，内容源源不断<br>2) 策略深度极高——经济管理、阵容决策、站位博弈三步曲<br>3) 腾讯社交生态加持，微信/QQ好友组队，社区氛围浓厚<br>4) 海克斯强化系统增加每局变数，告别公式化打法",
+    "user_profile": {
+      "age": "20-35岁为主（约占70%）",
+      "gender": "男性偏多（约65:35）",
+      "region": "全国分布，一二线城市偏高",
+      "player_type": "策略型/竞技型/轻中度玩家",
+      "td_overlap": "中等偏高——塔防玩家也是策略+轻竞技受众",
+      "conflict": "无排斥，但金铲铲重PVP竞技，塔防主PVE，核心诉求有差异"
+    }
+  },
+  {
+    "name": "多多自走棋",
+    "developer": "龙渊网络（Dragonest）",
+    "tagline": "游廊自走棋正版授权手游",
+    "platforms": "iOS/Android",
+    "revenue_recent": "iOS月流水极低（¥300-500）",
+    "revenue_peak": "峰值约¥5,000万/月（2019-2020年）",
+    "rank": "未入榜",
+    "downloads": "400/日（iOS）",
+    "rating": "4.5 (33,282评分)",
+    "tap_rating": "7.8（TapTap）",
+    "platform_breakdown": [
+      {"platform": "iOS 中国", "amount": "极低（日均~¥15）", "source": "✅七麦"},
+      {"platform": "Android 中国", "amount": "暂无数据", "source": "📊估算"},
+      {"platform": "全球(海外)", "amount": "约$20-50万/年估算", "source": "📊估算"}
+    ],
+    "operational_data": [
+      {"metric": "📥 昨日下载", "value": "400", "source": "✅七麦·iOS中国"},
+      {"metric": "⭐ 评分", "value": "4.5 (33,282条)", "source": "✅七麦·iOS中国"},
+      {"metric": "🏆 畅销榜", "value": "未入榜", "source": "✅七麦"},
+      {"metric": "🕐 最早上线", "value": "2019-06-06", "source": "✅七麦"},
+      {"metric": "🔄 最近更新", "value": "2026-05-27（仍在更新）", "source": "✅七麦"}
+    ],
+    "gameplay": "自走棋品类开山作。8人在棋盘上放置棋子，棋子自动战斗。核心机制：购买棋子（随机池）→ 相同3个合成2星→3个2星合成3星。棋子有职业/种族羁绊，凑齐特定组合触发加成。独创装备掉落系统：每轮野怪战掉落装备，可合成高级装备。",
+    "why_fun": "1) 品类开创者，定义了自走棋的基础规则框架<br>2) 羁绊组合千变万化，配合装备系统策略深度可观<br>3) 早期的策略新鲜感和社区热度极高（已消退）<br>4) 全球同服，匹配速度快",
+    "user_profile": {
+      "age": "25-40岁为主（核心玩家偏老）",
+      "gender": "男性偏多（约70:30）",
+      "region": "海内外都有用户，国内以硬核玩家为主",
+      "player_type": "策略硬核/老玩家/怀旧型",
+      "td_overlap": "中等——硬核策略玩家有交叉，但用户体量小",
+      "conflict": "无排斥，但游戏热度已过，用户多在流失状态"
+    }
+  },
+  {
+    "name": "炉石传说（酒馆战棋）",
+    "developer": "暴雪娱乐/网易",
+    "tagline": "酒馆战棋模式——全球最火的回合制自走棋",
+    "platforms": "iOS/Android/PC",
+    "revenue_recent": "iOS月流水极低（PC端为主），全球年收入约$3-4亿",
+    "revenue_peak": "全球峰值约$5-6亿/年（酒馆战棋上线初期）",
+    "rank": "卡牌/策略#202",
+    "downloads": "3,769/日（iOS）",
+    "rating": "4.0 (60万评分)",
+    "tap_rating": "7.5（TapTap）",
+    "platform_breakdown": [
+      {"platform": "iOS 中国", "amount": "iOS收入低（日均~¥30）", "source": "✅七麦"},
+      {"platform": "PC（Battle.net）", "amount": "月均¥数千万（主要收入）", "source": "📊估算"},
+      {"platform": "全球（含海外）", "amount": "年收入~$3-4亿", "source": "📊估算"}
+    ],
+    "operational_data": [
+      {"metric": "📥 昨日下载", "value": "3,769", "source": "✅七麦·iOS中国"},
+      {"metric": "⭐ 评分", "value": "4.0 (60万条)", "source": "✅七麦·iOS中国"},
+      {"metric": "🏆 畅销榜", "value": "卡牌/策略#202", "source": "✅七麦"},
+      {"metric": "🕐 最早发布", "value": "2014-04-16（酒馆战棋2019）", "source": "✅七麦"}
+    ],
+    "gameplay": "酒馆战棋是炉石传说内嵌的自走棋模式。8人对战，回合制棋子购买与自动对战。独有机制：三连（3个相同棋子发现一个更高星棋子）、刷新酒馆（随机刷新棋子池）、英雄技能（每个英雄有独特技能）。与炉石本体共用卡牌美术资源，但玩法独立。2023年曾因暴雪网易到期暂停国服，2024年回归后热度有所回升。",
+    "why_fun": "1) 暴雪品质背书，美术/音效/UI打磨十年，品质顶级<br>2) 具有炉石IP强大的用户基础<br>3) 简化操作（只要选牌+站位）但策略深度不减<br>4) 更新频繁，每周平衡补丁/英雄轮换，永不过时",
+    "user_profile": {
+      "age": "20-35岁为主",
+      "gender": "男性偏多（约60:40）",
+      "region": "全球市场，中国因停服影响用户规模缩小",
+      "player_type": "策略型/卡牌玩家/炉石IP粉",
+      "td_overlap": "中等——策略类用户重叠，但酒馆战棋是纯PVP竞技",
+      "conflict": "无排斥，但酒馆战棋用户黏性强、留存高，与塔防的碎片化体验互补"
+    }
+  }
+]
