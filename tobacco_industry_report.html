@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>全球烟草行业研究报告（2015-2025）</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #111;
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 17px;
+    line-height: 1.7;
+    padding: 0 16px 40px;
+  }
+  /* ── Top nav ── */
+  .top-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: #1a1a2e;
+    padding: 10px 0;
+    margin: 0 -16px;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-bottom: 1px solid #333;
+  }
+  .top-nav::-webkit-scrollbar { display: none; }
+  .top-nav a {
+    display: inline-block;
+    color: #aaa;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 14px;
+    margin: 0 2px;
+    border-radius: 20px;
+    background: #252540;
+    transition: background .2s, color .2s;
+  }
+  .top-nav a:active { background: #3a3a6e; color: #fff; }
+
+  /* ── Header ── */
+  .report-header {
+    text-align: center;
+    padding: 28px 0 18px;
+  }
+  .report-header h1 {
+    font-size: 26px;
+    color: #f0c040;
+    font-weight: 700;
+  }
+  .report-header .sub {
+    color: #999;
+    font-size: 14px;
+    margin-top: 6px;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: #1e1e2e;
+    border-radius: 16px;
+    padding: 20px 18px;
+    margin: 20px 0;
+    box-shadow: 0 4px 20px rgba(0,0,0,.4);
+  }
+  .card h2 {
+    font-size: 22px;
+    color: #f0c040;
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card h3 {
+    font-size: 18px;
+    color: #e8d098;
+    margin: 16px 0 8px;
+  }
+  .card h4 {
+    font-size: 16px;
+    color: #ccc;
+    margin: 12px 0 6px;
+  }
+  .card p, .card li { color: #d0d0d0; }
+  .card ul, .card ol { padding-left: 20px; margin: 8px 0; }
+  .card li { margin: 4px 0; }
+
+  /* ── Highlight boxes ── */
+  .highlight-box {
+    background: #252540;
+    border-left: 4px solid #f0c040;
+    padding: 12px 14px;
+    margin: 10px 0;
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* ── Table ── */
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 10px 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 500px;
+  }
+  th {
+    background: #2a2a4a;
+    color: #f0c040;
+    padding: 10px 8px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td { padding: 8px; border-bottom: 1px solid #2a2a3a; }
+  tr:nth-child(even) td { background: #232338; }
+  tr:nth-child(odd) td { background: #1a1a2c; }
+
+  /* ── Bar chart ── */
+  .bar-chart { margin: 12px 0; }
+  .bar-row {
+    display: flex; align-items: center;
+    margin: 6px 0; gap: 8px;
+  }
+  .bar-label {
+    width: 100px;
+    font-size: 14px;
+    flex-shrink: 0;
+    color: #ccc;
+  }
+  .bar-track {
+    flex: 1; height: 22px;
+    background: #2a2a3a;
+    border-radius: 11px;
+    overflow: hidden;
+    position: relative;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 11px;
+    background: linear-gradient(90deg, #f0c040, #e8a030);
+    transition: width .6s ease;
+  }
+  .bar-value {
+    font-size: 13px;
+    color: #aaa;
+    width: 50px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .bar-fill.green { background: linear-gradient(90deg, #4caf50, #2e7d32); }
+  .bar-fill.blue { background: linear-gradient(90deg, #42a5f5, #1565c0); }
+  .bar-fill.purple { background: linear-gradient(90deg, #ab47bc, #6a1b9a); }
+  .bar-fill.teal { background: linear-gradient(90deg, #26a69a, #00695c); }
+  .bar-fill.red { background: linear-gradient(90deg, #ef5350, #b71c1c); }
+  .bar-fill.orange { background: linear-gradient(90deg, #ffa726, #e65100); }
+
+  /* ── Progress / percentage ── */
+  .perc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0;
+  }
+  .perc-item { text-align: center; }
+  .perc-circle {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: conic-gradient(#f0c040 var(--pct), #2a2a3a var(--pct));
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 6px;
+    position: relative;
+  }
+  .perc-circle::after {
+    content: attr(data-val);
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: #1e1e2e;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: #f0c040;
+  }
+  .perc-label { font-size: 12px; color: #aaa; }
+
+  /* ── Timeline ── */
+  .timeline { padding-left: 14px; border-left: 3px solid #f0c040; margin: 10px 0; }
+  .tl-item { margin: 14px 0; position: relative; }
+  .tl-item::before {
+    content: '';
+    width: 10px; height: 10px;
+    background: #f0c040;
+    border-radius: 50%;
+    position: absolute; left: -21px; top: 6px;
+  }
+  .tl-year { font-weight: 700; color: #f0c040; font-size: 15px; }
+  .tl-event { color: #ccc; }
+  .tl-impact { font-size: 14px; color: #999; }
+
+  /* ── Stat row ── */
+  .stat-row {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin: 10px 0;
+  }
+  .stat-box {
+    flex: 1; min-width: 100px;
+    background: #252540;
+    border-radius: 12px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+  .stat-num { font-size: 22px; font-weight: 700; color: #f0c040; }
+  .stat-desc { font-size: 12px; color: #999; margin-top: 2px; }
+
+  /* ── Divider ── */
+  .divider { text-align: center; padding: 8px 0; font-size: 28px; opacity: .4; }
+
+  /* ── Meta footer ── */
+  .report-footer {
+    text-align: center;
+    color: #666;
+    font-size: 13px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #2a2a3a;
+  }
+
+  @media (max-width: 400px) {
+    body { font-size: 16px; padding: 0 12px 30px; }
+    .card { padding: 16px 12px; }
+    .perc-grid { grid-template-columns: 1fr 1fr; }
+    .stat-row { gap: 6px; }
+    .stat-box { min-width: 80px; padding: 10px 6px; }
+    .bar-label { width: 70px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ Top Navigation ═══ -->
+<nav class="top-nav">
+  <a href="#sec1">📊 总体格局</a>
+  <a href="#sec2">🚬 传统烟草</a>
+  <a href="#sec3">🔥 新型烟草</a>
+  <a href="#sec4">⚖️ 监管政策</a>
+  <a href="#sec5">🔮 未来展望</a>
+  <a href="#sec3-1">HNB</a>
+  <a href="#sec3-2">Vape</a>
+  <a href="#sec3-3">尼古丁袋</a>
+</nav>
+
+<!-- ═══ Header ═══ -->
+<div class="report-header">
+  <h1>📄 全球烟草行业研究报告</h1>
+  <div class="sub">2015–2025 近十年走势回顾与分析</div>
+</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SEC 1: 总体格局 -->
+<!-- ════════════════════════════════════════ -->
+<div class="card" id="sec1">
+  <h2>📊 一、全球烟草市场总体格局</h2>
+
+  <h3>市场规模与销量演变</h3>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <div class="stat-num">5.8→4.3</div>
+      <div class="stat-desc">传统卷烟（万亿支）<br>2015→2025</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">-25~28%</div>
+      <div class="stat-desc">10年累计降幅<br>年均-2.5~3%</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">$7,800→$9,500亿</div>
+      <div class="stat-desc">全球市场总价值<br>2015→2025（估）</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">12~15%</div>
+      <div class="stat-desc">新型烟草<br>价值占比(2025)</div>
+    </div>
+  </div>
+
+  <h4>📉 传统卷烟销量趋势（万亿支）</h4>
+  <div class="bar-chart">
+    <div class="bar-row"><span class="bar-label">2015年</span><div class="bar-track"><div class="bar-fill red" style="width:100%"></div></div><span class="bar-value">5.8</span></div>
+    <div class="bar-row"><span class="bar-label">2020年</span><div class="bar-track"><div class="bar-fill red" style="width:86%"></div></div><span class="bar-value">5.0</span></div>
+    <div class="bar-row"><span class="bar-label">2025年(估)</span><div class="bar-track"><div class="bar-fill red" style="width:74%"></div></div><span class="bar-value">4.3</span></div>
+  </div>
+
+  <h4>📈 市场总价值（十亿美元）</h4>
+  <div class="bar-chart">
+    <div class="bar-row"><span class="bar-label">2015年</span><div class="bar-track"><div class="bar-fill green" style="width:82%"></div></div><span class="bar-value">$780</span></div>
+    <div class="bar-row"><span class="bar-label">2020年</span><div class="bar-track"><div class="bar-fill green" style="width:86%"></div></div><span class="bar-value">$820</span></div>
+    <div class="bar-row"><span class="bar-label">2025年(估)</span><div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div><span class="bar-value">$950</span></div>
+  </div>
+
+  <h3>🗓️ 关键转折节点</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>年份</th><th>事件</th><th>影响</th></tr>
+      <tr><td>2014</td><td>IQOS 名古屋/米兰首发</td><td>HNB品类诞生</td></tr>
+      <tr><td>2015-17</td><td>IQOS 日韩爆发</td><td>日本 HNB 渗透率 30%+</td></tr>
+      <tr><td>2017</td><td>JUUL 美国爆发</td><td>电子烟跃为大众消费品</td></tr>
+      <tr><td>2018-19</td><td>JUUL 危机 / FDA 铁腕监管</td><td>调味禁令、PMTA 门槛提高</td></tr>
+      <tr><td>2020</td><td>PMI 美国推出 IQOS（FDA 授权）</td><td>美国进入 HNB 时代</td></tr>
+      <tr><td>2022</td><td>中国电子烟新规落地</td><td>水果味禁售、专卖制度</td></tr>
+      <tr><td>2023</td><td>PMI 收购 Swedish Match</td><td>获 ZYN 尼古丁袋，三足格局</td></tr>
+      <tr><td>2024</td><td>PMI 停售 IQOS → 推 IQOS ILUMA</td><td>HNB 技术代际升级</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SEC 2: 传统烟草 -->
+<!-- ════════════════════════════════════════ -->
+<div class="card" id="sec2">
+  <h2>🚬 二、传统烟草：存量博弈</h2>
+
+  <h3>🏢 四大巨头的战略转型</h3>
+
+  <div class="highlight-box">
+    <h4>🔥 菲莫国际（PMI）—— 转型最激进</h4>
+    <ul>
+      <li>2016 年提出「无烟未来」战略</li>
+      <li>2022 年 IQOS 业务进入盈利期</li>
+      <li>2023 年收购 Swedish Match（$160 亿）</li>
+      <li>2024 年：无烟产品收入占比 <strong>~38%</strong>，目标 2025 年 <strong>40%+</strong></li>
+      <li>传统品牌：万宝路、L&M、Chesterfield 持续萎缩</li>
+    </ul>
+  </div>
+
+  <h4>📊 四大巨头新型烟草收入占比（2024 年）</h4>
+  <div class="bar-chart">
+    <div class="bar-row"><span class="bar-label">PMI</span><div class="bar-track"><div class="bar-fill" style="width:38%"></div></div><span class="bar-value">38%</span></div>
+    <div class="bar-row"><span class="bar-label">BAT</span><div class="bar-track"><div class="bar-fill blue" style="width:19%"></div></div><span class="bar-value">~19%</span></div>
+    <div class="bar-row"><span class="bar-label">JT</span><div class="bar-track"><div class="bar-fill purple" style="width:9%"></div></div><span class="bar-value">~9%</span></div>
+    <div class="bar-row"><span class="bar-label">帝国品牌</span><div class="bar-track"><div class="bar-fill orange" style="width:3%"></div></div><span class="bar-value">&lt;3%</span></div>
+  </div>
+
+  <div class="highlight-box">
+    <h4>🔶 英美烟草（BAT）—— 双轨并行</h4>
+    <ul>
+      <li>Vuse（电子烟）全球排名前二</li>
+      <li>glo（HNB）日本/欧洲与 IQOS 竞争，份额老二</li>
+      <li>2024 年新型烟草收入占比 ~18-20%，目标 2030 年 50%</li>
+      <li>传统品牌：登喜路、Kent、好彩、骆驼</li>
+    </ul>
+  </div>
+
+  <div class="highlight-box">
+    <h4>🔵 日本烟草（JT）—— 以守为攻</h4>
+    <ul>
+      <li>日本 HNB 市场：Ploom Tech 落后 IQOS（IQOS 独占 70%+）</li>
+      <li>海外通过 Camel Snus 扩展尼古丁袋</li>
+      <li>2024 年新型烟草收入占比 ~8-10%</li>
+    </ul>
+  </div>
+
+  <div class="highlight-box">
+    <h4>⚪ 帝国品牌（IMB）—— 专注传统</h4>
+    <ul>
+      <li>新型烟草投入最保守</li>
+      <li>主要靠 zone/Backwoods 等传统品牌</li>
+      <li>股价长期疲软</li>
+    </ul>
+  </div>
+
+  <h3>💡 传统烟草核心策略</h3>
+  <ul>
+    <li><strong>提价策略</strong>：每年提价 3-5% 弥补销量下滑</li>
+    <li><strong>降本增效</strong>：关闭冗余产能，裁员优化</li>
+    <li><strong>向高利润市场倾斜</strong>：瑞士、北欧、新加坡等</li>
+  </ul>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SEC 3: 新型烟草 -->
+<!-- ════════════════════════════════════════ -->
+<div class="card" id="sec3">
+  <h2>🔥 三、新型烟草三强争霸</h2>
+
+  <!-- 3.1 HNB -->
+  <div id="sec3-1">
+    <h3>🔥 3.1 加热不燃烧（HNB）</h3>
+
+    <h4>📊 全球 HNB 市场规模（零售额，十亿美元）</h4>
+    <div class="bar-chart">
+      <div class="bar-row"><span class="bar-label">2015年</span><div class="bar-track"><div class="bar-fill orange" style="width:1%"></div></div><span class="bar-value">$0.5</span></div>
+      <div class="bar-row"><span class="bar-label">2020年</span><div class="bar-track"><div class="bar-fill orange" style="width:49%"></div></div><span class="bar-value">$22</span></div>
+      <div class="bar-row"><span class="bar-label">2025年(估)</span><div class="bar-track"><div class="bar-fill orange" style="width:100%"></div></div><span class="bar-value">$45</span></div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num">$400~450亿</div>
+        <div class="stat-desc">2025年HNB市场规模（估）</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">~75%</div>
+        <div class="stat-desc">IQOS全球HNB市场份额</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">~35%</div>
+        <div class="stat-desc">日本HNB渗透率（全球最高）</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">70+</div>
+        <div class="stat-desc">批准HNB合法销售的国家</div>
+      </div>
+    </div>
+
+    <p><strong>核心市场：</strong>日本（~35%）、韩国（~15%）、意大利、俄罗斯、波兰、德国等</p>
+    <p><strong>关键玩家：</strong>IQOS（PMI，75%份额）、glo（BAT）、Ploom Tech（JT）</p>
+    <p><strong>趋势：</strong>从「烟具+烟弹」模式转向专用烟弹锁定用户；第二代/第三代减害评估更优</p>
+  </div>
+
+  <div style="border-top:1px solid #333; margin: 18px 0;"></div>
+
+  <!-- 3.2 Vape -->
+  <div id="sec3-2">
+    <h3>💨 3.2 电子烟（Vape）</h3>
+
+    <h4>📊 全球电子烟市场规模（零售额，十亿美元）</h4>
+    <div class="bar-chart">
+      <div class="bar-row"><span class="bar-label">2015年</span><div class="bar-track"><div class="bar-fill blue" style="width:31%"></div></div><span class="bar-value">$10</span></div>
+      <div class="bar-row"><span class="bar-label">2020年</span><div class="bar-track"><div class="bar-fill blue" style="width:66%"></div></div><span class="bar-value">$21</span></div>
+      <div class="bar-row"><span class="bar-label">2025年(估)</span><div class="bar-track"><div class="bar-fill blue" style="width:100%"></div></div><span class="bar-value">$32</span></div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num">$280~320亿</div>
+        <div class="stat-desc">2025年电子烟市场规模</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">~40%</div>
+        <div class="stat-desc">美国市场份额</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">30%+</div>
+        <div class="stat-desc">Vuse 全球份额</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">$380亿→$10亿</div>
+        <div class="stat-desc">JUUL估值暴跌</div>
+      </div>
+    </div>
+
+    <p><strong>关键玩家：</strong>Vuse（BAT）全球第一~30%+、JUUL 美国跌至~25%、Elf Bar（中国）、Logic（JT）</p>
+    <p><strong>监管风暴：</strong>美国PMTA制度、调味禁令、英国拟禁一次性（2025）、中国2022新规、欧盟TPD收紧</p>
+    <p><strong>趋势：</strong>一次性电子烟从爆发到被打压（生命周期约3年）；换弹式/Pod系统回潮</p>
+  </div>
+
+  <div style="border-top:1px solid #333; margin: 18px 0;"></div>
+
+  <!-- 3.3 Nicotine Pouch -->
+  <div id="sec3-3">
+    <h3>🟢 3.3 尼古丁袋</h3>
+
+    <h4>📊 全球尼古丁袋市场规模（零售额，十亿美元）</h4>
+    <div class="bar-chart">
+      <div class="bar-row"><span class="bar-label">2019年</span><div class="bar-track"><div class="bar-fill green" style="width:10%"></div></div><span class="bar-value">$1.5</span></div>
+      <div class="bar-row"><span class="bar-label">2024年</span><div class="bar-track"><div class="bar-fill green" style="width:67%"></div></div><span class="bar-value">$10</span></div>
+      <div class="bar-row"><span class="bar-label">2025年(估)</span><div class="bar-track"><div class="bar-fill green" style="width:100%"></div></div><span class="bar-value">$15</span></div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <div class="stat-num">$120~150亿</div>
+        <div class="stat-desc">2025年市场规模（估）</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">30~50%</div>
+        <div class="stat-desc">年均增速</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">70%+</div>
+        <div class="stat-desc">ZYN 美国市占率</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">4亿罐</div>
+        <div class="stat-desc">ZYN 2023年美国销量</div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <h4>💡 为什么尼古丁袋爆发？</h4>
+      <ul>
+        <li>「最干净」的尼古丁消费方式：无烟、无味、无需加热或雾化</li>
+        <li>监管缝隙：很多国家尚未明确归类</li>
+        <li>社交友好：无二手烟、无蒸汽，办公室/社交场合可用</li>
+        <li>ZYN 美国常年缺货</li>
+      </ul>
+    </div>
+
+    <p><strong>风险：</strong>FDA 评估 ZYN 的 PMTA 申请（2025-2026）；多国制定专门法规</p>
+    <p><strong>玩家：</strong>ZYN（PMI 龙头）、Velo（BAT）、Nordic Spirit（JT）</p>
+  </div>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SEC 4: 监管政策 -->
+<!-- ════════════════════════════════════════ -->
+<div class="card" id="sec4">
+  <h2>⚖️ 四、监管政策演变</h2>
+
+  <h3>🌐 WHO FCTC 框架与 MPOWER</h3>
+  <ul>
+    <li>《烟草控制框架公约》（FCTC）2005 年生效，覆盖 182 个缔约国</li>
+    <li>MPOWER：监测、保护（禁烟）、戒烟帮助、图形警告、广告禁令、税收</li>
+    <li>2024 年 WHO 呼吁对新型烟草产品采取与卷烟同等严格的监管</li>
+  </ul>
+
+  <h3>🌍 各主要市场监管比较</h3>
+  <div class="table-wrap">
+    <table>
+      <tr><th>市场</th><th>HNB</th><th>电子烟</th><th>尼古丁袋</th><th>主要政策</th></tr>
+      <tr><td>🇺🇸 美国</td><td>✅ FDA批准</td><td>🔶 PMTA+调味禁令</td><td>⏳ 评估中</td><td>FDA 绝对管辖权</td></tr>
+      <tr><td>🇯🇵 日本</td><td>✅ 合法/渗透率最高</td><td>❌ 需医药获批</td><td>⬜ 法规空白</td><td>全球 HNB 最友好</td></tr>
+      <tr><td>🇪🇺 欧盟</td><td>✅ TPD框架</td><td>🔶 浓度受限</td><td>🔶 各国差异大</td><td>2024 修订 TPD 收紧</td></tr>
+      <tr><td>🇨🇳 中国</td><td>🔶 未对大众开放</td><td>❌ 专卖+口味禁</td><td>❌ 无合法市场</td><td>出口中心，内销受限</td></tr>
+      <tr><td>🇬🇧 英国</td><td>✅ 合法</td><td>🔶 发牌+拟禁一次性</td><td>✅ 合法</td><td>最突出的减害导向</td></tr>
+      <tr><td>🇦🇺 澳大利亚</td><td>❌ 非法</td><td>❌ 仅处方</td><td>❌ 非法</td><td>全球最严之一</td></tr>
+      <tr><td>🇹🇭 泰国</td><td>❌ 非法</td><td>❌ 全面禁售</td><td>❌ 非法</td><td>东南亚最严</td></tr>
+      <tr><td>🇰🇷 韩国</td><td>✅ 合法</td><td>✅ 合法</td><td>✅ 合法</td><td>亚洲仅次于日本</td></tr>
+    </table>
+  </div>
+
+  <h3>📌 趋势判断</h3>
+  <ul>
+    <li>2025-2030：全球监管整体趋严，但各国分化加剧</li>
+    <li>新型烟草「减害」叙事面临重新审视</li>
+    <li>税收成为关键武器：欧盟拟统一消费税</li>
+    <li>口味限制是全球性趋势，烟草味/薄荷味成唯一安全选择</li>
+  </ul>
+</div>
+
+<div class="divider">✦ ✦ ✦</div>
+
+<!-- ════════════════════════════════════════ -->
+<!-- SEC 5: 未来展望 -->
+<!-- ════════════════════════════════════════ -->
+<div class="card" id="sec5">
+  <h2>🔮 五、未来展望与关键变量</h2>
+
+  <h3>📅 短中期（2025-2028）</h3>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-year">1️⃣ PMI「无烟」愿景落地</div>
+      <div class="tl-impact">目标 2030 年无烟产品占比 50%+，ZYN + IQOS ILUMA 双引擎</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2️⃣ 尼古丁袋持续爆发</div>
+      <div class="tl-impact">增速最快；若 FDA 否决 ZYN 将重创整个品类</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">3️⃣ 电子烟进入存量博弈</div>
+      <div class="tl-impact">一次性退潮，换弹式+封闭式主导，品牌集中度提升</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">4️⃣ HNB 地缘分化</div>
+      <div class="tl-impact">俄罗斯市场波动，非洲/东南亚成新战场</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">5️⃣ 合成尼古丁监管漏洞被堵</div>
+      <div class="tl-impact">美国 2022 年已纳入 FDA 管辖</div>
+    </div>
+  </div>
+
+  <h3>🔭 长期（2028-2035）</h3>
+  <ul>
+    <li><strong>传统卷烟加速消亡</strong>：继新西兰「无烟一代」禁令后，更多国家跟进</li>
+    <li><strong>减害转型完成</strong>：预计 2035 年新型烟草占整体市场 30-40%</li>
+    <li><strong>健康叙事转向</strong>：尼古丁与危害分离，社会接受「低危害尼古丁消费」</li>
+    <li><strong>新兴市场红利</strong>：非洲、东南亚仍是传统烟草少数增长区域</li>
+    <li><strong>大麻素添加</strong>：尼古丁+THC/CBD 混合产品可能形成新品类</li>
+  </ul>
+
+  <h3>⚠️ 主要风险</h3>
+  <div class="highlight-box">
+    <ol>
+      <li><strong>监管极端化</strong>：WHO 推动全面禁止所有尼古丁产品（概率低但不可忽视）</li>
+      <li><strong>传统巨头惰性</strong>：BAT/JT/IMB 转型速度与 PMI 差距拉大，并购加速</li>
+      <li><strong>非法市场失控</strong>：调味禁令导致黑市产品泛滥（美国已有此现象）</li>
+      <li><strong>中国供应链变数</strong>：深圳电子烟产业集群是命脉</li>
+    </ol>
+  </div>
+
+  <h3>📈 2035 年新型烟草占比预测</h3>
+  <div class="bar-chart">
+    <div class="bar-row"><span class="bar-label">2025年(当前)</span><div class="bar-track"><div class="bar-fill teal" style="width:38%"></div></div><span class="bar-value">~15%</span></div>
+    <div class="bar-row"><span class="bar-label">2035年(预估)</span><div class="bar-track"><div class="bar-fill teal" style="width:100%"></div></div><span class="bar-value">30~40%</span></div>
+  </div>
+</div>
+
+<!-- ═══ Footer ═══ -->
+<div class="report-footer">
+  <p>📋 本报告基于公开行业数据、公司年报、WHO 报告整理，数据截至 2025 年中。</p>
+  <p>部分数据为合理估算，已标注（估）。</p>
+  <p style="margin-top:8px;">Generated · 全球烟草行业研究报告 2015-2025</p>
+</div>
+
+</body>
+</html>
