@@ -145,13 +145,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
   .tab{padding:10px 14px;font-size:13px}
   .hero h1{font-size:26px}
   .data-row{flex-direction:column;gap:8px}
+  .ds-grid{grid-template-columns:1fr}
   .profile-table{font-size:12px}
 }
 
 /* Data Sources Section */
 .data-sources-section{margin:36px 0 20px;background:linear-gradient(160deg,#1a1a28,#12121a);border:1px solid #2a2a3a;border-radius:18px;padding:24px}
 .ds-title{font-size:18px;font-weight:700;color:#eee;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.ds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.ds-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .ds-card{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:#0d0d12;border:1px solid #1e1e2a;border-radius:12px;transition:border-color .2s}
 .ds-card:hover{border-color:#3a3a5a}
 .ds-card .ds-icon{font-size:18px;flex-shrink:0;margin-top:1px}
@@ -181,8 +182,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
 .fb-down{background:#2a0a0a;color:#ff4444;border:1px solid #4a1a1a}
 .fb-text{color:#bbb;font-size:12px;flex:1;min-width:0}
 .fb-trend{font-size:11px;white-space:nowrap;color:#888}
-.fb-trend-up{color:#66dd88}
-.fb-trend-down{color:#ff6666}
+.fb-trend-up{color:#ff6666}
+.fb-trend-down{color:#66dd88}
 .fb-trend-flat{color:#888}
 .fb-trend-new{color:#88aaff}
 
@@ -1690,7 +1691,6 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
           <div class="pr-card pr-total"><div class="pr-platform">合计</div><div class="pr-amount">~¥1.5-3亿/月</div><div class="pr-source tag-est">📊估算</div></div>
         </div>
       </div>
-      </div>
       <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
@@ -1699,7 +1699,6 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
           <div class="pr-card"><div class="pr-platform">🏆 畅销榜</div><div class="pr-amount">游戏#3</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🕐 发布</div><div class="pr-amount">2024-08-06</div><div class="pr-source tag-qimai">✅七麦</div></div>
         </div>
-      </div>
       </div>
       <div class="platform-revenue full-width">
         <div class="pr-title">📊 Steam运营数据</div>
@@ -3955,6 +3954,7 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       </div>
     </div>
   </div>
+</div>
 
 </div>
 
@@ -4035,7 +4035,6 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
   <div class="page-btn" data-page="8" onclick="switchPage(8)">9</div>
   <div class="page-btn" data-page="9" onclick="switchPage(9)">10</div>
   <div class="page-btn" data-page="10" onclick="switchPage(10)">11</div>
-  <div class="page-btn" data-page="11" onclick="switchPage(11)">12</div>
   <div class="page-btn" data-page="12" onclick="switchPage(12)">13</div>
   <div class="page-btn nav" id="nextBtn" onclick="changePage(1)">▶</div>
   <div class="page-btn action-btn" onclick="switchTab(0)">🏠 首页</div>
@@ -4082,6 +4081,7 @@ function switchTab(index) {
     const btn = document.querySelector(`.page-btn[data-page="${pi}"]`);
     if (btn) btn.classList.remove('disabled');
   });
+  window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
 function switchPage(index) {
