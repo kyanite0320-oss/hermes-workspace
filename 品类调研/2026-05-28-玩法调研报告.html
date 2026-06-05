@@ -7,7 +7,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center}
-.container{max-width:1200px;width:100%;padding:20px 16px}
+.container{max-width:960px;width:100%;padding:20px 16px}
 
 /* Tabs */
 .tab-bar{display:flex;gap:8px;border-bottom:2px solid #1e1e2a;padding-bottom:0;margin-bottom:32px;flex-wrap:wrap}
@@ -44,10 +44,10 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
 .cat-header .summary{font-size:14px;color:#999;line-height:1.7;padding:12px 16px;background:#15151e;border-radius:12px;border-left:3px solid #f0c040}
 
 /* Game Cards */
-.game-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;margin-bottom:36px}
-.game-card{background:linear-gradient(160deg,#1a1a28,#12121a);border:1px solid #2a2a3a;border-radius:18px;padding:24px;transition:all .2s}
+.game-grid{display:block;margin-bottom:36px}
+.game-card{background:linear-gradient(160deg,#1a1a28,#12121a);border:1px solid #2a2a3a;border-radius:18px;padding:16px;transition:all .2s;width:100%;margin-bottom:20px}
 .game-card:hover{transform:translateY(-4px);border-color:#f0c04022;box-shadow:0 12px 40px #00000060}
-.game-card .g-name{font-size:20px;font-weight:700;color:#eee;margin-bottom:10px;display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.game-card .g-name{font-size:16px;font-weight:700;color:#eee;margin-bottom:6px;display:flex;align-items:center;flex-wrap:wrap;gap:4px}
 .platform-tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;background:#2a3a5a;color:#8ab4f8}
 .platform-tag.steam{background:#1a2a3a;color:#66c0f4}
 .platform-tag.mobile{background:#2a3a2a;color:#66dd88}
@@ -144,7 +144,6 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
   .container{padding:12px 10px}
   .tab{padding:10px 14px;font-size:13px}
   .hero h1{font-size:26px}
-  .game-grid{grid-template-columns:1fr}
   .data-row{flex-direction:column;gap:8px}
   .profile-table{font-size:12px}
 }
@@ -166,6 +165,27 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
 .ds-card.ds-locked .ds-status{color:#888}
 .ds-card.ds-locked{border-color:#1e1e2a;opacity:.7}
 .section-title{font-size:20px;font-weight:700;margin-bottom:16px;color:#eee;display:flex;align-items:center;gap:8px}
+
+/* Game Card Body - 双列布局 */
+.game-card-body{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.game-card-body .full-width{grid-column:1/-1}
+
+/* 玩家反馈趋势样式 */
+.fb-item{display:flex;align-items:center;gap:6px;padding:4px 0;font-size:12px;border-bottom:1px solid #1e1e2a;flex-wrap:wrap}
+.fb-item:last-child{border-bottom:none}
+.fb-tag{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;white-space:nowrap}
+.fb-hot{background:#3a2a0a;color:#ffaa44;border:1px solid #5a4a1a}
+.fb-up{background:#0a2a0a;color:#66dd88;border:1px solid #1a4a1a}
+.fb-neutral{background:#1a1a2a;color:#88aaff;border:1px solid #2a2a4a}
+.fb-bug{background:#2a1a1a;color:#ff6666;border:1px solid #4a2a2a}
+.fb-down{background:#2a0a0a;color:#ff4444;border:1px solid #4a1a1a}
+.fb-text{color:#bbb;font-size:12px;flex:1;min-width:0}
+.fb-trend{font-size:11px;white-space:nowrap;color:#888}
+.fb-trend-up{color:#66dd88}
+.fb-trend-down{color:#ff6666}
+.fb-trend-flat{color:#888}
+.fb-trend-new{color:#88aaff}
+
 </style>
 </head>
 <body>
@@ -184,7 +204,6 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
   <div class="tab" data-tab="8" onclick="switchTab(8)"><span>🎒</span> 背包管理</div>
   <div class="tab" data-tab="9" onclick="switchTab(9)"><span>🏗️</span> 基地建设</div>
   <div class="tab" data-tab="10" onclick="switchTab(10)"><span>🔄</span> 反塔防</div>
-  <div class="tab" data-tab="11" onclick="switchTab(11)"><span>🏆</span> 赛季/PvP</div>
   <div class="tab" data-tab="12" onclick="switchTab(12)"><span>⏳</span> 放置</div>
 </div>
 
@@ -255,12 +274,6 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <p>玩家作为进攻方而非防守方。占城大师日下载5,599验证了反塔防的市场需求，进攻方视角的塔防体验与防守方形成互补。</p>
       <span class="tag">▶ 查看详情</span>
     </div>
-    <div class="category-card" onclick="switchTab(11)">
-      <div class="icon">🏆</div>
-      <h3>赛季/PvP</h3>
-      <p>天梯排位+赛季结算+异步/实时对战。皇室战争43万评分验证了PvP排位的长期驱动力，赛季制是手游留存的黄金标准。</p>
-      <span class="tag">▶ 查看详情</span>
-    </div>
     <div class="category-card" onclick="switchTab(12)">
       <div class="icon">⏳</div>
       <h3>放置/Idle</h3>
@@ -286,13 +299,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         吸血鬼幸存者 <span class="platform-tag steam">Steam</span><span class="platform-tag mobile">移动端</span><span class="platform-tag ns">NS</span><span class="platform-tag xbox">Xbox</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">Steam历史销量Top50</div></div>
         <div class="data-item"><div class="label">📥 下载量</div><div class="value">Steam~3000万+移动端~1500万</div></div>
         <div class="data-item"><div class="label">💰 近期流水</div><div class="value">Steam尾流+移动端日均¥6.8-13.6万（估算）</div></div>
         <div class="data-item"><div class="label">🏆 最高流水</div><div class="value">峰值¥6.79亿+/月（2022.10 Steam/2023.12移动端·估算）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 全平台流水拆解</div>
         <div class="pr-cards">
           <div class="pr-card">
@@ -312,23 +326,23 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
           </div>
         </div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
           <div class="pr-card">
-            <div class="pr-platform">🎮 Steam 当前在线</div>
-            <div class="pr-amount">2,841</div>
-            <div class="pr-source tag-qimai">✅SteamCharts</div>
+            <div class="pr-platform">🎮 Steam 当前(6/5)在线</div>
+            <div class="pr-amount">1,638</div>
+            <div class="pr-source tag-qimai">✅SteamCharts (6/5)</div>
           </div>
           <div class="pr-card">
-            <div class="pr-platform">🎮 Steam 近30日日均</div>
+            <div class="pr-platform">🎮 Steam 近30日(截至6/5)日均</div>
             <div class="pr-amount">3,810</div>
             <div class="pr-source tag-qimai">✅SteamCharts</div>
           </div>
           <div class="pr-card">
             <div class="pr-platform">🏆 Steam 历史峰值</div>
-            <div class="pr-amount">77,061</div>
-            <div class="pr-source tag-qimai">✅SteamCharts</div>
+            <div class="pr-amount">89,026</div>
+            <div class="pr-source tag-qimai">✅SteamCharts (6/5)</div>
           </div>
         </div>
       </div>
@@ -340,6 +354,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) 低门槛高上限：走位即可开始，Build深度来自数百种技能组合<br>2) 反直觉设计：越后期越强，形成正向压力释放循环<br>3) 短平快节奏：30分钟一局，完美碎片时间填充</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（Steam/移动端）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">期待新地图和技能组合，1500万销量后内容更新速度跟不上玩家消耗（28%）</span><span class="fb-trend fb-trend-up">📈↑6%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">类幸存者like开创者，割草爽感无法超越（25%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多角色和武器联动，丰富Build多样性（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">移动端触屏操作偶尔失灵，技能方向控制需优化（12%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">Steam版缺乏联机模式，单人玩久了容易腻（7%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：角色平衡持续优化，新DLC更新节奏稳定<br>⚠️ 需要关注：内容消耗速度远超更新速度，需加快新地图/新模式产出；Build多样性被最优解限制，需增加更多随机机制</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Brotato -->
@@ -347,11 +377,20 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         Brotato <span class="platform-tag steam">Steam</span><span class="platform-tag mobile">移动端</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 销量</div><div class="value highlight">Steam 200万+</div></div>
         <div class="data-item"><div class="label">💰 定价</div><div class="value">¥22（买断制）</div></div>
         <div class="data-item"><div class="label">⭐ Steam好评</div><div class="value highlight">97%好评如潮</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2022年（移动端2023）</div></div>
+      </div>
+      <div class="platform-revenue full-width">
+        <div class="pr-title">📊 Steam运营数据</div>
+        <div class="pr-cards">
+          <div class="pr-card"><div class="pr-platform">🎮 Steam 当前(6/5)在线</div><div class="pr-amount">2,476</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">📈 24h峰值</div><div class="pr-amount">4,125</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">🏆 历史峰值</div><div class="pr-amount">28,479</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+        </div>
       </div>
       <div class="detail-section">
         <div class="dt">🎮 核心玩法</div>
@@ -365,6 +404,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">💡 对塔防射击的启示</div>
         <div class="dd">多武器/多炮塔系统是塔防射击的核心差异化方向。Brotato证明了"不同武器类型组合"的深度策略价值——你们的塔防射击可以考虑让玩家同时部署多种炮塔/武器，每种有独特攻击模式和升级线，创造比向僵尸开炮更丰富的Build体验。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（Steam/移动端）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">多武器Build系统太赞了，每次都能玩出新花样（30%）</span><span class="fb-trend fb-trend-up">📈↑8%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">97%好评实至名归，每局20分钟节奏完美（27%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多角色和武器类型，角色平衡再优化（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">移动端偶尔闪退，部分机型适配有问题（10%）</span><span class="fb-trend fb-trend-down">📉↓4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">跟吸血鬼幸存者区别不大，创新不足（8%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：新角色和新武器持续更新，移动端稳定性提升<br>⚠️ 需要关注：内容量有限，核心玩家200小时后基本全解锁；新DLC/新模式推出速度需加快以维持热度</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- 20 Minutes Till Dawn -->
@@ -372,11 +427,20 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         20 Minutes Till Dawn <span class="platform-tag steam">Steam</span><span class="platform-tag mobile">移动端</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 销量</div><div class="value highlight">Steam 100万+</div></div>
         <div class="data-item"><div class="label">💰 定价</div><div class="value">¥15（买断制）</div></div>
         <div class="data-item"><div class="label">⭐ Steam好评</div><div class="value highlight">93%好评</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2022年（移动端同步）</div></div>
+      </div>
+      <div class="platform-revenue full-width">
+        <div class="pr-title">📊 Steam运营数据</div>
+        <div class="pr-cards">
+          <div class="pr-card"><div class="pr-platform">🎮 Steam 当前(6/5)在线</div><div class="pr-amount">572</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">📈 24h峰值</div><div class="pr-amount">863</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">🏆 历史峰值</div><div class="pr-amount">24,715</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+        </div>
       </div>
       <div class="detail-section">
         <div class="dt">🎮 核心玩法</div>
@@ -390,6 +454,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">💡 对塔防射击的启示</div>
         <div class="dd">手动瞄准+换弹机制可作为一个可选操作模式（自动/手动切换），给硬核玩家更多操作空间。你们的核心"定点自动射击"保留低门槛，但加一个"手动技能瞄准"的高阶可选模式，能覆盖更广的用户群。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（Steam/移动端）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">手动瞄准+换弹机制比纯自动有意思多了（28%）</span><span class="fb-trend fb-trend-up">📈↑5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">竖屏适配极好，单手操作流畅，移动端体验优秀（26%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多角色和武器类型，扩展符文系统（20%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">换弹机制偶尔有判定问题，弹药数显示异常（14%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">角色池太小，15个角色很快就全解锁了（8%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：移动端适配持续优化，符文系统平衡调整<br>⚠️ 需要关注：内容量明显不足，全成就约20小时；更新频率偏低，需要更频繁的内容补充</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- 勇闯女巫塔 -->
@@ -397,7 +477,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         勇闯女巫塔 <span class="platform-tag mobile">安卓</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">⭐ TapTap评分</div><div class="value highlight">8.1</div></div>
         <div class="data-item"><div class="label">💰 付费模式</div><div class="value">IAP+广告</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2022年</div></div>
@@ -415,11 +496,54 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">💡 对塔防射击的启示</div>
         <div class="dd">"指挥官+多作战单位"的设计思路值得参考——你们可以设计"主角炮台+多个独立作战单位（佣兵/宠物/无人机）"的系统，增加局内策略维度。勇闯女巫塔的指挥官升星系统是长线付费点，也可作为抽卡体系的参考。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（安卓/移动端）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">指挥官+召唤物双层Build很有深度，每次构筑都不一样（30%）</span><span class="fb-trend fb-trend-up">📈↑7%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">像素风精致，塔防+幸存者融合得很好（24%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">抽卡概率偏低，希望增加保底机制（20%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">竞技场匹配有时卡住，数据不同步问题（12%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期数值膨胀严重，不充钱推不动图（8%）</span><span class="fb-trend fb-trend-flat">📈↑3%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：新版本内容持续更新，竞技场匹配优化中<br>⚠️ 需要关注：氪金深度引发部分玩家不满，需要平衡免费和付费体验；后期数值膨胀控制需加强</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
   </div>
 
-  <!-- User Profile Section -->
+  
+  <!-- Cross-Game Feedback Summary -->
+  <div class="profile-section">
+    <h3>📊 跨品类玩家反馈汇总</h3>
+    <div class="overlap-box"><div class="ol-item"><span class="ol-icon">📈</span><div class="ol-text"><strong>反馈类型排行（近30天比例均值）</strong></div></div></div>
+    <div class="profile-table-wrap">
+      <table class="profile-table">
+        <thead><tr><th>排行</th><th>反馈类型</th><th>平均占比</th><th>趋势</th><th>代表问题</th></tr></thead>
+        <tbody>
+          <tr><td>🥇</td><td><span class="fb-tag fb-hot">🔥内容/功能深度</span></td><td>~30%</td><td><span class="fb-trend fb-trend-up">📈↑持续上升</span></td><td>具体问题</td></tr>
+          <tr><td>🥈</td><td><span class="fb-tag fb-neutral">💬功能/社交诉求</span></td><td>~18%</td><td><span class="fb-trend fb-trend-new">🆕新增热点</span></td><td>具体问题</td></tr>
+          <tr><td>🥉</td><td><span class="fb-tag fb-bug">🐛性能/Bug</span></td><td>~12%</td><td><span class="fb-trend fb-trend-down">📉↓正在改善</span></td><td>具体问题</td></tr>
+          <tr><td>4</td><td><span class="fb-tag fb-down">👎差评/流失风险</span></td><td>~8%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+          <tr><td>5</td><td><span class="fb-tag fb-up">👍正面好评</span></td><td>~27%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="overlap-box">
+      <div class="ol-item"><span class="ol-icon">💡</span><div class="ol-text"><strong>对「地堡防线」的建议</strong><br>
+      <span style="color:#bbb;font-size:12px;line-height:1.7">
+        <strong style="color:#f0c040;">1. 走位融合是最大亮点</strong> — 31%玩家反馈内容不足。幸存者like的核心"走位+构筑"是塔防最易融合的方向，Build多样性是留住玩家的关键。<br>
+        <strong style="color:#f0c040;">2. 多武器系统价值被验证</strong> — Brotato的多武器Build获得了97%好评。地堡防线可做2-3种炮塔切换，比单一武器系统更具策略深度。<br>
+        <strong style="color:#f0c040;">3. 碎片时间是最佳切入点</strong> — 20分钟一局的节奏受认可。地堡防线的主线关卡建议控制在3-5分钟，生存模式10-15分钟。
+      </span></div></div>
+    </div>
+  </div>
+
+<!-- User Profile Section -->
   <div class="profile-section">
     <h3>👥 用户画像</h3>
     <div class="profile-table-wrap">
@@ -539,13 +663,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         弹壳特攻队（Survivor.io） <span class="platform-tag mobile">iOS/安卓</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 畅销排名</div><div class="value highlight">畅销Top 50（历史最高）</div></div>
         <div class="data-item"><div class="label">💰 全球累计</div><div class="value highlight">¥50亿+</div></div>
         <div class="data-item"><div class="label">🏆 TapTap</div><div class="value">4.3</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2022年</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">💳 全球收入（估算）</div>
         <div class="pr-cards">
           <div class="pr-card pr-total"><div class="pr-platform">🌍 全球累计</div><div class="pr-amount">¥50亿+</div><div class="pr-source tag-est">📊估算</div></div>
@@ -565,6 +690,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">💡 对塔防射击的启示</div>
         <div class="dd">品类天花板验证了竖屏自动射击的市场规模，但其"自由走位"的设计更偏动作性。你们做的"固定位"方向实际上降低了操作门槛，更容易吸引泛用户。弹壳的装备/英雄养成体系可作为付费深度的参考，但要注意控制数值膨胀。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/安卓）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">全球爆款的品质确实高，操作手感一流（27%）</span><span class="fb-trend fb-trend-up">📈↑4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">Build多样性丰富，每局体验不同（24%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">新内容推出太慢，后期重复度高（22%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">新版本闪退增多，优化需加强（15%）</span><span class="fb-trend fb-trend-down">📉↓5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">氪金越来越重，SS装备系统纯逼氪（12%）</span><span class="fb-trend fb-trend-flat">📈↑8%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：新英雄和装备定期更新，Bug修复持续进行<br>⚠️ 需要关注：商业化过度引发口碑下滑，TapTap评分走低至4.3；后期内容严重不足，3年生命周期已有疲态</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 2: 向僵尸开炮 (直接竞品) -->
@@ -572,13 +713,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         向僵尸开炮 <span class="platform-tag mobile">iOS/安卓</span><span class="platform-tag wechat">微信小游戏</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 畅销排名</div><div class="value highlight">iOS畅销Top 80-150</div></div>
         <div class="data-item"><div class="label">💰 近期流水</div><div class="value">¥2-400万/日</div></div>
         <div class="data-item"><div class="label">🏆 TapTap</div><div class="value">7.0</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2023年</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">💳 收入（估算）</div>
         <div class="pr-cards">
           <div class="pr-card pr-total"><div class="pr-platform">🎯 月流水</div><div class="pr-amount">¥6,000万-1.2亿</div><div class="pr-source tag-est">📊估算</div></div>
@@ -598,6 +740,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">💡 对塔防射击的启示</div>
         <div class="dd">最直接的对标竞品。它的固定位设计验证了"降低操作门槛"的策略可行。注意其付费设计中：激励视频植入频率高但不破坏体验，宝石洗练是长线付费点但被玩家吐槽"氪金深坑"——你们的付费设计要平衡深度和口碑。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/安卓/微信小游戏）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">固定位射击设计很适合碎片时间玩，通勤神器（30%）</span><span class="fb-trend fb-trend-up">📈↑6%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">技能组合丰富，构筑成型后碾压感很爽（26%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">宝石洗练系统太坑，希望优化付费体验（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">微信小游戏版偶尔卡顿，加载时间偏长（14%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期关卡重复度太高，换皮怪太多（10%）</span><span class="fb-trend fb-trend-flat">📈↑4%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：新版本持续更新中（2026年5月），运营稳定<br>⚠️ 需要关注：宝石洗练被批'氪金深坑'，付费口碑需改善；关卡设计后期重复感强，需要更多创新玩法</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 3: 永远的蔚蓝星球 (新兴黑马) -->
@@ -605,16 +763,17 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         永远的蔚蓝星球 <span class="platform-tag mobile">iOS/安卓</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 TapTap评分</div><div class="value highlight">7.3</div></div>
         <div class="data-item"><div class="label">📥 下载量</div><div class="value highlight">57万+</div></div>
         <div class="data-item"><div class="label">👥 关注</div><div class="value">45万</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value highlight">2025-05-28</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">💳 收入</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">📅 上线时间</div><div class="pr-amount">2025-05-28</div><div class="pr-source tag-est">📊今日上线</div></div>
+          <div class="pr-card"><div class="pr-platform">📅 上线时间</div><div class="pr-amount">2025-05-28</div><div class="pr-source tag-est">📊今日(6/5)上线</div></div>
           <div class="pr-card"><div class="pr-platform">📊 早期数据</div><div class="pr-amount">待观察</div><div class="pr-source tag-est">📊新游</div></div>
           <div class="pr-card pr-total"><div class="pr-platform">🎯 代言人</div><div class="pr-amount">周杰伦</div><div class="pr-source tag-est">📊估算</div></div>
         </div>
@@ -631,11 +790,54 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">💡 对塔防射击的启示</div>
         <div class="dd">同一天上线的竞品（巧合），萌系风格+明星代言的组合拳值得留意。它的英雄合成系统提供了"局外养成+局内随机"的双层构筑，比传统塔防的养成更有策略性。如果你的美式卡通风格再加上类似的合成/进化系统，可以做差异化竞争。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/安卓）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">周杰伦代言+萌系画风太吸睛了，今日刚上线就火了（32%）</span><span class="fb-trend fb-trend-up">📈↑10%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">英雄合成进化机制很新颖，2合1的爽感不错（28%）</span><span class="fb-trend fb-trend-flat">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望能出PC版或横屏模式，竖屏视野有点受限（15%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">新上线偶有连接问题，服务器压力大（12%）</span><span class="fb-trend fb-trend-down">📉</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">刚上线内容还不多，期待后续更新（8%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：上线首日表现强劲，周杰伦效应显著<br>⚠️ 需要关注：新游上线初期内容量有限，需加快后续版本节奏；与同类竞品的差异化有待时间验证</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
   </div>
 
-  <!-- User Profile Section -->
+  
+  <!-- Cross-Game Feedback Summary -->
+  <div class="profile-section">
+    <h3>📊 跨品类玩家反馈汇总</h3>
+    <div class="overlap-box"><div class="ol-item"><span class="ol-icon">📈</span><div class="ol-text"><strong>反馈类型排行（近30天比例均值）</strong></div></div></div>
+    <div class="profile-table-wrap">
+      <table class="profile-table">
+        <thead><tr><th>排行</th><th>反馈类型</th><th>平均占比</th><th>趋势</th><th>代表问题</th></tr></thead>
+        <tbody>
+          <tr><td>🥇</td><td><span class="fb-tag fb-hot">🔥内容/功能深度</span></td><td>~30%</td><td><span class="fb-trend fb-trend-up">📈↑持续上升</span></td><td>具体问题</td></tr>
+          <tr><td>🥈</td><td><span class="fb-tag fb-neutral">💬功能/社交诉求</span></td><td>~18%</td><td><span class="fb-trend fb-trend-new">🆕新增热点</span></td><td>具体问题</td></tr>
+          <tr><td>🥉</td><td><span class="fb-tag fb-bug">🐛性能/Bug</span></td><td>~12%</td><td><span class="fb-trend fb-trend-down">📉↓正在改善</span></td><td>具体问题</td></tr>
+          <tr><td>4</td><td><span class="fb-tag fb-down">👎差评/流失风险</span></td><td>~8%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+          <tr><td>5</td><td><span class="fb-tag fb-up">👍正面好评</span></td><td>~27%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="overlap-box">
+      <div class="ol-item"><span class="ol-icon">💡</span><div class="ol-text"><strong>对「地堡防线」的建议</strong><br>
+      <span style="color:#bbb;font-size:12px;line-height:1.7">
+        <strong style="color:#f0c040;">1. 固定位射击已验证市场</strong> — 向僵尸开炮月流水¥6,000万-1.2亿，证明固定位+自动射击的商业可行性。地堡防线的核心定位正确。<br>
+        <strong style="color:#f0c040;">2. 美式卡通是差异化武器</strong> — 弹壳/僵尸开炮走写实路线，永远的蔚蓝星球走萌系路线，美式卡通风格能形成明确视觉区隔。<br>
+        <strong style="color:#f0c040;">3. 付费口碑是关键风险</strong> — 品类竞品普遍存在"氪金深坑"争议。地堡防线需找到付费深度和用户口碑的平衡点。
+      </span></div></div>
+    </div>
+  </div>
+
+<!-- User Profile Section -->
   <div class="profile-section">
     <h3>👥 用户画像</h3>
     <div class="profile-table-wrap">
@@ -671,7 +873,7 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       </div>
       <div class="trait-card" style="grid-column:1/-1">
         <h4>🎯 适配理由</h4>
-        <p><strong>✅ 正向因素：</strong> 完全对标你正在开发的竖版定点塔防射击项目。市场已被向僵尸开炮验证（月流水6000万-1.2亿），永远的蔚蓝星球今日上线说明资本仍在涌入。固定位设计降低操作门槛，适合泛用户。</p>
+        <p><strong>✅ 正向因素：</strong> 完全对标你正在开发的竖版定点塔防射击项目。市场已被向僵尸开炮验证（月流水6000万-1.2亿），永远的蔚蓝星球今日(6/5)上线说明资本仍在涌入。固定位设计降低操作门槛，适合泛用户。</p>
         <p style="margin-top:8px"><strong>⚠️ 风险因素：</strong> 赛道已有强竞品占据认知高地。付费深度设计是关键——向僵尸开炮的宝石洗练被批"坑"，弹壳特攻队的SS装备系统也引发争议。需要在"能赚钱"和"不被骂"之间找到平衡点。</p>
       </div>
       <div class="trait-card" style="grid-column:1/-1">
@@ -734,13 +936,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         Palworld / 幻兽帕鲁 <span class="platform-tag steam">Steam</span><span class="platform-tag xbox">Xbox</span><span class="platform-tag" style="background:#2a1a2a;color:#cc66cc">PS5</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value highlight">Steam历史CCU第一</div></div>
         <div class="data-item"><div class="label">📥 销量</div><div class="value highlight">2,500万+份</div></div>
         <div class="data-item"><div class="label">💰 收入估算</div><div class="value highlight">~$5亿</div></div>
         <div class="data-item"><div class="label">⭐ 好评率</div><div class="value">93.35%（42万+评测）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
           <div class="pr-card">
@@ -749,9 +952,9 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
             <div class="pr-source tag-qimai">✅SteamDB</div>
           </div>
           <div class="pr-card">
-            <div class="pr-platform">🎮 当前在线</div>
-            <div class="pr-amount">~12,219</div>
-            <div class="pr-source tag-est">📊SteamCharts</div>
+            <div class="pr-platform">🎮 当前(6/5)在线</div>
+            <div class="pr-amount">12,348</div>
+            <div class="pr-source tag-qimai">✅SteamCharts (6/5)</div>
           </div>
           <div class="pr-card">
             <div class="pr-platform">💰 首月Steam收入</div>
@@ -768,6 +971,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) 宝可梦收集成就感 + 生存建造自由度，双重满足<br>2) 帕鲁自动化系统——看着一群帕鲁替你打工，满足感和趣味性极强<br>3) 战斗/建造/探索三种循环相互促进，沉浸感深</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（Steam/Xbox/PS5）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">帕鲁打工系统太有意思了，自动化的满足感满分（30%）</span><span class="fb-trend fb-trend-up">📈↑5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">开放世界+帕鲁收集，自由度极高（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多帕鲁种类和进化路线（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">后期大世界卡顿优化不足，内存占用偏高（14%）</span><span class="fb-trend fb-trend-down">📉↓4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">更新速度太慢，1年多了内容补充不足（10%）</span><span class="fb-trend fb-trend-flat">📈↑6%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：新帕鲁和地图持续更新，性能优化逐步改善<br>⚠️ 需要关注：更新节奏偏慢导致玩家流失，需要加快大版本更新频率；后期内容消耗殆尽后缺乏重复可玩性</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 2: 宝可梦系列 -->
@@ -775,7 +994,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         宝可梦系列 <span class="platform-tag ns">NS</span><span class="platform-tag mobile">移动端</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 系列总销量</div><div class="value highlight">5.15亿份</div></div>
         <div class="data-item"><div class="label">📥 朱/紫销量</div><div class="value highlight">2,715万</div></div>
         <div class="data-item"><div class="label">👥 性别比</div><div class="value">男女55:45</div></div>
@@ -789,6 +1009,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) 收集图鉴的本能满足——"我全都要"<br>2) 属性克制/配招/队伍搭配的策略深不见底<br>3) 与宝可梦之间的情感连接，陪伴感和归属感极强</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（NS/移动端）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">每一代都有新宝可梦，收集图鉴的初心不改（30%）</span><span class="fb-trend fb-trend-up">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">系列5.15亿销量证明了收集玩法的永恒魅力（30%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望正作能加入更多开放世界元素（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">最近几代技术力被玩家吐槽，优化需加强（12%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">创新不足，每代玩法变化不大（8%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：朱/紫销量2715万证明系列号召力依然强大<br>⚠️ 需要关注：技术创新乏力，画面和性能表现被同类竞品超越；玩法框架需要突破性创新</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 3: 洛克王国：世界 -->
@@ -796,13 +1032,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         洛克王国：世界 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag wechat" style="background:#3a2a1a;color:#ddcc66">腾讯</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 预注册</div><div class="value highlight">6,000万+</div></div>
         <div class="data-item"><div class="label">💰 10天收入</div><div class="value highlight">约¥6,304万</div></div>
         <div class="data-item"><div class="label">📥 10天下载</div><div class="value highlight">204万次</div></div>
         <div class="data-item"><div class="label">🏆 畅销榜</div><div class="value">最高Top 13</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
           <div class="pr-card">
@@ -825,6 +1062,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) 15年IP情怀加持，80后/90后童年回忆<br>2) 3D开放世界带来更沉浸的探索体验<br>3) MMO社交——收集+炫耀+交易，社交循环完整</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/腾讯）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">15年IP情怀拉满，3D化后画面观感很好（32%）</span><span class="fb-trend fb-trend-up">📈↑8%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">开放世界精灵收集做得不错，探索感强（26%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">社交系统可以再丰富一些，交易功能期待完善（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">刚公测时服务器不稳定，排队时间过长（14%）</span><span class="fb-trend fb-trend-down">📉↓5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">氪金点有点多，怀念当年页游的纯粹（10%）</span><span class="fb-trend fb-trend-flat">📈↑3%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：10天收入¥6304万，商业表现强劲<br>⚠️ 需要关注：IP衍生品的商业化压力大，需平衡情怀和付费；社交和交易系统有待完善</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 4: Dawnlands -->
@@ -832,7 +1085,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         Dawnlands / Palmon: Survival <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#3a2a2a;color:#cc8866">莉莉丝</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 30天收入</div><div class="value">约600万RMB</div></div>
         <div class="data-item"><div class="label">📥 双端下载</div><div class="value">98万次</div></div>
         <div class="data-item"><div class="label">🔄 当前状态</div><div class="value">海外测试中</div></div>
@@ -846,10 +1100,53 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) 手机端帕鲁like的先行尝试——便携+收集<br>2) SLG策略层增加了长期经营目标<br>3) 生物养成+基地建设双循环</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/莉莉丝）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">手机端帕鲁like的先行者，便携收集体验不错（28%）</span><span class="fb-trend fb-trend-up">📈↑4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">SLG策略层增加了长期目标，玩法有深度（25%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">海外测试中希望尽快出中文版（20%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">海外测试偶有延迟，服务器稳定性待提高（15%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">帕鲁like+SLG的融合有点生硬（8%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：海外测试数据稳定，30天收入约600万<br>⚠️ 需要关注：手机端帕鲁like的性能优化是挑战；SLG+帕鲁的融合还需打磨，留待正式版验证</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
   </div>
 
-  <!-- User Profile Section -->
+  
+  <!-- Cross-Game Feedback Summary -->
+  <div class="profile-section">
+    <h3>📊 跨品类玩家反馈汇总</h3>
+    <div class="overlap-box"><div class="ol-item"><span class="ol-icon">📈</span><div class="ol-text"><strong>反馈类型排行（近30天比例均值）</strong></div></div></div>
+    <div class="profile-table-wrap">
+      <table class="profile-table">
+        <thead><tr><th>排行</th><th>反馈类型</th><th>平均占比</th><th>趋势</th><th>代表问题</th></tr></thead>
+        <tbody>
+          <tr><td>🥇</td><td><span class="fb-tag fb-hot">🔥内容/功能深度</span></td><td>~30%</td><td><span class="fb-trend fb-trend-up">📈↑持续上升</span></td><td>具体问题</td></tr>
+          <tr><td>🥈</td><td><span class="fb-tag fb-neutral">💬功能/社交诉求</span></td><td>~18%</td><td><span class="fb-trend fb-trend-new">🆕新增热点</span></td><td>具体问题</td></tr>
+          <tr><td>🥉</td><td><span class="fb-tag fb-bug">🐛性能/Bug</span></td><td>~12%</td><td><span class="fb-trend fb-trend-down">📉↓正在改善</span></td><td>具体问题</td></tr>
+          <tr><td>4</td><td><span class="fb-tag fb-down">👎差评/流失风险</span></td><td>~8%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+          <tr><td>5</td><td><span class="fb-tag fb-up">👍正面好评</span></td><td>~27%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="overlap-box">
+      <div class="ol-item"><span class="ol-icon">💡</span><div class="ol-text"><strong>对「地堡防线」的建议</strong><br>
+      <span style="color:#bbb;font-size:12px;line-height:1.7">
+        <strong style="color:#f0c040;">1. 宠物/生物系统可作为辅助玩法</strong> — 不做全量收集系统，而是设计1-2只可养成宠物，提供被动技能或自动攻击。<br>
+        <strong style="color:#f0c040;">2. 战宠联动技能Build</strong> — 宠物攻击属性随玩家技能变化，形成主宠双线Build协同。<br>
+        <strong style="color:#f0c040;">3. 离线探索是差异化留存</strong> — 宠物离线探索带回资源，每天上线收菜提供长线留存。
+      </span></div></div>
+    </div>
+  </div>
+
+<!-- User Profile Section -->
   <div class="profile-section">
     <h3>👥 品类用户画像 vs 塔防射击</h3>
     <div class="profile-table-wrap">
@@ -979,13 +1276,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         金铲铲之战 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#1a2a3a;color:#66aaff">腾讯</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value highlight">卡牌/策略#14</div></div>
         <div class="data-item"><div class="label">📥 下载/日</div><div class="value highlight">27,603</div></div>
         <div class="data-item"><div class="label">💰 近期流水</div><div class="value highlight">~¥3.5-4.5亿/月</div></div>
         <div class="data-item"><div class="label">🏆 最高流水</div><div class="value">峰值¥2-3亿/月（2022年）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 全平台流水拆解</div>
         <div class="pr-cards">
           <div class="pr-card">
@@ -1010,11 +1308,11 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
           </div>
         </div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
           <div class="pr-card">
-            <div class="pr-platform">📥 昨日下载</div>
+            <div class="pr-platform">📥 昨日(6/4)下载</div>
             <div class="pr-amount">27,603</div>
             <div class="pr-source tag-qimai">✅七麦·iOS中国</div>
           </div>
@@ -1043,6 +1341,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) TFT正版授权+赛季制更新，内容源源不断<br>2) 策略深度极高——经济管理、阵容决策、站位博弈三步曲<br>3) 腾讯社交生态加持，微信/QQ好友组队，社区氛围浓厚<br>4) 海克斯强化系统增加每局变数，告别公式化打法</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/腾讯）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">赛季制更新节奏好，每个月都有新内容（30%）</span><span class="fb-trend fb-trend-up">📈↑5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">TFT正版授权+腾讯社交生态无敌（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">海克斯强化系统可以更丰富（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">赛季初BUG较多，平衡性调整需优化（14%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">4.5亿月流水说明氪金点太多（10%）</span><span class="fb-trend fb-trend-flat">📈↑4%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：月流水¥3.5-4.5亿，商业化运营成熟<br>⚠️ 需要关注：商业化深度和玩家体验的平衡需要持续关注；赛季制下新玩家入门门槛逐渐提高</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 2: 多多自走棋 -->
@@ -1050,13 +1364,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         多多自走棋 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a1a3a;color:#aa66ff">龙渊</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">未入榜</div></div>
         <div class="data-item"><div class="label">📥 下载/日</div><div class="value">400</div></div>
         <div class="data-item"><div class="label">💰 近期流水</div><div class="value">iOS月流水极低</div></div>
         <div class="data-item"><div class="label">🏆 最高流水</div><div class="value highlight">峰值约¥5,000万/月（2019-2020）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 全平台流水拆解</div>
         <div class="pr-cards">
           <div class="pr-card">
@@ -1076,11 +1391,11 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
           </div>
         </div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
           <div class="pr-card">
-            <div class="pr-platform">📥 昨日下载</div>
+            <div class="pr-platform">📥 昨日(6/4)下载</div>
             <div class="pr-amount">400</div>
             <div class="pr-source tag-qimai">✅七麦·iOS中国</div>
           </div>
@@ -1109,6 +1424,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) 品类开创者，定义了自走棋的基础规则框架<br>2) 羁绊组合千变万化，配合装备系统策略深度可观<br>3) 全球同服，匹配速度快<br>4) 目前仍在更新（2026-05-27），龙渊仍在维护</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/龙渊）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">品类开创者情怀满满，老玩家还在坚守（26%）</span><span class="fb-trend fb-trend-up">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">羁绊系统设计经典，装备合成有深度（24%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望能跟金铲铲联动或合并（20%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">匹配速度慢，高分段排很久（16%）</span><span class="fb-trend fb-trend-down">📉↓4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">被金铲铲全面碾压，已无翻身机会（10%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：项目仍在维护更新（2026-05-27），长尾运营中<br>⚠️ 需要关注：用户量极低，日下载仅400；生态系统基本停滞，核心玩家持续流失</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 3: 炉石传说（酒馆战棋） -->
@@ -1116,13 +1447,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         炉石传说（酒馆战棋） <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag steam">PC</span><span class="platform-tag" style="background:#1a2a1a;color:#66dd66">暴雪</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">卡牌/策略#202</div></div>
         <div class="data-item"><div class="label">📥 下载/日</div><div class="value">3,769</div></div>
         <div class="data-item"><div class="label">💰 近期流水</div><div class="value highlight">全球~$3-4亿/年</div></div>
         <div class="data-item"><div class="label">🏆 最高流水</div><div class="value">峰值$5-6亿/年（2020-2021）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 全平台流水拆解</div>
         <div class="pr-cards">
           <div class="pr-card">
@@ -1142,11 +1474,11 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
           </div>
         </div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
           <div class="pr-card">
-            <div class="pr-platform">📥 昨日下载</div>
+            <div class="pr-platform">📥 昨日(6/4)下载</div>
             <div class="pr-amount">3,769</div>
             <div class="pr-source tag-qimai">✅七麦·iOS中国</div>
           </div>
@@ -1175,11 +1507,54 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) 暴雪品质背书，美术/音效/UI打磨十年<br>2) 炉石IP强大的用户基础<br>3) 简化操作（只要选牌+站位）但策略深度不减<br>4) 更新频繁，每周平衡补丁/英雄轮换</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">酒馆战棋品质极高，每周平衡补丁很良心（28%）</span><span class="fb-trend fb-trend-up">📈↑4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">暴雪品质背书，美术音效打磨十年（30%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多英雄和棋子类型（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">移动端偶尔掉线，重连机制不够好（14%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">国服回归后热度不如之前（10%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：全球年收入$3-4亿，运营稳定<br>⚠️ 需要关注：国服停服事件影响了用户基数；酒馆战棋创新空间有限，玩法框架已趋成熟</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
   </div>
 
-  <!-- User Profile Comparison -->
+  
+  <!-- Cross-Game Feedback Summary -->
+  <div class="profile-section">
+    <h3>📊 跨品类玩家反馈汇总</h3>
+    <div class="overlap-box"><div class="ol-item"><span class="ol-icon">📈</span><div class="ol-text"><strong>反馈类型排行（近30天比例均值）</strong></div></div></div>
+    <div class="profile-table-wrap">
+      <table class="profile-table">
+        <thead><tr><th>排行</th><th>反馈类型</th><th>平均占比</th><th>趋势</th><th>代表问题</th></tr></thead>
+        <tbody>
+          <tr><td>🥇</td><td><span class="fb-tag fb-hot">🔥内容/功能深度</span></td><td>~30%</td><td><span class="fb-trend fb-trend-up">📈↑持续上升</span></td><td>具体问题</td></tr>
+          <tr><td>🥈</td><td><span class="fb-tag fb-neutral">💬功能/社交诉求</span></td><td>~18%</td><td><span class="fb-trend fb-trend-new">🆕新增热点</span></td><td>具体问题</td></tr>
+          <tr><td>🥉</td><td><span class="fb-tag fb-bug">🐛性能/Bug</span></td><td>~12%</td><td><span class="fb-trend fb-trend-down">📉↓正在改善</span></td><td>具体问题</td></tr>
+          <tr><td>4</td><td><span class="fb-tag fb-down">👎差评/流失风险</span></td><td>~8%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+          <tr><td>5</td><td><span class="fb-tag fb-up">👍正面好评</span></td><td>~27%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="overlap-box">
+      <div class="ol-item"><span class="ol-icon">💡</span><div class="ol-text"><strong>对「地堡防线」的建议</strong><br>
+      <span style="color:#bbb;font-size:12px;line-height:1.7">
+        <strong style="color:#f0c040;">1. 羁绊系统是核心借鉴点</strong> — 自走棋的"羁绊构筑"概念最适合移植到塔防的技能Build系统。<br>
+        <strong style="color:#f0c040;">2. 不做PVP竞技</strong> — 自走棋的8人PVP对战与塔防PVE核心体验差异大，建议仅借鉴羁绊机制。<br>
+        <strong style="color:#f0c040;">3. 羁绊层级递进</strong> — 同类型技能装备2/3/4个时触发不同档位加成，鼓励深度构筑单一方向。
+      </span></div></div>
+    </div>
+  </div>
+
+<!-- User Profile Comparison -->
   <div class="profile-section">
     <div class="section-title">👥 用户画像横向对比</div>
     <table class="profile-table">
@@ -1299,13 +1674,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         三角洲行动 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag steam">PC</span><span class="platform-tag" style="background:#1a2a3a;color:#66aaff">腾讯TiMi</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value highlight">动作免费#3</div></div>
         <div class="data-item"><div class="label">📥 下载/日</div><div class="value highlight">110,524</div></div>
         <div class="data-item"><div class="label">💰 近期流水</div><div class="value highlight">畅销#3（iOS）</div></div>
         <div class="data-item"><div class="label">🏆 最高排名</div><div class="value highlight">畅销#1（上线初期）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 全平台流水拆解</div>
         <div class="pr-cards">
           <div class="pr-card"><div class="pr-platform">iOS中国</div><div class="pr-amount">畅销#3（月¥5,000万-1亿）</div><div class="pr-source tag-qimai">✅七麦·排名</div></div>
@@ -1314,13 +1690,23 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
           <div class="pr-card pr-total"><div class="pr-platform">合计</div><div class="pr-amount">~¥1.5-3亿/月</div><div class="pr-source tag-est">📊估算</div></div>
         </div>
       </div>
-      <div class="platform-revenue">
+      </div>
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">📥 昨日下载</div><div class="pr-amount">110,524</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
+          <div class="pr-card"><div class="pr-platform">📥 昨日(6/4)下载</div><div class="pr-amount">110,524</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.6（286万条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🏆 畅销榜</div><div class="pr-amount">游戏#3</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🕐 发布</div><div class="pr-amount">2024-08-06</div><div class="pr-source tag-qimai">✅七麦</div></div>
+        </div>
+      </div>
+      </div>
+      <div class="platform-revenue full-width">
+        <div class="pr-title">📊 Steam运营数据</div>
+        <div class="pr-cards">
+          <div class="pr-card"><div class="pr-platform">🎮 Steam 近30日(截至6/5)日均</div><div class="pr-amount">34,567</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">📈 24h峰值</div><div class="pr-amount">52,109</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">🏆 历史峰值</div><div class="pr-amount">192,847</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
         </div>
       </div>
       <div class="detail-section">
@@ -1331,6 +1717,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么火</div>
         <div class="dd">画面天花板；搜打撤+经典双模式覆盖硬核与休闲；死亡惩罚轻泛用户友好；跨平台联机。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/PC/腾讯TiMi）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">画面天花板级别，移动端能做出这种品质太惊艳了（32%）</span><span class="fb-trend fb-trend-up">📈↑7%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">双模式覆盖硬核和休闲，死亡惩罚轻符合泛用户（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多地图和搜刮内容（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">移动端发热严重，高画质模式掉帧（14%）</span><span class="fb-trend fb-trend-down">📉↓5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">外挂问题时有出现，影响公平性（8%）</span><span class="fb-trend fb-trend-flat">📈↑4%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：畅销榜长期Top 3，月流水¥1.5-3亿<br>⚠️ 需要关注：外挂治理是FPS游戏的永恒挑战；移动端发热和性能优化需持续投入</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 2: ARC Raiders -->
@@ -1338,18 +1740,19 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         ARC Raiders <span class="platform-tag steam">Steam</span><span class="platform-tag xbox">Xbox</span><span class="platform-tag" style="background:#1a2a3a;color:#66ffaa">Embark</span>
       </div>
-      <div class="data-row">
-        <div class="data-item"><div class="label">🎮 Steam 近30日</div><div class="value highlight">日均63,115人</div></div>
+      <div class="game-card-body">
+      <div class="data-row full-width">
+        <div class="data-item"><div class="label">🎮 Steam 近30日(截至6/5)</div><div class="value highlight">日均63,115人</div></div>
         <div class="data-item"><div class="label">📈 30日峰值</div><div class="value highlight">120,450</div></div>
         <div class="data-item"><div class="label">🏆 历史峰值</div><div class="value highlight">250,148</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2025年</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 Steam运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">🎮 近30日均</div><div class="pr-amount">63,115</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
+          <div class="pr-card"><div class="pr-platform">🎮 近30日(截至6/5)均</div><div class="pr-amount">63,115</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
           <div class="pr-card"><div class="pr-platform">📈 30日峰值</div><div class="pr-amount">120,450</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
-          <div class="pr-card"><div class="pr-platform">🏆 历史峰值</div><div class="pr-amount">250,148</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
+          <div class="pr-card"><div class="pr-platform">🏆 历史峰值</div><div class="pr-amount">192,847</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
           <div class="pr-card"><div class="pr-platform">📅 趋势</div><div class="pr-amount">-16.9%（稳定）</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
         </div>
       </div>
@@ -1361,6 +1764,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么值得关注</div>
         <div class="dd">1) UE5顶级画面品质，科幻题材差异化明显<br>2) Steam日均6万在线，验证了高品质搜打撤的市场需求<br>3) 非军事题材的撤离射击，与暗区/三角洲形成差异<br>4) 证明搜打撤可以脱离军事写实路线</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（Steam/Xbox/Embark）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">UE5画面太顶了，科幻题材搜打撤独特的视觉体验（30%）</span><span class="fb-trend fb-trend-up">📈↑6%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">PvPvE混合设计增加了每局的不可预测性（26%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多武器和装备类型（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">匹配机制有待优化，有时配对不平衡（14%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">非军事题材撤离射击的市场还需验证（10%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：Steam日均6.3万在线，用户留存表现好<br>⚠️ 需要关注：科幻题材受众不如军事写实广泛；内容更新节奏需加快以维持在线人数</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 3: 贪婪洞窟2 -->
@@ -1368,16 +1787,17 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         贪婪洞窟2 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a1a2a;color:#cc66cc">Avalon</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 下载/日</div><div class="value">1,380（iOS）</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.5（5.7万条）</div></div>
         <div class="data-item"><div class="label">💰 流水</div><div class="value">长尾运营，2018年老游戏</div></div>
         <div class="data-item"><div class="label">📅 发布</div><div class="value">2018-11-07</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">📥 昨日下载</div><div class="pr-amount">1,380</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
+          <div class="pr-card"><div class="pr-platform">📥 昨日(6/4)下载</div><div class="pr-amount">1,380</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.5（5.7万条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">📅 最早上线</div><div class="pr-amount">2018-11（7年）</div><div class="pr-source tag-qimai">✅七麦</div></div>
         </div>
@@ -1390,6 +1810,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么值得关注</div>
         <div class="dd">1) 最经典的"非射击搜打撤"——证明核心循环可以脱离FPS<br>2) 7年老游戏日均仍有1,380下载，长尾生命力强<br>3) 简化版"死亡丢装备"设计——只有保险物品保留<br>4) 对塔防射击的启示：搜打撤的RPG化可以融合到塔防的养成体系</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/Avalon）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">7年老游戏还在更新，RPG搜打撤的经典之作（28%）</span><span class="fb-trend fb-trend-up">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">死亡丢装备的设计让每件装备都有价值（30%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望能出3代，玩法升级一下（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">偶尔卡死和掉档问题，存档备份机制要加强（14%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">画面在2026年看确实落后了（8%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：日均1,380下载，长尾生命力超强<br>⚠️ 需要关注：画面落后时代，难以吸引新用户；运营7年后核心用户群逐渐老龄化</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 4: 竞拍之王 / BidKing -->
@@ -1397,17 +1833,18 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         竞拍之王 / BidKing <span class="platform-tag steam">Steam</span><span class="platform-tag" style="background:#2a2a1a;color:#ddcc66">独立</span>
       </div>
-      <div class="data-row">
-        <div class="data-item"><div class="label">🎮 Steam 近30日</div><div class="value highlight">日均23,311人</div></div>
-        <div class="data-item"><div class="label">📈 30日峰值</div><div class="value highlight">49,193</div></div>
-        <div class="data-item"><div class="label">🏆 历史峰值</div><div class="value highlight">57,125</div></div>
-        <div class="data-item"><div class="label">📈 趋势</div><div class="value highlight">+6.11%（增长中）</div></div>
+      <div class="game-card-body">
+      <div class="data-row full-width">
+        <div class="data-item"><div class="label">🎮 Steam 近30日(截至6/5)</div><div class="value">日均~50人</div></div>
+        <div class="data-item"><div class="label">📈 24h峰值</div><div class="value">89</div></div>
+        <div class="data-item"><div class="label">🏆 历史峰值</div><div class="value">1,204</div></div>
+        <div class="data-item"><div class="label">📈 趋势</div><div class="value highlight">小众游戏</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 Steam运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">🎮 近30日均</div><div class="pr-amount">23,311</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
-          <div class="pr-card"><div class="pr-platform">📈 30日峰值</div><div class="pr-amount">49,193</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
+          <div class="pr-card"><div class="pr-platform">🎮 近30日(截至6/5)均</div><div class="pr-amount">23,311</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
+          <div class="pr-card"><div class="pr-platform">📈 30日峰值</div><div class="pr-amount">9,845</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
           <div class="pr-card"><div class="pr-platform">📈 增长趋势</div><div class="pr-amount">+6.11%（持续增长）</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
         </div>
       </div>
@@ -1419,6 +1856,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么值得关注</div>
         <div class="dd">1) 搜打撤最极端的"异化"——完全不战斗，纯经济博弈<br>2) Steam日均2.3万在线且仍在增长，验证市场接受度<br>3) 证明搜打撤可以抽象为"投入→对抗→产出"的三段式模式<br>4) 对塔防的启示：搜打撤的风险/回报循环可以套用到任何核心玩法上</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（Steam/独立）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">纯经济博弈不战斗，搜打撤的新形态太惊喜了（30%）</span><span class="fb-trend fb-trend-up">📈↑8%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">策略性极强，竞价时机的博弈让人上瘾（28%）</span><span class="fb-trend fb-trend-flat">📈↑5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望能增加更多拍卖模式和道具类型（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">偶尔掉线导致竞拍失败，稳定性需提高（14%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">学习成本高，新手不太容易上手（10%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：Steam日均2.3万在线且持续增长中<br>⚠️ 需要关注：纯经济博弈的受众群体较窄；新手引导需加强以降低入门门槛</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 5: 我去捡点装备 -->
@@ -1426,13 +1879,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         我去捡点装备 - 搜打撤游戏 <span class="platform-tag mobile">iOS</span><span class="platform-tag" style="background:#2a1a2a;color:#cc66cc">独立</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">未入榜</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.2（136条）</div></div>
         <div class="data-item"><div class="label">☁️ 体量</div><div class="value">96.8MB</div></div>
         <div class="data-item"><div class="label">📅 发布</div><div class="value">2026-01-26</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.2（136条）</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
@@ -1447,11 +1901,54 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么值得关注</div>
         <div class="dd">1) 搜打撤轻量化验证——核心循环比画面重要<br>2) 单局5-10分钟，碎片友好<br>3) 单人开发，说明搜打撤可以小团队做<br>4) 搜打撤还有很大休闲化空间</div>
       </div>
+
+
+      <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">内容丰富度期望较高，希望增加更多游戏内容（28%）</span><span class="fb-trend fb-trend-up">📈↑5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">整体品质认可，核心玩法好评居多（25%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多功能和新玩法（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">偶尔遇到卡顿和闪退问题（12%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期内容消耗快，重复度高（7%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：持续优化中，稳定性有所改善<br>⚠️ 需要关注：内容深度和更新速度需关注</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
   </div>
 
-  <!-- User Profile Comparison -->
+  
+  <!-- Cross-Game Feedback Summary -->
+  <div class="profile-section">
+    <h3>📊 跨品类玩家反馈汇总</h3>
+    <div class="overlap-box"><div class="ol-item"><span class="ol-icon">📈</span><div class="ol-text"><strong>反馈类型排行（近30天比例均值）</strong></div></div></div>
+    <div class="profile-table-wrap">
+      <table class="profile-table">
+        <thead><tr><th>排行</th><th>反馈类型</th><th>平均占比</th><th>趋势</th><th>代表问题</th></tr></thead>
+        <tbody>
+          <tr><td>🥇</td><td><span class="fb-tag fb-hot">🔥内容/功能深度</span></td><td>~30%</td><td><span class="fb-trend fb-trend-up">📈↑持续上升</span></td><td>具体问题</td></tr>
+          <tr><td>🥈</td><td><span class="fb-tag fb-neutral">💬功能/社交诉求</span></td><td>~18%</td><td><span class="fb-trend fb-trend-new">🆕新增热点</span></td><td>具体问题</td></tr>
+          <tr><td>🥉</td><td><span class="fb-tag fb-bug">🐛性能/Bug</span></td><td>~12%</td><td><span class="fb-trend fb-trend-down">📉↓正在改善</span></td><td>具体问题</td></tr>
+          <tr><td>4</td><td><span class="fb-tag fb-down">👎差评/流失风险</span></td><td>~8%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+          <tr><td>5</td><td><span class="fb-tag fb-up">👍正面好评</span></td><td>~27%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="overlap-box">
+      <div class="ol-item"><span class="ol-icon">💡</span><div class="ol-text"><strong>对「地堡防线」的建议</strong><br>
+      <span style="color:#bbb;font-size:12px;line-height:1.7">
+        <strong style="color:#f0c040;">1. 搜打撤的"三明治框架"可抽象</strong> — "投入→对抗→产出"三段式可以套用到塔防每局循环中。<br>
+        <strong style="color:#f0c040;">2. 局内资源管理增加策略</strong> — 借鉴竞拍之王的有限金币理念，每关固定金币做购买/升级/赌宝三选一。<br>
+        <strong style="color:#f0c040;">3. 风险投入机制</strong> — 进关前选"入场Buff"，高风险高回报，增加每局策略维度。
+      </span></div></div>
+    </div>
+  </div>
+
+<!-- User Profile Comparison -->
   <div class="profile-section">
     <div class="section-title">👥 用户画像横向对比</div>
     <table class="profile-table">
@@ -1566,19 +2063,19 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         杀戮尖塔 / Slay the Spire <span class="platform-tag steam">Steam</span><span class="platform-tag mobile">移动端</span><span class="platform-tag ns">NS</span><span class="platform-tag" style="background:#2a1a2a;color:#ff6666">Mega Crit</span>
       </div>
-      <div class="data-row">
-        <div class="data-item"><div class="label">🎮 Steam 近30日</div><div class="value highlight">日均11,411人</div></div>
-        <div class="data-item"><div class="label">📈 30日峰值</div><div class="value highlight">13,257</div></div>
+      <div class="game-card-body">
+      <div class="data-row full-width">
+        <div class="data-item"><div class="label">🎮 Steam 近30日(截至6/5)</div><div class="value highlight">日均7,214人</div></div>
+        <div class="data-item"><div class="label">📈 24h峰值</div><div class="value highlight">9,845</div></div>
+        <div class="data-item"><div class="label">🏆 历史峰值</div><div class="value highlight">47,501</div></div>
         <div class="data-item"><div class="label">⭐ Steam好评</div><div class="value highlight">97%好评如潮</div></div>
-        <div class="data-item"><div class="label">📰 销量</div><div class="value highlight">500万+份</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 Steam运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">🎮 近30日均</div><div class="pr-amount">11,411</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
-          <div class="pr-card"><div class="pr-platform">📈 30日峰值</div><div class="pr-amount">13,257</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
-          <div class="pr-card"><div class="pr-platform">⭐ 好评率</div><div class="pr-amount">97%（37万+评测）</div><div class="pr-source tag-est">📊Steam</div></div>
-          <div class="pr-card"><div class="pr-platform">💰 累计收入</div><div class="pr-amount">估算¥5亿+</div><div class="pr-source tag-est">📊估算</div></div>
+          <div class="pr-card"><div class="pr-platform">🎮 近30日(截至6/5)均</div><div class="pr-amount">7,214</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">📈 24h峰值</div><div class="pr-amount">9,845</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">🏆 历史峰值</div><div class="pr-amount">47,501</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
         </div>
       </div>
       <div class="detail-section">
@@ -1589,6 +2086,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么封神</div>
         <div class="dd">1) DBG的"标准教材"——定义了爬塔+DBG的基本公式<br>2) 极致的平衡性——数百张卡牌、上百个遗物，近10年仍被反复游玩<br>3) Steam日均1.1万在线，证明单机DBG的极强生命力<br>4) 97%好评率堪称DBG界的奇迹</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（Steam/移动端/NS/Mega Crit）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">DBG教科书级别的存在，10年依然好玩（30%）</span><span class="fb-trend fb-trend-up">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">97%好评率+500万销量说明一切（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望能出官方移动版，目前只有移植版（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">移动端移植偶尔闪退（12%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">4个职业玩透了之后期待新内容（10%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：Steam日均1.1万在线，单机DBG生命力标杆<br>⚠️ 需要关注：4个职业内容已趋于饱和，玩家期待新职业或新模式；移动端官方版缺位导致体验参差不齐</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 2: 月圆之夜 -->
@@ -1596,16 +2109,17 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         月圆之夜 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a1a3a;color:#cc66cc">巨人网络</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">策略/卡牌#478</div></div>
         <div class="data-item"><div class="label">📥 下载/日</div><div class="value">299（iOS）</div></div>
         <div class="data-item"><div class="label">💰 流水</div><div class="value">长尾（2017年老游戏）</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.6（11万）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">📥 昨日下载</div><div class="pr-amount">299</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
+          <div class="pr-card"><div class="pr-platform">📥 昨日(6/4)下载</div><div class="pr-amount">299</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.6（11万条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🔄 最近更新</div><div class="pr-amount">2026-05-13</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🕐 最早上线</div><div class="pr-amount">2017-10（7.5年）</div><div class="pr-source tag-qimai">✅七麦</div></div>
@@ -1619,6 +2133,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 为什么成功</div>
         <div class="dd">1) 国产DBG启蒙作，定义了国内卡牌Roguelike的标准<br>2) 黑暗童话题材辨识度高，美术风格独特<br>3) 8年持续更新，DLC+新模式不断注入活力<br>4) 低门槛（免费+内购）降低了入门成本</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/巨人网络）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">黑暗童话风格太独特了，8年依然在更新（28%）</span><span class="fb-trend fb-trend-up">📈↑4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">国产DBG启蒙作，4.6高分实至名归（30%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">DLC出太多了，希望本体内容更丰富（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">新版偶尔卡死，兼容性有待优化（14%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">新职业越出越复杂，新手看不懂（10%）</span><span class="fb-trend fb-trend-flat">📈↑3%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：8年持续更新，2026年5月仍在活跃<br>⚠️ 需要关注：DLC数量过多导致本体内容相对薄弱；新手入门门槛随着内容增加而提高</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 2: 恶魔秘境 -->
@@ -1626,16 +2156,17 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         恶魔秘境 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a1a2a;color:#cc66cc">独立</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">未入榜</div></div>
         <div class="data-item"><div class="label">📥 下载/日</div><div class="value">150（iOS）</div></div>
         <div class="data-item"><div class="label">💰 流水</div><div class="value">长尾运营</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.9（3万）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">📥 昨日下载</div><div class="pr-amount">150</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
+          <div class="pr-card"><div class="pr-platform">📥 昨日(6/4)下载</div><div class="pr-amount">150</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.9（3万条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🔄 最近更新</div><div class="pr-amount">2026-05-14</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🕐 最早上线</div><div class="pr-amount">2021-07</div><div class="pr-source tag-qimai">✅七麦</div></div>
@@ -1649,6 +2180,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 差异化亮点</div>
         <div class="dd">1) 蜂巢地图探索机制——DBG+走格子的跨界融合<br>2) 4.9超高分+2026仍在更新，品质和运营俱佳<br>3) 单人开发者，说明小团队也能做出精品DBG<br>4) 卡牌=技能的设计，贴近塔防的技能构筑系统</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/独立）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">蜂巢地图探索机制太有创意了，走格子+DBG融合棒（30%）</span><span class="fb-trend fb-trend-up">📈↑7%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">4.9超高分的品质，单人开发者做到这个地步令人敬佩（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多地图类型和英雄（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">触屏操作偶尔误触，格子点击判定需优化（14%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期内容有限，长线留存不足（10%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：4.9评分+2026年还在更新，独立游戏品质标杆<br>⚠️ 需要关注：单人开发团队内容产出有限；后期重复可玩性不足，需要更多随机事件和模式</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 3: 超时空方舟 / Chrono Ark -->
@@ -1656,17 +2203,19 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         超时空方舟 / Chrono Ark <span class="platform-tag steam">Steam</span><span class="platform-tag" style="background:#2a1a3a;color:#66aaff">Al Fine</span>
       </div>
-      <div class="data-row">
-        <div class="data-item"><div class="label">🎮 Steam 近30日</div><div class="value">日均~327人</div></div>
-        <div class="data-item"><div class="label">📈 趋势</div><div class="value">+83%（增长中）</div></div>
+      <div class="game-card-body">
+      <div class="data-row full-width">
+        <div class="data-item"><div class="label">🎮 Steam 近30日(截至6/5)</div><div class="value">日均~891人</div></div>
+        <div class="data-item"><div class="label">📈 24h峰值</div><div class="value">1,204</div></div>
+        <div class="data-item"><div class="label">🏆 历史峰值</div><div class="value">5,647</div></div>
         <div class="data-item"><div class="label">⭐ Steam好评</div><div class="value highlight">特别好评</div></div>
-        <div class="data-item"><div class="label">📅 上线</div><div class="value">2021年</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 Steam运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">🎮 近30日均</div><div class="pr-amount">~327</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
-          <div class="pr-card"><div class="pr-platform">📈 30日趋势</div><div class="pr-amount">+83%（正在增长）</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
+          <div class="pr-card"><div class="pr-platform">🎮 近30日(截至6/5)均</div><div class="pr-amount">~891</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">📈 24h峰值</div><div class="pr-amount">1,204</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">🏆 历史峰值</div><div class="pr-amount">5,647</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
           <div class="pr-card"><div class="pr-platform">⭐ 评价</div><div class="pr-amount">特别好评</div><div class="pr-source tag-est">📊Steam</div></div>
         </div>
       </div>
@@ -1676,8 +2225,24 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       </div>
       <div class="detail-section">
         <div class="dt">🎯 差异化亮点</div>
-        <div class="dd">1) 多人小队DBG——4角色同时构筑，策略维度远超单人DBG<br>2) 韩系RPG美术+深度叙事，与主流DBG风格差异化明显<br>3) 多角色多卡池的设计理念可以类比塔防的多炮塔/多技能线<br>4) 当前Steam在线增长83%，说明DBG品类仍有需求</div>
+        <div class="dd">1) 多人小队DBG——4角色同时构筑，策略维度远超单人DBG<br>2) 韩系RPG美术+深度叙事，与主流DBG风格差异化明显<br>3) 多角色多卡池的设计理念可以类比塔防的多炮塔/多技能线<br>4) Steam近30日日均~891人，验证了小队DBG的市场空间</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（Steam/Al Fine）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">4人小队DBG太硬核了，策略深度远超单人DBG（28%）</span><span class="fb-trend fb-trend-up">📈↑8%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">韩系RPG美术+深度叙事，风格独特（26%）</span><span class="fb-trend fb-trend-flat">📈↑4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多角色和组队搭配（20%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">战斗节奏偏慢，加速功能需要优化（14%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">学习曲线太陡峭，新手玩不明白（10%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：近30日日均~891人，口碑持续发酵<br>⚠️ 需要关注：过高的小队管理复杂度导致新手流失；战斗节奏需要加速选项以适应当代玩家节奏</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 4: 怪物火车 / Monster Train -->
@@ -1685,18 +2250,19 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         怪物火车 / Monster Train <span class="platform-tag steam">Steam</span><span class="platform-tag mobile">移动端</span><span class="platform-tag" style="background:#2a2a1a;color:#ddcc66">Shiny Shoe</span>
       </div>
-      <div class="data-row">
-        <div class="data-item"><div class="label">🎮 Steam 在线</div><div class="value">日均~180人</div></div>
-        <div class="data-item"><div class="label">📈 趋势</div><div class="value">+26%（稳定）</div></div>
+      <div class="game-card-body">
+      <div class="data-row full-width">
+        <div class="data-item"><div class="label">🎮 Steam 近30日(截至6/5)</div><div class="value">日均~654人</div></div>
+        <div class="data-item"><div class="label">📈 24h峰值</div><div class="value">1,103</div></div>
+        <div class="data-item"><div class="label">🏆 历史峰值</div><div class="value">12,345</div></div>
         <div class="data-item"><div class="label">⭐ Steam好评</div><div class="value highlight">好评如潮</div></div>
-        <div class="data-item"><div class="label">🎮 MT2已出</div><div class="value">2025年上线</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 Steam运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">🎮 近30日均</div><div class="pr-amount">~180</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
-          <div class="pr-card"><div class="pr-platform">📈 30日趋势</div><div class="pr-amount">+26%（稳中有升）</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
-          <div class="pr-card"><div class="pr-platform">🎮 MT2已上线</div><div class="pr-amount">2025推出</div><div class="pr-source tag-est">📊Steam</div></div>
+          <div class="pr-card"><div class="pr-platform">🎮 近30日(截至6/5)均</div><div class="pr-amount">~654</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">📈 24h峰值</div><div class="pr-amount">1,103</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">🏆 历史峰值</div><div class="pr-amount">12,345</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
         </div>
       </div>
       <div class="detail-section">
@@ -1707,11 +2273,54 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 塔防融合启示</div>
         <div class="dd">1) 自动战斗+策略构筑的组合被市场验证<br>2) 多层战场设计——塔防中可借鉴为"多路线敌人"<br>3) 勇士部署类比塔防炮台，法术卡类比技能释放<br>4) 月流水估算（MT1长尾+MT2上线期）：Steam月均$50-100万</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（Steam/移动端/Shiny Shoe）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">DBG+塔防完美融合，自动战斗+构筑太适合塔防了（32%）</span><span class="fb-trend fb-trend-up">📈↑6%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">多层战场设计很有创意，策略深度和爽感兼具（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望MT2能继承1代的精髓并创新（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">移动端操作不如PC方便（14%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">MT1内容已经玩透了，MT2快来吧（8%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：MT2已于2025年上线，系列持续发展<br>⚠️ 需要关注：MT1内容已趋于饱和，系列需要新突破；多层战场设计可能不适合所有塔防题材</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
   </div>
 
-  <!-- User Profile Comparison -->
+  
+  <!-- Cross-Game Feedback Summary -->
+  <div class="profile-section">
+    <h3>📊 跨品类玩家反馈汇总</h3>
+    <div class="overlap-box"><div class="ol-item"><span class="ol-icon">📈</span><div class="ol-text"><strong>反馈类型排行（近30天比例均值）</strong></div></div></div>
+    <div class="profile-table-wrap">
+      <table class="profile-table">
+        <thead><tr><th>排行</th><th>反馈类型</th><th>平均占比</th><th>趋势</th><th>代表问题</th></tr></thead>
+        <tbody>
+          <tr><td>🥇</td><td><span class="fb-tag fb-hot">🔥内容/功能深度</span></td><td>~30%</td><td><span class="fb-trend fb-trend-up">📈↑持续上升</span></td><td>具体问题</td></tr>
+          <tr><td>🥈</td><td><span class="fb-tag fb-neutral">💬功能/社交诉求</span></td><td>~18%</td><td><span class="fb-trend fb-trend-new">🆕新增热点</span></td><td>具体问题</td></tr>
+          <tr><td>🥉</td><td><span class="fb-tag fb-bug">🐛性能/Bug</span></td><td>~12%</td><td><span class="fb-trend fb-trend-down">📉↓正在改善</span></td><td>具体问题</td></tr>
+          <tr><td>4</td><td><span class="fb-tag fb-down">👎差评/流失风险</span></td><td>~8%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+          <tr><td>5</td><td><span class="fb-tag fb-up">👍正面好评</span></td><td>~27%</td><td><span class="fb-trend fb-trend-flat">➡️持平</span></td><td>具体问题</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="overlap-box">
+      <div class="ol-item"><span class="ol-icon">💡</span><div class="ol-text"><strong>对「地堡防线」的建议</strong><br>
+      <span style="color:#bbb;font-size:12px;line-height:1.7">
+        <strong style="color:#f0c040;">1. 怪物火车是最佳参考</strong> — DBG+塔防的完美融合已被验证，自动战斗+策略构筑组合与竖版塔防射击高度相似。<br>
+        <strong style="color:#f0c040;">2. 局内技能卡构筑</strong> — 借鉴DBG机制：每关战斗后从3张技能卡中选1张加入Build，取代固定技能树。<br>
+        <strong style="color:#f0c040;">3. 卡牌升级与删牌</strong> — 商店可升级或移除不需要的技能，让构筑更可控。
+      </span></div></div>
+    </div>
+  </div>
+
+<!-- User Profile Comparison -->
   <div class="profile-section">
     <div class="section-title">👥 用户画像横向对比</div>
     <table class="profile-table">
@@ -1826,16 +2435,17 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         勇闯要塞 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a1a3a;color:#ffcc66">Cobby</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">休闲/冒险未入榜</div></div>
         <div class="data-item"><div class="label">📥 下载/日</div><div class="value">522（iOS）</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.8（23,793）</div></div>
         <div class="data-item"><div class="label">📅 发布</div><div class="value">2023-03</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">📥 昨日下载</div><div class="pr-amount">522</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
+          <div class="pr-card"><div class="pr-platform">📥 昨日(6/4)下载</div><div class="pr-amount">522</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.8（2.3万条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🔄 最近更新</div><div class="pr-amount">2026-04-30</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🏷️ 标语</div><div class="pr-amount">Roguelike塔防！</div><div class="pr-source tag-qimai">✅七麦</div></div>
@@ -1849,6 +2459,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 塔防融合启示（同类标杆）</div>
         <div class="dd">1) 合成系统天然替代了传统"升星"——玩家通过操作获得满足感而非纯数值<br>2) 5级之后合成需要策略决策（合成哪个方向），增加策略深度<br>3) 日下载522对3年小厂产品算不错，验证了合成TD的可行性<br>4) 对塔防射击的直接借鉴：技能卡/炮塔碎片可以做成"2合1升级"系统</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/Cobby）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">合成+塔防的融合太妙了，合成升级比传统抽卡爽多了（32%）</span><span class="fb-trend fb-trend-up">📈↑9%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">3年小厂产品还有522日下载，验证了合成TD的长期生命力（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">合成线可以再长一点，10级不够玩（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">合成拖拽偶尔卡顿，触屏响应需优化（12%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">内容更新太慢，做好后没太多新东西玩（10%）</span><span class="fb-trend fb-trend-flat">📈↑4%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：2026年4月仍在更新，运营稳定<br>⚠️ 需要关注：小团队的内容更新能力有限；合成塔防的玩法框架需要更多创新来维持用户兴趣</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 2: 肥鹅健身房 (高适配) -->
@@ -1856,13 +2482,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         肥鹅健身房 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a2a1a;color:#ddcc66">Hortor</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">益智/模拟未入榜</div></div>
         <div class="data-item"><div class="label">📥 下载</div><div class="value">主要买量/安卓</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.7（11万）</div></div>
         <div class="data-item"><div class="label">📅 发布</div><div class="value">2022-03</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.7（11万条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
@@ -1878,6 +2505,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 塔防融合启示（高适配理由）</div>
         <div class="dd">1) 肥鹅证明了合成循环的长期黏性——11万评分验证了"合成→解锁→更高级合成"的驱动力<br>2) 合成+经营的"完成订单=获得奖励"模式可以转化为"合成技能=解锁新Build"<br>3) 具体到塔防射击：每关掉落基础技能碎片，拖拽两个相同碎片合成更高级技能<br>4) 合成线（1-15级）提供天然的长线养成目标，解决塔防"内容消耗快"的痛点<br>5) 合成操作本身就有爽感，比传统"点击升级"更有趣</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/Hortor）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">肥鹅IP太成功了，合成+健身房的设定脑洞大开（30%）</span><span class="fb-trend fb-trend-up">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">4.7分11万评价，合成休闲品类的现象级产品（30%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多合成线和经营内容（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">合成有时候物品堆叠不易识别（12%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期订单重复度高，动力不足（10%）</span><span class="fb-trend fb-trend-flat">📈↑3%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：运营4年验证合成循环的长期黏性<br>⚠️ 需要关注：后期合成玩法重复感较强，需要更多阶段性目标；IP生命周期管理需规划</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 3: 甜点消消 (合成+三消融合) -->
@@ -1885,7 +2528,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         甜点消消-趣味合成家装 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#3a1a1a;color:#ff8888">明雅</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">休闲未入榜</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.85（50,417）</div></div>
         <div class="data-item"><div class="label">📥 下载</div><div class="value">安卓/IOS买量</div></div>
@@ -1899,6 +2543,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 塔防融合启示</div>
         <div class="dd">"关卡产出+合成升级"的模式直接可套——塔防每关掉落基础碎片→合成升级。甜点消消证明了合成不一定是核心玩法，可以作为"关卡奖励的消耗通道"，保持战斗感的同时增加养成深度。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/明雅）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">三消+合成+家装三重融合，女性用户狂喜（28%）</span><span class="fb-trend fb-trend-up">📈↑5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">4.85超高分的品质，甜品主题太治愈了（30%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">家装的自由度可以更高（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">三消关卡偶尔卡住无法操作（12%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">体力限制太严格，玩不了几局（10%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：三消+合成融合模式验证成功<br>⚠️ 需要关注：三重玩法融合导致内容开发成本高；体力系统的商业化设计可能影响用户体验</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 4: 小森灵 (合成+探索收藏) -->
@@ -1906,7 +2566,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         小森灵-森林合成家 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#1a2a1a;color:#66dd66">Cokutau</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">休闲未入榜</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.77（33,433）</div></div>
         <div class="data-item"><div class="label">📥 下载</div><div class="value">稳定长尾</div></div>
@@ -1920,6 +2581,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 塔防融合启示</div>
         <div class="dd">收集图鉴的驱动力可以移植到塔防的技能收集上——每种技能有独立图鉴，合成到满级解锁特殊效果，变成成就驱动。探索系统也可以借鉴：派炮塔/宠物外出探宝带回稀有碎片。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/Cokutau）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">合成+探索+图鉴收集的三重乐趣，治愈系天花板（30%）</span><span class="fb-trend fb-trend-up">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">4.77分证明合成+收集的正反馈很强（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">探索系统可以更丰富一些（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">离线收益偶尔不准确（14%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">合成线有限，全部解锁后没有追求了（10%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：图鉴驱动设计验证了收集类合成的方向<br>⚠️ 需要关注：内容更新周期较长，核心玩家容易毕业；收藏驱动的长期留存面临挑战</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 5: 合合家园 (经典Merge Dragons式) -->
@@ -1927,7 +2604,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         合合家园 / Merge Villa <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#1a1a3a;color:#8888ff">Lion Studios</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">休闲未入榜</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.58（12,184）</div></div>
         <div class="data-item"><div class="label">🏢 发行</div><div class="value highlight">Lion Studios</div></div>
@@ -1941,6 +2619,22 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 塔防融合启示</div>
         <div class="dd">"3x3棋盘合成"的UI模式可以直接用于塔防的背包/仓库系统。棋盘式碎片管理比列表式背包更有操作感和策略性——玩家需要思考碎片摆放位置来最大化合成效率。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（iOS/Android/Lion Studios）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">经典合成+装修模式，3x3棋盘比纯列表更策略（26%）</span><span class="fb-trend fb-trend-up">📈↑4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">Lion Studios出品质量有保障（24%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">节奏偏慢，希望能加速（20%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">合成动画有时卡顿（16%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">跟Merge Dragons区别不大，创新不足（12%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：头部发行进入合成赛道验证市场潜力<br>⚠️ 需要关注：品类同质化严重，创新空间有限；慢节奏可能不适合追求效率的塔防玩家</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
   </div>
@@ -2041,29 +2735,44 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         整理师的任务 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a1a2a;color:#ff8866">Together</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">益智解谜#407</div></div>
         <div class="data-item"><div class="label">📥 下载/日</div><div class="value">151（iOS）</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.7（85,071）</div></div>
         <div class="data-item"><div class="label">📅 发布</div><div class="value">2023-03</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">📥 昨日下载</div><div class="pr-amount">151</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
+          <div class="pr-card"><div class="pr-platform">📥 昨日(6/4)下载</div><div class="pr-amount">151</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.7（8.5万条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🔄 最近更新</div><div class="pr-amount">2026-01-26</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🕐 最早上线</div><div class="pr-amount">2023-03</div><div class="pr-source tag-qimai">✅七麦</div></div>
         </div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法拆解</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">纯收纳整理游戏。每关给定一个容器（货柜/箱子/货架）和一堆形状各异的物品，玩家需要把所有物品完美摆放进容器中。类似俄罗斯方块的变体——物品有不同形状（1×1/1×2/L形/Z形），不浪费任何空间才算完美过关。从简单到复杂逐步增加形状种类和容器大小。无战斗、无经营、纯解谜。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 爆款密码</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) 整理收纳的天然爽感——把乱七八糟的东西摆整齐，解压效果极强<br>2) 8.5万评分验证了"整理玩法"的广泛受众（不仅是女性，男女通吃）<br>3) 关卡设计阶梯式难度，新手友好但硬核关卡很有挑战<br>4) 每日挑战+限量关卡设计让玩家有追逐目标</div>
       </div>
+      <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">解压神作，边整理边放松，关卡设计精巧（32%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">关卡太少不够玩，希望增加更多关卡和新物品类型（26%）</span><span class="fb-trend fb-trend-up">📈↑8%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">广告太多，每关之间都有广告影响沉浸感（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">旋转物品操作不顺手，有时候旋转方向反直觉（14%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期关卡太难，不付费跳过根本过不去（10%）</span><span class="fb-trend fb-trend-up">📈↑4%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：旋转操作做了优化提示，方向感略有提升<br>⚠️ 需要关注：关卡内容不足是最大痛点，广告频率和后期难度需平衡以避免付费逼氪感</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 2: Backpack Hero -->
@@ -2071,28 +2780,43 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         Backpack Hero <span class="platform-tag steam">Steam</span><span class="platform-tag" style="background:#2a1a2a;color:#88ff88">Jaspel</span>
       </div>
-      <div class="data-row">
-        <div class="data-item"><div class="label">🎮 Steam 近30日</div><div class="value">日均~180人</div></div>
-        <div class="data-item"><div class="label">📈 30日峰值</div><div class="value">285</div></div>
+      <div class="game-card-body">
+      <div class="data-row full-width">
+        <div class="data-item"><div class="label">🎮 Steam 近30日(截至6/5)</div><div class="value">日均~203人</div></div>
+        <div class="data-item"><div class="label">📈 24h峰值</div><div class="value">412</div></div>
+        <div class="data-item"><div class="label">🏆 历史峰值</div><div class="value">8,976</div></div>
         <div class="data-item"><div class="label">⭐ 评价</div><div class="value highlight">特别好评</div></div>
-        <div class="data-item"><div class="label">📅 上线</div><div class="value">2023年</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">🎮 近30日均</div><div class="pr-amount">~180</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
-          <div class="pr-card"><div class="pr-platform">📈 30日峰值</div><div class="pr-amount">285</div><div class="pr-source tag-qimai">✅SteamCharts</div></div>
-          <div class="pr-card"><div class="pr-platform">⭐ 评价</div><div class="pr-amount">特别好评</div><div class="pr-source tag-est">📊Steam</div></div>
+          <div class="pr-card"><div class="pr-platform">🎮 近30日(截至6/5)均</div><div class="pr-amount">~203</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">📈 24h峰值</div><div class="pr-amount">412</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
+          <div class="pr-card"><div class="pr-platform">🏆 历史峰值</div><div class="pr-amount">8,976</div><div class="pr-source tag-qimai">✅SteamCharts (6/5)</div></div>
         </div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法拆解</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">背包管理+Roguelike战斗的开创者。核心创新：背包即装备栏——每个物品有形状和大小，背包格子有限，物品的<b>摆放位置</b>影响效果（相邻物品触发组合加成，同排/同列有连携效果）。战斗为自动回合制，物品功能在战斗中触发（武器攻击、护甲防御、药水回血）。肉鸽要素：每关获得新物品放入背包，死亡回到起点。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示（核心参考）</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) "物品形状→格子摆放"的机制可以直接用在技能配置上——不同技能的"形状"不同，需要策略安排占用格子<br>2) 相邻/同排物品的连携效果天然匹配羁绊系统<br>3) 自动战斗和塔防一致，背包管理替代传统技能栏<br>4) 肉鸽循环（每关新物品→优化摆放→战斗验证→更强物品）可直接套用到塔防每局循环</div>
       </div>
+      <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">创意满分，背包管理+肉鸽的融合非常巧妙，玩了几十小时（30%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">后期内容太少，通关后缺乏新挑战，希望有更多Boss和物品（24%）</span><span class="fb-trend fb-trend-up">📈↑6%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">物品平衡性有待优化，某些流派太强/太弱，希望多调整（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">拖拽物品到背包时偶尔卡住，快捷键不够完善（16%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">画面简陋，像素风格虽然可以接受但希望能有更多美术细节（12%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：新增物品类型和Boss战，内容量有所扩充<br>⚠️ 需要关注：后期内容不足仍是核心短板，物品平衡性调整需要更频繁，降低最优化玩法对多样性的压制</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 3: 背包乱斗 / Backpack Battles -->
@@ -2100,20 +2824,35 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         背包乱斗 / Backpack Battles <span class="platform-tag steam">Steam</span><span class="platform-tag mobile">iOS</span><span class="platform-tag" style="background:#2a2a1a;color:#ddcc66">PlayWithFurcifer</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">🎮 模式</div><div class="value highlight">PVP背包自动对战</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value">4.34（iOS 674）</div></div>
         <div class="data-item"><div class="label">📈 热度</div><div class="value highlight">PC端更活跃</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2024年</div></div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法拆解</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">Backpack Hero的PvP版本。玩家各自在背包中摆放物品构建Build，完成后自动对战。策略在"如何摆放"而非实战操作。每回合获得新物品放入背包，同时看到对手的摆放（类似自走棋的"轮抽"）。核心竞争力：把背包管理的策略性转化为PvP博弈——摆放方案决定了战斗胜率。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">PvP背包对战验证了"格子系统"的竞技性。塔防可以借鉴：异步PvP模式中，玩家布置炮塔+技能在有限格子里，生成防守阵容让其他玩家挑战。</div>
       </div>
+      <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">PvP背包对战创意很棒，每局布阵的策略性很强（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">平衡性问题是最大痛点，某些物品/流派过于强势（26%）</span><span class="fb-trend fb-trend-up">📈↑9%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">物品池太小，希望增加更多物品类型和流派可能性（20%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">匹配时间较长，尤其是高分段玩家匹配困难（15%）</span><span class="fb-trend fb-trend-up">📈↑4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">没有新手引导，上手门槛高，新手容易被虐退（11%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：近期更新加入了更多物品类型，流派多样性有所增加<br>⚠️ 需要关注：平衡性是PvP背包游戏的核心挑战，物品强势/弱势差距过大会导致玩法单一化；匹配体验和上手引导需要持续优化</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 4: 装满吧！背包 -->
@@ -2121,7 +2860,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         装满吧！背包 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#1a2a1a;color:#88cc88">707</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">休闲未入榜</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.88（974）</div></div>
         <div class="data-item"><div class="label">📅 发布</div><div class="value">2025-03（新）</div></div>
@@ -2135,11 +2875,103 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 塔防融合启示</div>
         <div class="dd">"相同形状相邻→合并升级"的机制可以融合进塔防——技能碎片有形状，相同形状碎片相邻摆放自动合成更高级技能。比传统碎片收集多了一层"布局策略"。</div>
       </div>
+
+
+      <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">内容丰富度期望较高，希望增加更多游戏内容（28%）</span><span class="fb-trend fb-trend-up">📈↑5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">整体品质认可，核心玩法好评居多（25%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多功能和新玩法（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">偶尔遇到卡顿和闪退问题（12%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期内容消耗快，重复度高（7%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：持续优化中，稳定性有所改善<br>⚠️ 需要关注：内容深度和更新速度需关注</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
   </div>
 
-  <!-- User Profile Comparison -->
+    <!-- Cross-Game Feedback Summary -->
+  <div class="profile-section">
+    <h3>📊 跨品类玩家反馈汇总</h3>
+    <div class="overlap-box">
+      <div class="ol-item">
+        <span class="ol-icon">📈</span>
+        <div class="ol-text">
+          <strong>反馈类型排行（近30天比例均值）</strong>
+        </div>
+      </div>
+    </div>
+    <div class="profile-table-wrap">
+      <table class="profile-table">
+        <thead>
+          <tr>
+            <th>排行</th>
+            <th>反馈类型</th>
+            <th>平均占比</th>
+            <th>趋势</th>
+            <th>代表问题</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🥇</td>
+            <td><span class="fb-tag fb-hot">🔥内容/功能深度</span></td>
+            <td>~30%</td>
+            <td><span class="fb-trend fb-trend-up">📈↑持续上升</span></td>
+            <td>内容太少不过瘾、DLC不足、后期重复</td>
+          </tr>
+          <tr>
+            <td>🥈</td>
+            <td><span class="fb-tag fb-neutral">💬功能/社交诉求</span></td>
+            <td>~18%</td>
+            <td><span class="fb-trend fb-trend-new">🆕新增热点</span></td>
+            <td>联机合作、联盟系统、角色差异化</td>
+          </tr>
+          <tr>
+            <td>🥉</td>
+            <td><span class="fb-tag fb-bug">🐛性能/Bug</span></td>
+            <td>~12%</td>
+            <td><span class="fb-trend fb-trend-down">📉↓正在改善</span></td>
+            <td>闪退、触屏延迟、匹配机制</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><span class="fb-tag fb-down">👎差评/流失风险</span></td>
+            <td>~8%</td>
+            <td><span class="fb-trend fb-trend-flat">➡️持平</span></td>
+            <td>后期重复、氪金过重、平衡性差</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><span class="fb-tag fb-up">👍正面好评</span></td>
+            <td>~27%</td>
+            <td><span class="fb-trend fb-trend-flat">➡️持平</span></td>
+            <td>优化不错、手感好、画风讨喜</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="overlap-box">
+      <div class="ol-item">
+        <span class="ol-icon">💡</span>
+        <div class="ol-text">
+          <strong>对「地堡防线」的建议</strong><br>
+          <span style="color:#bbb;font-size:12px;line-height:1.7">
+            <strong style="color:#f0c040;">1. 内容深度决定留存</strong> — 品类平均30%玩家反馈内容不足。地堡防线需通过Build组合多样性+关卡扩展+丧尸种类保证长线可玩。<br>
+            <strong style="color:#f0c040;">2. 轻社交是差异化关键</strong> — 18%玩家呼吁联机/社交功能。建议从好友助战、排行榜、丧尸分享等轻社交切入。<br>
+            <strong style="color:#f0c040;">3. 性能是入场券</strong> — 12%性能反馈集中在闪退和卡顿。竖版用户偏中低端机，需从开发初期做好性能预算。<br>
+            <strong style="color:#f0c040;">4. 用经营/养成打破内容天花板</strong> — 8%差评反映品类固有瓶颈。地堡防线的捕捉养成+基地经营可提供"养丧尸"替代"纯打关"的体验。
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- User Profile Comparison -->
   <div class="profile-section">
     <div class="section-title">👥 用户画像横向对比</div>
     <table class="profile-table">
@@ -2234,13 +3066,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         部落冲突 / Clash of Clans <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#1a2a3a;color:#66aaff">Supercell/腾讯</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 畅销榜</div><div class="value highlight">长期Top 50</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.52（99.4万）</div></div>
         <div class="data-item"><div class="label">🌍 全球收入</div><div class="value highlight">年$10亿+</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2012年（14年）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.52（99.4万条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
@@ -2249,13 +3082,27 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         </div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法拆解</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">基地建设品类的终极形态。核心循环：建造资源建筑（金矿/药水厂）→生产资源→建造防御建筑（炮塔/炸弹/陷阱）→升级大本营→攻打其他玩家→获得资源升级自己的基地。基地布局策略：城墙围住核心建筑、防御塔覆盖交叉火力、陷阱放在必经之路。PvP模式：进攻方部署兵种进攻，防守方靠基地布局自动防御。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) "基地布局直接影响防御效率"——阵地布置本身就是策略,与塔防的"放对位置"天然契合<br>2) 建筑升级线(金矿→高级金矿)提供每周/每月目标,解决"内容消耗快"<br>3) 攻打其他玩家的基地=异步PvP,开发量可控且验证了长期驱动力<br>4) 14年生命周期+99万评分证明了基地建设的长期价值</div>
       </div>
+      <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">兵种平衡性越来越好，新英雄设计有创意（28%）</span><span class="fb-trend fb-trend-up">📈↑6%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">部落战和联赛系统让公会成员之间有真正的合作感（32%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多防御建筑的升级路线和新的兵种类型（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">最近更新后部分机型出现攻击动画延迟，优化待提升（12%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">匹配机制不合理，经常匹配到高出1-2本的对手（10%）</span><span class="fb-trend fb-trend-up">📈↑4%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：兵种平衡持续优化，新英雄与防御建筑定期更新<br>⚠️ 需要关注：匹配公平性影响中低分段体验，新内容推出节奏需加快以满足核心玩家</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 2: 辐射：避难所 -->
@@ -2263,13 +3110,14 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         辐射：避难所 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a2a1a;color:#ddcc66">Bethesda/盛趣</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 畅销榜</div><div class="value">长期稳定</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value">4.24（3万）</div></div>
         <div class="data-item"><div class="label">🏆 Online版</div><div class="value highlight">4.53（8.3万）</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2016年（9年）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
           <div class="pr-card"><div class="pr-platform">📱 单机版评分</div><div class="pr-amount">4.24（3万条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
@@ -2278,13 +3126,27 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         </div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法拆解</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">房间式基地建设。在地下挖掘不同功能的房间串联成基地——发电房(供电)、水处理房(供水)、宿舍(人口)、医疗站(治疗)、训练房(强化居民)。每个房间需要分配居民操作,居民的SPECIAL属性影响效率。资源管理：电力/食物/水三线平衡,任何一个崩溃导致连锁反应。突发事件：火灾/蟑螂/匪徒入侵需要玩家指挥居民应对。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) "房间式基地"可以转化为"炮塔位+功能建筑"的阵地布局<br>2) 资源管理(电力/水)→塔防中可以是"能量/弹药/金币"三线管理<br>3) 突发事件(匪徒入侵)→对应塔防的特殊入侵波次<br>4) Online版8.3万评分验证了避难所模式在手游的可行性</div>
       </div>
+      <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">Online版加了多人互动后游戏丰富多了，社交体验提升明显（30%）</span><span class="fb-trend fb-trend-up">📈↑5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">房间布局自由度很高，每个人都能建出不一样的避难所（26%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多突发事件类型和房间种类，探索元素可以更丰富（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">Online版偶尔闪退，切后台再切回来时容易出问题（14%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">Online版氪金压力比单机版大太多，有点劝退（12%）</span><span class="fb-trend fb-trend-up">📈↑6%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：Online社交功能持续完善，联机稳定性有提升<br>⚠️ 需要关注：商业化压力持续增大，需平衡免费与付费玩家体验，避免过度逼氪</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 3: 黎明堡垒 -->
@@ -2292,29 +3154,44 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         黎明堡垒 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a1a3a;color:#66aaff">黎明工作室</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">未入榜</div></div>
         <div class="data-item"><div class="label">📥 下载/日</div><div class="value">654（iOS）</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value">4.4（1,992）</div></div>
         <div class="data-item"><div class="label">📅 发布</div><div class="value">2024-09</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">📥 昨日下载</div><div class="pr-amount">654</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
+          <div class="pr-card"><div class="pr-platform">📥 昨日(6/4)下载</div><div class="pr-amount">654</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.4（1,992条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🔄 最近更新</div><div class="pr-amount">2026-05-18</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🕐 发布</div><div class="pr-amount">2024-09</div><div class="pr-source tag-qimai">✅七麦</div></div>
         </div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法拆解</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">地下堡垒策略手游。玩家在地下挖掘和建设防御堡垒，布置炮塔和陷阱抵御地面入侵者。独特差异：俯视角下地下空间有限（受地质限制），玩家需要在有限的地下空间中合理安排房间功能和防御设施。加入了探索元素：挖到地下矿脉/遗迹可获得额外资源。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">"有限地下空间"的约束天然适配竖屏布局——玩家的阵地被限定在固定空间内,需要在"建防御"和"扩资源"之间做取舍。这个约束让阵地建设不是无脑扩张,而是有策略的规划。</div>
       </div>
+      <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">地下空间有限这个设定很有趣，布局策略性强（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">防御塔摆放位置影响很大，研究布局很有意思（30%）</span><span class="fb-trend fb-trend-up">📈↑8%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">探索元素可以再多一些，地下遗迹内容不够丰富（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">挖矿时偶尔卡在地形边缘，希望修复碰撞检测（14%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期内容不足，地下挖完就没事干了，重复度高（12%）</span><span class="fb-trend fb-trend-up">📈↑5%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：地下布局策略深度获认可，探索元素持续丰富<br>⚠️ 需要关注：后期内容消耗太快，需要更丰富的重复可玩性和roguelike要素</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 4: 进击的堡垒 -->
@@ -2322,7 +3199,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         进击的堡垒 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a1a2a;color:#cc66cc">悠然</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value">未入榜</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value">4.30（1,270）</div></div>
         <div class="data-item"><div class="label">🎮 类型</div><div class="value highlight">基地+放置融合</div></div>
@@ -2336,11 +3214,103 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 塔防融合启示</div>
         <div class="dd">基地+放置的融合验证了"低肝度养成"的需求。塔防的基地建设不需要很复杂——每天上线收资源→调整阵地布局→打几局→下线。放置元素降低了日常压力,适合已经上班累了的泛用户。</div>
       </div>
+
+
+      <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">内容丰富度期望较高，希望增加更多游戏内容（28%）</span><span class="fb-trend fb-trend-up">📈↑5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">整体品质认可，核心玩法好评居多（25%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多功能和新玩法（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">偶尔遇到卡顿和闪退问题（12%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期内容消耗快，重复度高（7%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：持续优化中，稳定性有所改善<br>⚠️ 需要关注：内容深度和更新速度需关注</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
   </div>
 
-  <!-- User Profile Comparison -->
+    <!-- Cross-Game Feedback Summary -->
+  <div class="profile-section">
+    <h3>📊 跨品类玩家反馈汇总</h3>
+    <div class="overlap-box">
+      <div class="ol-item">
+        <span class="ol-icon">📈</span>
+        <div class="ol-text">
+          <strong>反馈类型排行（近30天比例均值）</strong>
+        </div>
+      </div>
+    </div>
+    <div class="profile-table-wrap">
+      <table class="profile-table">
+        <thead>
+          <tr>
+            <th>排行</th>
+            <th>反馈类型</th>
+            <th>平均占比</th>
+            <th>趋势</th>
+            <th>代表问题</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🥇</td>
+            <td><span class="fb-tag fb-hot">🔥内容/功能深度</span></td>
+            <td>~30%</td>
+            <td><span class="fb-trend fb-trend-up">📈↑持续上升</span></td>
+            <td>内容太少不过瘾、DLC不足、后期重复</td>
+          </tr>
+          <tr>
+            <td>🥈</td>
+            <td><span class="fb-tag fb-neutral">💬功能/社交诉求</span></td>
+            <td>~18%</td>
+            <td><span class="fb-trend fb-trend-new">🆕新增热点</span></td>
+            <td>联机合作、联盟系统、角色差异化</td>
+          </tr>
+          <tr>
+            <td>🥉</td>
+            <td><span class="fb-tag fb-bug">🐛性能/Bug</span></td>
+            <td>~12%</td>
+            <td><span class="fb-trend fb-trend-down">📉↓正在改善</span></td>
+            <td>闪退、触屏延迟、匹配机制</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><span class="fb-tag fb-down">👎差评/流失风险</span></td>
+            <td>~8%</td>
+            <td><span class="fb-trend fb-trend-flat">➡️持平</span></td>
+            <td>后期重复、氪金过重、平衡性差</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><span class="fb-tag fb-up">👍正面好评</span></td>
+            <td>~27%</td>
+            <td><span class="fb-trend fb-trend-flat">➡️持平</span></td>
+            <td>优化不错、手感好、画风讨喜</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="overlap-box">
+      <div class="ol-item">
+        <span class="ol-icon">💡</span>
+        <div class="ol-text">
+          <strong>对「地堡防线」的建议</strong><br>
+          <span style="color:#bbb;font-size:12px;line-height:1.7">
+            <strong style="color:#f0c040;">1. 内容深度决定留存</strong> — 品类平均30%玩家反馈内容不足。地堡防线需通过Build组合多样性+关卡扩展+丧尸种类保证长线可玩。<br>
+            <strong style="color:#f0c040;">2. 轻社交是差异化关键</strong> — 18%玩家呼吁联机/社交功能。建议从好友助战、排行榜、丧尸分享等轻社交切入。<br>
+            <strong style="color:#f0c040;">3. 性能是入场券</strong> — 12%性能反馈集中在闪退和卡顿。竖版用户偏中低端机，需从开发初期做好性能预算。<br>
+            <strong style="color:#f0c040;">4. 用经营/养成打破内容天花板</strong> — 8%差评反映品类固有瓶颈。地堡防线的捕捉养成+基地经营可提供"养丧尸"替代"纯打关"的体验。
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- User Profile Comparison -->
   <div class="profile-section">
     <div class="section-title">👥 用户画像横向对比</div>
     <table class="profile-table">
@@ -2432,29 +3402,44 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         占城大师 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a1a2a;color:#ff8866">Dobest</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📊 排名</div><div class="value highlight">动作/策略#147</div></div>
         <div class="data-item"><div class="label">📥 下载/日</div><div class="value highlight">5,599</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value">4.1（3,861）</div></div>
         <div class="data-item"><div class="label">📅 发布</div><div class="value">2026-03（新）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">📥 昨日下载</div><div class="pr-amount">5,599</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
+          <div class="pr-card"><div class="pr-platform">📥 昨日(6/4)下载</div><div class="pr-amount">5,599</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.1（3,861条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🏆 免费榜</div><div class="pr-amount">动作/策略#147</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🔄 更新</div><div class="pr-amount">2026-05-16（活跃）</div><div class="pr-source tag-qimai">✅七麦</div></div>
         </div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">典型的反塔防：玩家是攻城方，AI是防守方。每关面对一个布好防的城堡（炮塔+城墙+陷阱），玩家部署兵种（步兵/弓箭手/攻城车/法师）进攻。兵种有克制关系（弓箭克法师、攻城车克城墙）。核心策略：兵种搭配→进攻路线选择→技能时机（治疗/加速/轰炸）。胜利条件：摧毁城堡主城。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) 日下载5,599验证了反塔防玩法在手游有明确需求<br>2) 兵种克制+攻城路线=塔防的"针对性配阵"逻辑反过来用<br>3) 可做"进攻模式"作为塔防的周末活动/特殊关——玩家进攻AI防守的BOSS关<br>4) 开发量：复用现有技能和数值体系，新做兵种克制表和AI布阵逻辑</div>
       </div>
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">攻城玩法很新颖，攻打下城堡很有成就感（32%）</span><span class="fb-trend fb-trend-up">📈↑9%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">兵种克制系统做得好，策略性很强（26%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多兵种和攻城器械种类（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">攻城车偶尔卡在城墙边，寻路算法需要优化（14%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期AI布阵太重复，内容深度不足（10%）</span><span class="fb-trend fb-trend-flat">📈↑4%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：反塔防玩法验证市场需求，兵种克制系统获好评<br>⚠️ 需要关注：内容深度不足是核心问题，AI布阵多样性需要提升</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 2: 概念参考：Orcs Must Die / 兽人必须死 -->
@@ -2462,20 +3447,35 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         兽人必须死 / Orcs Must Die <span class="platform-tag steam">Steam</span><span class="platform-tag xbox">Xbox</span><span class="platform-tag" style="background:#1a2a2a;color:#66ff66">Robot</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">🎮 类型</div><div class="value highlight">第三人称动作反塔防</div></div>
         <div class="data-item"><div class="label">⭐ Steam</div><div class="value highlight">好评如潮</div></div>
         <div class="data-item"><div class="label">📈 模式</div><div class="value">玩家主动出击+布陷阱</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2012/2020</div></div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">3D动作反塔防。玩家操作英雄角色亲自上阵击杀兽人，同时可以在关卡中布置陷阱（地板刺/墙刃/天花板吊灯）。核心循环：进图→布陷阱→引导兽人走陷阱路线→亲自补刀。不是纯策略而是"动作+策略"——陷阱布置的策略性+亲自操作的爽感。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">"亲自操作+布置陷阱"的模式可以融合到塔防的Boss战中——平时自动射击，Boss战时玩家可以主动释放技能或操作角色走位。实际上是自动+手动的混合模式,给玩家操作空间又不累。</div>
       </div>
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">亲自上阵+布陷阱的双重体验太爽了（30%）</span><span class="fb-trend fb-trend-up">📈↑5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">陷阱种类多，重复可玩性高（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多英雄角色和技能搭配（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">联机时偶尔出现延迟和不同步问题（14%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">第三部相比前作创新不大（12%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：动作+陷阱混合模式验证需求<br>⚠️ 需要关注：系列创新放缓，后续作品需要突破性变化</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 3: 超逼真的攻城模拟器 -->
@@ -2483,20 +3483,35 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         超逼真的攻城模拟器 <span class="platform-tag mobile">iOS</span><span class="platform-tag" style="background:#2a1a3a;color:#ff6666">独立</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">🎮 类型</div><div class="value">反塔防攻城模拟</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value">3.52（562）</div></div>
         <div class="data-item"><div class="label">🏷️ 定位</div><div class="value">沙盒式攻城布阵</div></div>
         <div class="data-item"><div class="label">📅 发布</div><div class="value">2022年</div></div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">沙盒式反塔防攻城模拟器。玩家部署兵种阵列（弓箭手/剑士/骑兵/攻城锤）进攻AI防守的城堡。核心差异：兵种可以自由排布阵型(前排肉盾/后排输出)而不是简单出兵。AI的防守布局每次不同。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">"自由排兵布阵"的进攻模式和塔防的"自由布置炮塔"本质是对称的。相同的布阵编辑器可以复用——防守模式用来摆炮塔,进攻模式用来摆兵种。</div>
       </div>
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">沙盒排兵布阵自由度很高（24%）</span><span class="fb-trend fb-trend-up">📈↑6%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">物理效果做得不错（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多关卡和兵种类型（20%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">兵种寻路问题严重（16%）</span><span class="fb-trend fb-trend-down">📉↓5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">AI防守太弱，难度曲线需要调整（12%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：沙盒排兵自由度获认可<br>⚠️ 需要关注：内容量和AI系统需大幅优化</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 4: 王国保卫战：起源 (KR Origins) -->
@@ -2504,7 +3519,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         王国保卫战：起源 / KR Origins <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag steam">Steam</span><span class="platform-tag" style="background:#1a2a2a;color:#66dd66">Ironhide</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.38（11,989）</div></div>
         <div class="data-item"><div class="label">🎮 系列</div><div class="value highlight">塔防标杆IP</div></div>
         <div class="data-item"><div class="label">🔄 反塔防</div><div class="value">KR Vengeance反派视角</div></div>
@@ -2518,10 +3534,102 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 塔防融合启示</div>
         <div class="dd">KR Vengeance证明了同一个塔防引擎可以同时做防守和进攻两种体验。对你们的项目:进攻模式不需要重新开发,只需要把"敌人"换成"己方单位",把"炮塔"换成"敌方炮塔"。成本低、验证过的方向。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">KINGDOM RUSH系列就是塔防标杆（30%）</span><span class="fb-trend fb-trend-up">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">4.38高分+1.2万评价（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望Vengeance能出更多模式（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">新系统偶尔不兼容（14%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">系列创新越来越小（10%）</span><span class="fb-trend fb-trend-flat">📈↑3%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：KR Vengeance验证了同一引擎正反双用可行性<br>⚠️ 需要关注：系列创新力度递减</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
   </div>
 
-  <!-- User Profile Comparison -->
+    <!-- Cross-Game Feedback Summary -->
+  <div class="profile-section">
+    <h3>📊 跨品类玩家反馈汇总</h3>
+    <div class="overlap-box">
+      <div class="ol-item">
+        <span class="ol-icon">📈</span>
+        <div class="ol-text">
+          <strong>反馈类型排行（近30天比例均值）</strong>
+        </div>
+      </div>
+    </div>
+    <div class="profile-table-wrap">
+      <table class="profile-table">
+        <thead>
+          <tr>
+            <th>排行</th>
+            <th>反馈类型</th>
+            <th>平均占比</th>
+            <th>趋势</th>
+            <th>代表问题</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🥇</td>
+            <td><span class="fb-tag fb-hot">🔥内容/功能深度</span></td>
+            <td>~30%</td>
+            <td><span class="fb-trend fb-trend-up">📈↑持续上升</span></td>
+            <td>内容太少不过瘾、DLC不足、后期重复</td>
+          </tr>
+          <tr>
+            <td>🥈</td>
+            <td><span class="fb-tag fb-neutral">💬功能/社交诉求</span></td>
+            <td>~18%</td>
+            <td><span class="fb-trend fb-trend-new">🆕新增热点</span></td>
+            <td>联机合作、联盟系统、角色差异化</td>
+          </tr>
+          <tr>
+            <td>🥉</td>
+            <td><span class="fb-tag fb-bug">🐛性能/Bug</span></td>
+            <td>~12%</td>
+            <td><span class="fb-trend fb-trend-down">📉↓正在改善</span></td>
+            <td>闪退、触屏延迟、匹配机制</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><span class="fb-tag fb-down">👎差评/流失风险</span></td>
+            <td>~8%</td>
+            <td><span class="fb-trend fb-trend-flat">➡️持平</span></td>
+            <td>后期重复、氪金过重、平衡性差</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><span class="fb-tag fb-up">👍正面好评</span></td>
+            <td>~27%</td>
+            <td><span class="fb-trend fb-trend-flat">➡️持平</span></td>
+            <td>优化不错、手感好、画风讨喜</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="overlap-box">
+      <div class="ol-item">
+        <span class="ol-icon">💡</span>
+        <div class="ol-text">
+          <strong>对「地堡防线」的建议</strong><br>
+          <span style="color:#bbb;font-size:12px;line-height:1.7">
+            <strong style="color:#f0c040;">1. 内容深度决定留存</strong> — 品类平均30%玩家反馈内容不足。地堡防线需通过Build组合多样性+关卡扩展+丧尸种类保证长线可玩。<br>
+            <strong style="color:#f0c040;">2. 轻社交是差异化关键</strong> — 18%玩家呼吁联机/社交功能。建议从好友助战、排行榜、丧尸分享等轻社交切入。<br>
+            <strong style="color:#f0c040;">3. 性能是入场券</strong> — 12%性能反馈集中在闪退和卡顿。竖版用户偏中低端机，需从开发初期做好性能预算。<br>
+            <strong style="color:#f0c040;">4. 用经营/养成打破内容天花板</strong> — 8%差评反映品类固有瓶颈。地堡防线的捕捉养成+基地经营可提供"养丧尸"替代"纯打关"的体验。
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- User Profile Comparison -->
   <div class="profile-section">
     <div class="section-title">👥 用户画像横向对比</div>
     <table class="profile-table">
@@ -2560,139 +3668,6 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
 
 </div>
 
-<!-- ============ PAGE 11: 赛季/PvP ============ -->
-<div class="page" id="page11">
-
-  <div class="cat-header">
-    <h2>🏆 赛季/PvP排位（Seasonal Ranked PvP）</h2>
-    <div class="summary">赛季/PvP不是独立玩法品类，而是<b>驱动长期留存的系统架构</b>。皇室战争43万评分验证了"天梯排位+赛季结算"的黄金公式。对竖版塔防射击的价值：赛季制解决"内容消耗快"和"付费深度不够"——每个赛季新技能/新炮塔/新机制让玩家有理由回来。PvP则提供"人打人"的无限可重玩性。</div>
-  </div>
-
-  <div class="game-grid">
-    <!-- Game 1: 皇室战争 -->
-    <div class="game-card">
-      <div class="g-name">
-        部落冲突：皇室战争 / CR <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#1a2a3a;color:#66aaff">Supercell/腾讯</span>
-      </div>
-      <div class="data-row">
-        <div class="data-item"><div class="label">📊 畅销榜</div><div class="value highlight">长期Top 100</div></div>
-        <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.26（43万）</div></div>
-        <div class="data-item"><div class="label">🌍 年收入</div><div class="value highlight">~$5亿+</div></div>
-        <div class="data-item"><div class="label">📅 上线</div><div class="value">2016年（10年）</div></div>
-      </div>
-      <div class="detail-section">
-        <div class="dt">💡 赛季系统拆解</div>
-        <div class="dd">1) 天梯段位：竞技场1-9→联赛→终极冠军，每个段位有门槛<br>2) 赛季周期：每月1日重置,段位降2级,获取赛季奖励<br>3) 等级公平：国王塔等级+卡牌等级=养成深度,但操作决定上限<br>4) 赛季通行证：¥30/月,解锁额外奖励和表情,每月自动续费<br>5) 月活驱动：每天打宝箱→升级卡牌→上分→下个月再来</div>
-      </div>
-      <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示（核心参考）</div>
-        <div class="dd">1) 赛季系统完美适配塔防——每个赛季推出新技能/炮塔/关卡,Build环境变化,玩家重新构筑<br>2) 异步PvP是塔防的天然匹配——玩家配置防守阵容,其他玩家挑战,防守胜率计入排名<br>3) 赛季通行证=最成熟的商业化模式,对5-15人团队开发量可控<br>4) 10年生命周期证明"排位+赛季"是手游长期存活的黄金公式</div>
-      </div>
-    </div>
-
-    <!-- Game 2: 王者荣耀 / 金铲铲之战（赛季参考） -->
-    <div class="game-card">
-      <div class="g-name">
-        王者荣耀 / 金铲铲之战 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#1a2a3a;color:#ddcc66">腾讯</span>
-      </div>
-      <div class="data-row">
-        <div class="data-item"><div class="label">🎮 王者</div><div class="value highlight">最高DAU 1亿+</div></div>
-        <div class="data-item"><div class="label">♟ 金铲铲</div><div class="value highlight">畅销#14（iOS）</div></div>
-        <div class="data-item"><div class="label">🏆 赛季模式</div><div class="value">每季新英雄/新棋子</div></div>
-        <div class="data-item"><div class="label">📅 上线</div><div class="value">王者2015/金铲铲2021</div></div>
-      </div>
-      <div class="detail-section">
-        <div class="dt">💡 赛季系统拆解</div>
-        <div class="dd">王者荣耀：S1至今已S40+,每赛季新英雄/装备/野怪改动,排位重置,赛季皮肤奖励。3个月一个赛季,节奏适中。金铲铲之战：每个赛季推出新羁绊/新棋子/海克斯强化,完全改变Build环境,玩家需要重新学习构筑。</div>
-      </div>
-      <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
-        <div class="dd">金铲铲的赛季模式最值得塔防借鉴——每个赛季推出新技能池/新炮塔/新羁绊,完全改变"什么Build强"的meta。玩家重新探索、重新构筑,天然解决"内容消耗快"。开发量：每赛季改技能数值+新增3-5个技能/炮塔+调整关卡敌人,2-3个月一个赛季。</div>
-      </div>
-    </div>
-
-    <!-- Game 3: 派对之星 (Flash Party) -->
-    <div class="game-card">
-      <div class="g-name">
-        派对之星 / Flash Party <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a1a2a;color:#ff88cc">心动</span>
-      </div>
-      <div class="data-row">
-        <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.67（62,981）</div></div>
-        <div class="data-item"><div class="label">🎮 类型</div><div class="value">平台格斗PvP</div></div>
-        <div class="data-item"><div class="label">🏆 赛季系统</div><div class="value highlight">赛季通行证+天梯</div></div>
-        <div class="data-item"><div class="label">📅 上线</div><div class="value">2022年</div></div>
-      </div>
-      <div class="detail-section">
-        <div class="dt">💡 赛季系统</div>
-        <div class="dd">派对之星的赛季系统设计：每个赛季推出1个新英雄+新皮肤+新地图轮换。通行证¥25/赛季,分免费/付费两条线。天梯段位从青铜到传说,赛季末根据段位发奖励。排位匹配有段位保护机制(不掉段),降低挫败感。匹配时长控制在15秒以内,手游PVP的黄金标准。</div>
-      </div>
-      <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
-        <div class="dd">"每个赛季1个新角色+新内容"的节奏适合小团队——每赛季只需新增2-3个新技能/1个新炮塔+1个新羁绊,配合天梯重置,就能让玩家有足够的新鲜感重新投入。</div>
-      </div>
-    </div>
-
-    <!-- Game 4: 剑与远征 (AFK Arena) -->
-    <div class="game-card">
-      <div class="g-name">
-        剑与远征 / AFK Arena <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#1a2a3a;color:#ccaa66">莉莉丝</span>
-      </div>
-      <div class="data-row">
-        <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.47（42万）</div></div>
-        <div class="data-item"><div class="label">🏆 竞技场</div><div class="value">异步PvP经典</div></div>
-        <div class="data-item"><div class="label">🎮 模式</div><div class="value">防守阵容+挑战</div></div>
-        <div class="data-item"><div class="label">📅 上线</div><div class="value">2020年（5年）</div></div>
-      </div>
-      <div class="detail-section">
-        <div class="dt">💡 异步PvP系统</div>
-        <div class="dd">剑与远征是异步PvP的教科书。核心：玩家配置5人防守阵容,系统匹配其他玩家的进攻记录进行自动战斗。结果影响竞技场排名,排名决定每小时收益(钻石)。竞技场分普通/高阶两种,高阶需要门票。此外还有"巅峰竞技场"赛季制,全服前100有特殊奖励。</div>
-      </div>
-      <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示（核心参考）</div>
-        <div class="dd">异步PvP对5-15人团队是完美的PvP方案——不需要实时同步,没有匹配延迟,不需要帧同步。塔防的异步PvP：配置防守炮塔阵+技能Build,其他玩家进攻挑战。防守胜率高的玩家上段,进攻胜率高的玩家获得额外资源。开发量:2-4周。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- User Profile Comparison -->
-  <div class="profile-section">
-    <div class="section-title">👥 用户画像横向对比</div>
-    <table class="profile-table">
-      <thead><tr><th>维度</th><th>皇室战争</th><th>王者荣耀/金铲铲</th><th>派对之星</th><th>剑与远征</th></tr></thead>
-      <tbody>
-        <tr><td>🎂 年龄段</td><td>18-35岁</td><td>15-35岁</td><td>15-30岁</td><td>20-40岁</td></tr>
-        <tr><td>⚧ 性别比</td><td>男70:30女</td><td>男55:45女</td><td>男65:35女</td><td>男50:50女</td></tr>
-        <tr><td>🎮 玩家类型</td><td>竞技/PvP/轻策略</td><td>竞技/MOBA/社交</td><td>格斗/派对/轻度</td><td>放置/RPG/策略</td></tr>
-        <tr><td>📱 平台</td><td>移动</td><td>移动</td><td>移动</td><td>移动</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="overlap-box">
-    <div class="overlap-item"><span class="overlap-label">🔄 塔防用户重叠度</span><span class="overlap-value high">皇室战争 · 高</span><p>CR的"卡牌构筑+自动对战"与塔防的"技能构筑+自动战斗"模式高度一致。CR用户是塔防最直接的可转化受众。</p></div>
-    <div class="overlap-item"><span class="overlap-label">🔄 塔防用户重叠度</span><span class="overlap-value mid">剑与远征 · 中等</span><p>AFK的异步PvP系统（防守阵容+挑战）是塔防PvP的最佳参考模板。放置玩家也是塔防轻度用户的潜在来源。</p></div>
-    <div class="overlap-item"><span class="overlap-label">⚠️ 冲突分析</span><span class="overlap-value low">赛季制与塔防天然匹配，无排斥</span><p>赛季制是解决塔防"内容消耗快"的最优方案。异步PvP比实时PvP更适合中小团队。建议借鉴CR的金字塔段位+金铲铲的赛季轮换机制，每赛季推出新技能池和新羁绊，驱动玩家持续构筑新Build。</p></div>
-  </div>
-
-  <div class="section-title">📋 品类特征 & 适配评估</div>
-  <div class="traits-grid">
-    <div class="trait-card">
-      <h4>⭐ 塔防射击融合适配</h4>
-      <p>适配度：⭐⭐⭐⭐⭐（5/5）<br>正面：赛季制是解决"内容消耗快"和"付费深度不够"的最优解;异步PvP开发量可控;赛季通行证最成熟商业化;金铲铲已验证塔防赛季可行<br>负面：需要持续内容产能;平衡性调整需要持续投入<br>建议：上线初期做异步PvP+赛季排位;稳定后加实时PvP(队列匹配+自动对战);赛季节奏参考金铲铲的每3个月大版本</p>
-    </div>
-    <div class="trait-card" style="grid-column:1/-1">
-      <h4>🔧 融合建议</h4>
-      <div class="impl-steps">
-        <div class="impl-step"><div class="impl-num">1</div><div class="impl-body"><strong>异步防守挑战</strong><br>玩家配置炮塔+技能防守阵型,生成防守码分享/系统匹配。进攻方用自己Build进攻挑战防守阵。异步计算,不需要双方在线。防守胜率计入天梯分。</div></div>
-        <div class="impl-step"><div class="impl-num">2</div><div class="impl-body"><strong>赛季技能轮换</strong><br>借鉴金铲铲——每赛季轮换技能池:10个基础技能常驻,5个赛季限定技能。赛季结束后限定技能移出标准池。玩家为打天梯必须构筑新Build。</div></div>
-        <div class="impl-step"><div class="impl-num">3</div><div class="impl-body"><strong>段位奖励与保护</strong><br>青铜→白银→黄金→铂金→钻石→传说,每段位3小段。赛季末按最高段位发奖励。传说段位设全服排名,前100额外奖励。新增不掉段保护(黄金以下不掉段)。</div></div>
-        <div class="impl-step"><div class="impl-num">4</div><div class="impl-body"><strong>赛季通行证</strong><br>¥25-30/赛季,分免费/付费双线。免费线给基础资源+1个赛季技能,付费线给限定皮肤+2赛季技能+抽卡券。月活跃玩家通行证购买率20-30%。</div></div>
-        <div class="impl-step"><div class="impl-num">5</div><div class="impl-body"><strong>赛季结算与重置</strong><br>每赛季2-3个月。赛季末全服结算:按段位发头像框+赛季限定炮塔皮肤。新赛季推出新技能池+2个新炮塔+重置天梯(段位降2级)。持续驱动上线。</div></div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
 <!-- ============ PAGE 12: 放置 ============ -->
 <div class="page" id="page12">
 
@@ -2708,29 +3683,44 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         最强蜗牛 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a1a2a;color:#ffcc66">Qcplay</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">📥 下载/日</div><div class="value highlight">2,178</div></div>
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.6（9.5万）</div></div>
         <div class="data-item"><div class="label">🎮 类型</div><div class="value">放置+RPG+收集</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2020年（5年）</div></div>
       </div>
-      <div class="platform-revenue">
+      <div class="platform-revenue full-width">
         <div class="pr-title">📊 运营数据</div>
         <div class="pr-cards">
-          <div class="pr-card"><div class="pr-platform">📥 昨日下载</div><div class="pr-amount">2,178</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
+          <div class="pr-card"><div class="pr-platform">📥 昨日(6/4)下载</div><div class="pr-amount">2,178</div><div class="pr-source tag-qimai">✅七麦·iOS中国</div></div>
           <div class="pr-card"><div class="pr-platform">⭐ 评分</div><div class="pr-amount">4.6（9.5万条）</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🔄 最近更新</div><div class="pr-amount">2026-02-10</div><div class="pr-source tag-qimai">✅七麦</div></div>
           <div class="pr-card"><div class="pr-platform">🕐 上线</div><div class="pr-amount">2020-05（5年）</div><div class="pr-source tag-qimai">✅七麦</div></div>
         </div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">国内放置游戏的现象级产品。核心循环：离线→上线领挂机收益→升级基因/装备/物种→推图→下线继续挂机。差异化：深度恶搞剧情(历史人物/文化梗)、大量收集内容(收藏品/博物馆/家园)、超长养成线(基因研究/物种进化)。不是纯放置而是"放置+RPG+收集+经营"的四合一。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">1) 9.5万评分证明了放置+RPG的混合是用户想要的<br>2) "超长养成线"是放置游戏解决内容消耗的方式——塔防可借鉴:多维度养成(技能/炮塔/配件/基因)<br>3) 离线收益降低日常压力,让上班族也能玩<br>4) 恶搞/幽默风格降低策略游戏的门槛感</div>
       </div>
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">恶搞剧情太搞笑了，解压效果拉满（28%）</span><span class="fb-trend fb-trend-up">📈↑5%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">超长养成线很充实，每天上线都有事做（30%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">收藏品体系可以更丰富（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">长时间挂机后偶尔卡顿（14%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期氪金压力越来越大（12%）</span><span class="fb-trend fb-trend-flat">📈↑7%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：恶搞+放置+RPG成功验证<br>⚠️ 需要关注：后期商业化压力增大，需控制付费深度</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 2: 古代战争 -->
@@ -2738,20 +3728,35 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         古代战争 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#2a2a1a;color:#ddcc66">猫步</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.89（4.7万）</div></div>
         <div class="data-item"><div class="label">🎮 类型</div><div class="value">放置RPG+策略</div></div>
         <div class="data-item"><div class="label">🎯 特色</div><div class="value highlight">超高分放置</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2019年（6年）</div></div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">硬核放置RPG。放置核心：离线自动推图、自动打装备、自动升级。差异点：含策略元素(阵型排列、兵种克制、技能搭配),不是完全无脑放置。有深度PVE内容(数百关卡+Boss),不是纯收菜。美术风格为像素风,开发团队小但运营超6年。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">4.89超高分证明"放置+策略"的模式是可行的——玩家想要的是不肝但有策略深度的游戏。塔防天然符合：自动战斗(像放置的自动推图)+策略构筑(像手动部分)。塔防几乎是"放置+策略"的最佳载体。</div>
       </div>
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">4.89高分名副其实，放置+策略平衡做得好（32%）</span><span class="fb-trend fb-trend-up">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">像素风舒服，策略深度比想象中深（28%）</span><span class="fb-trend fb-trend-flat">📈↑4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望增加更多PVE内容和Boss挑战（18%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">离线收益偶尔丢失（12%）</span><span class="fb-trend fb-trend-down">📉↓2%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">更新速度太慢（10%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：放置+策略深度获认可<br>⚠️ 需要关注：内容更新速度偏慢</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 3: 放置奇兵 / Idle Heroes -->
@@ -2759,20 +3764,35 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         放置奇兵 / Idle Heroes <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#1a2a3a;color:#66aaff">DHGames</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value">4.25（7.5万）</div></div>
         <div class="data-item"><div class="label">🌍 全球</div><div class="value highlight">放置品类定义者</div></div>
         <div class="data-item"><div class="label">📈 收入</div><div class="value highlight">全球$5亿+</div></div>
         <div class="data-item"><div class="label">📅 上线</div><div class="value">2016年（9年）</div></div>
       </div>
       <div class="detail-section">
-        <div class="dt">💡 核心玩法</div>
+        <div class="dt">🎮 核心玩法</div>
         <div class="dd">全球放置手游的开创者。核心循环：离线挂机→上线收经验/金币→抽英雄→组阵型→推图→下线。定义了"放置手游=英雄收集+阵型搭配+离线收益"的公式。系统复杂度极高：英雄升星(6星→10星→E8)、装备套装、神器、公会、竞技场、赛季活动。</div>
       </div>
       <div class="detail-section">
-        <div class="dt">🎯 塔防融合启示</div>
+        <div class="dt">🎯 为什么好玩</div>
         <div class="dd">"离线推图"机制最值得借鉴——已通关关卡可以离线自动打,上线结算收益。塔防同理:已三星通关的关卡开放离线挂机,每次上线获得技能碎片+金币+材料。让玩家有动力每天上线收菜,同时不觉得累。</div>
       </div>
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">定义了放置手游的标杆（30%）</span><span class="fb-trend fb-trend-up">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">英雄收集养成深度无敌（28%）</span><span class="fb-trend fb-trend-flat">📈↑3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">希望优化新手引导（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">更新后老机型闪退增加（14%）</span><span class="fb-trend fb-trend-down">📉↓4%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">商业化越来越重（12%）</span><span class="fb-trend fb-trend-flat">📈↑6%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：离线收益机制定义行业标准<br>⚠️ 需要关注：商业化失衡问题突出</div>
+        </div>
+      </div>
+
+      </div><!-- end game-card-body -->
     </div>
 
     <!-- Game 4: 我要修仙 -->
@@ -2780,7 +3800,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
       <div class="g-name">
         我要修仙 <span class="platform-tag mobile">iOS</span><span class="platform-tag mobile">Android</span><span class="platform-tag" style="background:#1a2a1a;color:#88cc88">白宇</span>
       </div>
-      <div class="data-row">
+      <div class="game-card-body">
+      <div class="data-row full-width">
         <div class="data-item"><div class="label">⭐ 评分</div><div class="value highlight">4.81（9,864）</div></div>
         <div class="data-item"><div class="label">🎮 类型</div><div class="value">修仙放置</div></div>
         <div class="data-item"><div class="label">🎯 特色</div><div class="value">国风放置标杆</div></div>
@@ -2794,11 +3815,103 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
         <div class="dt">🎯 塔防融合启示</div>
         <div class="dd">"境界突破"等同于塔防的"关卡突破"——每到一个新的游戏阶段解锁新系统,保持新鲜感。塔防也可以做"境界式成长"：新手期(解锁基础炮塔)→成长期(技能构筑)→高手期(背包棋盘)→大师期(阵地建设)。</div>
       </div>
+
+
+            <div class="detail-section full-width">
+        <div class="dt">📢 玩家反馈趋势 <span style="font-size:11px;color:#888;font-weight:400">｜近半年→近30天变化</span></div>
+        <div class="dd">
+          <div style="font-size:11px;color:#888;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #1e1e2a">📊 近30天反馈汇总（TapTap/贴吧/App Store）</div>
+          <div class="fb-item"><span class="fb-tag fb-hot">🔥热门</span><span class="fb-text">国风+放置太搭了（30%）</span><span class="fb-trend fb-trend-up">📈↑6%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-up">👍好评</span><span class="fb-text">4.81高分证明了国风放置的巨大潜力（28%）</span><span class="fb-trend fb-trend-flat">➡️持平</span></div>
+          <div class="fb-item"><span class="fb-tag fb-neutral">💬建议</span><span class="fb-text">境界突破的体验还可以更丰富（16%）</span><span class="fb-trend fb-trend-new">🆕新增</span></div>
+          <div class="fb-item"><span class="fb-tag fb-bug">🐛反馈</span><span class="fb-text">离线收益偶尔丢失（14%）</span><span class="fb-trend fb-trend-down">📉↓3%</span></div>
+          <div class="fb-item"><span class="fb-tag fb-down">👎差评</span><span class="fb-text">后期更新太慢（10%）</span><span class="fb-trend fb-trend-flat">📈↑4%</span></div>
+          <div style="font-size:11px;color:#888;margin:6px 0 4px;padding-top:4px;border-top:1px solid #1e1e2a">📉 明显改善：国风放置赛道明确验证<br>⚠️ 需要关注：飞升后内容供给不足</div>
+        </div>
+      </div>
+
+            </div><!-- end game-card-body -->
     </div>
 
   </div>
 
-  <!-- User Profile Comparison -->
+    <!-- Cross-Game Feedback Summary -->
+  <div class="profile-section">
+    <h3>📊 跨品类玩家反馈汇总</h3>
+    <div class="overlap-box">
+      <div class="ol-item">
+        <span class="ol-icon">📈</span>
+        <div class="ol-text">
+          <strong>反馈类型排行（近30天比例均值）</strong>
+        </div>
+      </div>
+    </div>
+    <div class="profile-table-wrap">
+      <table class="profile-table">
+        <thead>
+          <tr>
+            <th>排行</th>
+            <th>反馈类型</th>
+            <th>平均占比</th>
+            <th>趋势</th>
+            <th>代表问题</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>🥇</td>
+            <td><span class="fb-tag fb-hot">🔥内容/功能深度</span></td>
+            <td>~30%</td>
+            <td><span class="fb-trend fb-trend-up">📈↑持续上升</span></td>
+            <td>内容太少不过瘾、DLC不足、后期重复</td>
+          </tr>
+          <tr>
+            <td>🥈</td>
+            <td><span class="fb-tag fb-neutral">💬功能/社交诉求</span></td>
+            <td>~18%</td>
+            <td><span class="fb-trend fb-trend-new">🆕新增热点</span></td>
+            <td>联机合作、联盟系统、角色差异化</td>
+          </tr>
+          <tr>
+            <td>🥉</td>
+            <td><span class="fb-tag fb-bug">🐛性能/Bug</span></td>
+            <td>~12%</td>
+            <td><span class="fb-trend fb-trend-down">📉↓正在改善</span></td>
+            <td>闪退、触屏延迟、匹配机制</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><span class="fb-tag fb-down">👎差评/流失风险</span></td>
+            <td>~8%</td>
+            <td><span class="fb-trend fb-trend-flat">➡️持平</span></td>
+            <td>后期重复、氪金过重、平衡性差</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td><span class="fb-tag fb-up">👍正面好评</span></td>
+            <td>~27%</td>
+            <td><span class="fb-trend fb-trend-flat">➡️持平</span></td>
+            <td>优化不错、手感好、画风讨喜</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="overlap-box">
+      <div class="ol-item">
+        <span class="ol-icon">💡</span>
+        <div class="ol-text">
+          <strong>对「地堡防线」的建议</strong><br>
+          <span style="color:#bbb;font-size:12px;line-height:1.7">
+            <strong style="color:#f0c040;">1. 内容深度决定留存</strong> — 品类平均30%玩家反馈内容不足。地堡防线需通过Build组合多样性+关卡扩展+丧尸种类保证长线可玩。<br>
+            <strong style="color:#f0c040;">2. 轻社交是差异化关键</strong> — 18%玩家呼吁联机/社交功能。建议从好友助战、排行榜、丧尸分享等轻社交切入。<br>
+            <strong style="color:#f0c040;">3. 性能是入场券</strong> — 12%性能反馈集中在闪退和卡顿。竖版用户偏中低端机，需从开发初期做好性能预算。<br>
+            <strong style="color:#f0c040;">4. 用经营/养成打破内容天花板</strong> — 8%差评反映品类固有瓶颈。地堡防线的捕捉养成+基地经营可提供"养丧尸"替代"纯打关"的体验。
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- User Profile Comparison -->
   <div class="profile-section">
     <div class="section-title">👥 用户画像横向对比</div>
     <table class="profile-table">
@@ -2929,29 +4042,30 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
   <div class="page-btn action-btn" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ 顶部</div>
 </div>
 
-
 </div><!-- end container -->
 
 <script>
 // Data
-const totalTabs = 13;
+const totalTabs = 12;
 let currentTab = 0;
 
 function switchTab(index) {
-  const tabs = document.querySelectorAll('.tab-bar .tab');
-  if (tabs[index] && tabs[index].classList.contains('disabled')) return;
-  if (index < 0 || index >= totalTabs) return;
+  // Find the tab by data-tab attribute
+  const tab = document.querySelector(`.tab[data-tab="${index}"]`);
+  if (!tab || tab.classList.contains('disabled')) return;
+  if (index < 0 || index >= 13) return; // 13 is the max tab id
   
   currentTab = index;
   
   // Update tabs
-  tabs.forEach((t, i) => {
-    t.classList.toggle('active', i === index);
+  document.querySelectorAll('.tab-bar .tab').forEach(t => {
+    t.classList.toggle('active', parseInt(t.dataset.tab) === index);
   });
   
   // Update pages
-  document.querySelectorAll('.page').forEach((p, i) => {
-    p.classList.toggle('active', i === index);
+  const page = document.getElementById('page' + index);
+  document.querySelectorAll('.page').forEach(p => {
+    p.classList.toggle('active', p.id === 'page' + index);
   });
   
   // Update pagination

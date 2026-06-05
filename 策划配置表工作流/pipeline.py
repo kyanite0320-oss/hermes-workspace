@@ -3,7 +3,7 @@
 策划配置表处理引擎 v1
 流程：读飞书源表 → 按映射写目标Excel → 输出报告
 """
-import json, urllib.request, os, sys, re
+import json, urllib.request, os, sys, re, tempfile, shutil
 from pathlib import Path
 import openpyxl
 
@@ -117,7 +117,11 @@ def process_monster(mappings, source_data):
             changes["errors"].append(f"❌ 目标文件不存在: {file_path}")
             continue
         
-        wb = openpyxl.load_workbook(file_path)
+        # 复制到临时路径再操作（绕开Win文件锁）
+        tmp_path = file_path + ".pipeline_tmp.xlsx"
+        shutil.copy2(file_path, tmp_path)
+        
+        wb = openpyxl.load_workbook(tmp_path)
         
         # 按目标Sheet分组
         sheet_groups = {}
@@ -281,12 +285,29 @@ def process_monster(mappings, source_data):
                             break
                         break
         
-        wb.save(file_path)
+        wb.save(tmp_path)
         
         # 全局规则：目标表不留公式，全部转数值
-        wb2 = openpyxl.load_workbook(file_path, data_only=True)
-        wb2.save(file_path)
-        print(f"   [formula→value] {file_name}")
+        tmp2 = tmp_path + ".val"
+        try:
+            wb2 = openpyxl.load_workbook(tmp_path, data_only=True)
+            wb2.save(tmp2)
+            shutil.move(tmp2, tmp_path)
+            print(f"   [formula→value] {file_name}")
+        except:
+            try: os.remove(tmp2)
+            except: pass
+        
+        # 写回原路径
+        try:
+            shutil.move(tmp_path, file_path)
+        except PermissionError:
+            preserved = file_path + ".pipeline_result.xlsx"
+            shutil.move(tmp_path, preserved)
+            changes["errors"].append(f"⚠️ 文件被Win占用，结果已保存到: {preserved}")
+            print(f"   ⚠️ 文件被占用，结果另存为 {preserved}")
+        except Exception as e:
+            changes["errors"].append(f"⚠️ 写回失败: {e}")
     
     return changes
 
