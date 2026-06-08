@@ -21,6 +21,8 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
 /* Pages */
 .page{display:none;animation:fadeIn .3s ease}
 .page.active{display:block}
+/* Hide any .profile-section or .traits-section not inside .page.active */
+.container > :not(.page):not(.tab-bar):not(.pagination):not(.data-sources-section){display:none !important}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
 /* Home */
@@ -758,7 +760,6 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
 
             </div><!-- end game-card-body -->
     </div>
-
     <!-- Game 3: 永远的蔚蓝星球 (新兴黑马) -->
     <div class="game-card">
       <div class="g-name">
@@ -3956,7 +3957,6 @@ body{background:#0d0d12;color:#e0e0e0;font-family:-apple-system,'Segoe UI','Ping
   </div>
 </div>
 
-</div>
 
 <!-- Data Sources Section -->
 <div class="data-sources-section">
